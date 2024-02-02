@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "package": "com.iung.fpv20.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "ExampleMixin",
+    "MoveFastMixin",
+    "PlayerHitBoxMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+	}
+
+}

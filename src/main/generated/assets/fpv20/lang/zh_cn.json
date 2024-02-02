@@ -1,0 +1,18 @@
+{
+  "block.fpv20.receiver_block": "信号接收器",
+  "fpv20.btn.calibrate": "校准",
+  "fpv20.btn.calibrate.max_mid_min": "校准方法:最大零点最小",
+  "fpv20.btn.calibrate.max_min": "校准方法:最大最小值",
+  "fpv20.btn.calibrate.raw": "校准方法:原始",
+  "fpv20.btn.calibrate_center": "校准中心",
+  "fpv20.btn.calibrate_range": "校准范围",
+  "fpv20.btn.control_screen_entry": "FPV",
+  "fpv20.btn.end": "结束",
+  "fpv20.btn.option": "选项",
+  "fpv20.btn.select": "选择",
+  "fpv20.btn.select_controller": "选择控制器",
+  "fpv20.btn.start": "开始",
+  "fpv20.rate.1": "rate:%s",
+  "fpv20.text.set_channel_name": "设置信道名称",
+  "fpv20.title.main_option_screen": "FPV选项"
+}
