@@ -18,7 +18,7 @@ public class Calibration {
         this.min = -1;
         this.max = 1;
         this.mid = 0;
-        this.rate = new RateMapper(0, 0);
+        this.rate = new RateMapper(0.3f, 0.5f);
         this.calibrateMethod = CalibrateMethod.MaxMidMin;
     }
 

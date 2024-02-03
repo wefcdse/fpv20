@@ -1,6 +1,8 @@
 package com.iung.fpv20.utils;
 
 public class FastMath {
+    public static final float PI = (float) Math.PI;
+
     public static float abs(float fValue) {
         if (fValue < 0) {
             return -fValue;

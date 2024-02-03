@@ -1,13 +1,16 @@
 package com.iung.fpv20.physics;
 
 import com.iung.fpv20.Fpv20;
+import com.iung.fpv20.utils.FastMath;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
+import oshi.driver.mac.net.NetStat;
 
 public class DefaultDrone implements Drone {
 
-    private static final Vector3f G = new Vector3f(0,-9.8f,0);
+    private static final Vector3f G = new Vector3f(0, -9.8f, 0);
     private static final float AIR_DENSITY = 1.225F;
 
 
@@ -24,9 +27,12 @@ public class DefaultDrone implements Drone {
 
     public DefaultDrone() {
         this.pose = new Quaternionf();
-        this.mass = 20;
         this.a = new Vector3f();
         this.v = new Vector3f();
+
+        this.mass = 0.5f;
+        this.area = (float) (FastMath.PI * 0.4 * 0.4);
+        this.max_force = 5;
     }
 
     @Override
@@ -42,21 +48,38 @@ public class DefaultDrone implements Drone {
     @Override
     public void update_physics(float throttle, float dt) {
         Quaternionf pose = this.get_pose().conjugate();
-//        Vector3f v0 = new Vector3f(1, 0, 0).rotate(pose).mul(throttle);
-        Vector3f v1 = new Vector3f(0, 1, 0).rotate(pose).mul(throttle);
-//        Vector3f v2 = new Vector3f(0, 0, 1).rotate(pose).mul(throttle);
+        Vector3f drone_up = new Vector3f(0, 1, 0).rotate(pose);
 
-//        float dragFactor = (PhysicsConstants.airDensity * area * dragCoefficient) /
-//                2F; // kg / m
+        float speed = this.v.length();
 
-//        Fpv20.LOGGER.info("x:{}",v0);
-        Fpv20.LOGGER.info("y:{}", v1);
-//        Fpv20.LOGGER.info("z:{}", v2);
-//        Fpv20.LOGGER.info("p:{}", pose);
 
-//        Vector3f v1 = new Vector3f(0, 1, 0),(this.pose).mul(throttle);
-        this.a = v1;
-//               this.pose.transformUnitPositiveY(new Vector3f()).mul(throttle);
+        float dragFactor = (AIR_DENSITY * area) /
+                2F; // kg / m
+        Vector3f ambientDragForce = new Vector3f(this.v).normalize().mul(-1f *
+                speed *
+                speed *
+                dragFactor);
+        if (this.v.length() < 0.0001) {
+            ambientDragForce = new Vector3f();
+        }
+        Fpv20.LOGGER.info("#ambientDragForce {}", ambientDragForce);
+
+
+        float efficiency = MathHelper.lerp(throttle, 0.35f, 1f);
+        Vector3f thrust = new Vector3f(drone_up).mul(max_force * throttle * efficiency);
+        Fpv20.LOGGER.info("#thrust {}", thrust);
+
+        Vector3f total_force = new Vector3f().add(ambientDragForce).add(thrust);
+
+        // i don't know what's wrong, but it just falls too fast and i don't like it
+        this.a = total_force.div(mass).add(new Vector3f(G).mul(0.2f));
+        Fpv20.LOGGER.info("#a {}", this.a);
+
+        Fpv20.LOGGER.info("#f {}", dt);
+
+        Fpv20.LOGGER.info("#dv:? {}", new Vector3f(this.a).mul(dt));
+
+
         this.v.add(new Vector3f(this.a).mul(dt));
     }
 

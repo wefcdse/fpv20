@@ -51,8 +51,8 @@ public class GlobalFlying {
         this.drone = new DefaultDrone();
         this.droneRotation = new Quaternionf();
         this.lastDroneRotation = new Quaternionf();
-        this.cam_angel_deg = 0;
-        this.last_pos = new Vec3d(0,0,0);
+        this.cam_angel_deg = 40;
+        this.last_pos = new Vec3d(0, 0, 0);
     }
 
     public static void setFlying(boolean if_fly) {
@@ -143,7 +143,7 @@ public class GlobalFlying {
 
 
         PhysicsCore.rotate_from_local_yaw_pitch_roll(q, input_y, input_p, input_r,
-                180, 180, 180,
+                300, 300, 300,
                 dt
         );
         drone.update_pose(q);
@@ -161,18 +161,61 @@ public class GlobalFlying {
 //        Vec3d v0 = p.getPos();
         Vec3d pos = p.getPos();
         Vec3d v0 = pos.subtract(last_pos).multiply(1 / dt);
-        Fpv20.LOGGER.info("v0 {}",v0);
+        Fpv20.LOGGER.info("v0 {}", v0);
         last_pos = pos;
+        float aaa = 0.5f;
+        boolean to_set_x = false;
+        boolean to_set_y = false;
+        boolean to_set_z = false;
+
 
         if (Math.abs(v0.x) < 0.0001) {
             vd.x = 0;
+            to_set_y = true;
+            to_set_z = true;
         }
         if (Math.abs(v0.y) < 0.0001) {
             vd.y = 0;
+            to_set_x = true;
+            to_set_z = true;
         }
         if (Math.abs(v0.z) < 0.0001) {
             vd.z = 0;
+            to_set_y = true;
+            to_set_x = true;
         }
+
+        if (to_set_x) {
+            float d = dt * aaa;
+            if (vd.x < -d) {
+                vd.x += d;
+            } else if (vd.x > d) {
+                vd.x -= d;
+            } else {
+                vd.x = 0;
+            }
+        }
+        if (to_set_y) {
+            float d = dt * aaa;
+            if (vd.y < -d) {
+                vd.y += d;
+            } else if (vd.y > d) {
+                vd.y -= d;
+            } else {
+                vd.y = 0;
+            }
+        }
+        if (to_set_z) {
+            float d = dt * aaa;
+            if (vd.z < -d) {
+                vd.z += d;
+            } else if (vd.z > d) {
+                vd.z -= d;
+            } else {
+                vd.z = 0;
+            }
+        }
+
         drone.set_speed(new Vec3d(vd));
 
 
