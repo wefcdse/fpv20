@@ -29,7 +29,12 @@ public class Controller {
         for (int i = 0; i < 8; i++) {
             names[i] = String.format("CH%d", i);
         }
+        names[0] = "r";
+        names[1] = "p";
+        names[2] = "t";
+        names[4] = "y";
 
+        calibrations[2].calibrateMethod = Calibration.CalibrateMethod.MaxMin;
     }
 
 
@@ -103,6 +108,15 @@ public class Controller {
             return "";
         }
         return names[channel];
+    }
+
+    public float get_calibrated_value(String name) {
+        for (int i = 0; i < this.names.length; i++) {
+            if (name.equals(this.names[i])) {
+                return this.get_calibrated_value(i);
+            }
+        }
+        return 0;
     }
 
 

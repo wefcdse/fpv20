@@ -43,7 +43,7 @@
 	},
 	"custom": {
 		"loom:injected_interfaces": {
-			"net/minecraft/entity/player/PlayerEntity": ["com/iung/fpv20/mixin_utils/IsFlying"]
+			"net/minecraft/entity/LivingEntity": ["com/iung/fpv20/mixin_utils/IsFlying"]
 		}
 	}
 }

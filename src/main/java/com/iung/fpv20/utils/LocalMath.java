@@ -1,6 +1,9 @@
 package com.iung.fpv20.utils;
 
 public class LocalMath {
+    public static float DEG_TO_RAD = 0.017453292F;
+    public static float RAD_TO_DEG = 1 / 0.017453292F;
+
     public static float bfRate(
             float rcCommand,
             float rcRate,

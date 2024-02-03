@@ -13,19 +13,19 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(PlayerEntity.class)
-public abstract class PlayerHitBoxMixin extends LivingEntity implements IsFlying {
+public abstract class PlayerHitBoxMixin extends LivingEntity {
 
     @Unique
     private static final EntityDimensions DIM = new EntityDimensions(0.5f, 0.15f, false);
 //    @Unique
 //    private static int a = 1;
 
-    @Unique
-    public boolean isFlying = false;
+//    @Unique
+//    public boolean isFlying = false;
 
     protected PlayerHitBoxMixin(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
-        this.isFlying = false;
+//        this.isFlying = false;
         Fpv20.LOGGER.info("new");
 
     }
@@ -39,7 +39,7 @@ public abstract class PlayerHitBoxMixin extends LivingEntity implements IsFlying
     @Inject(method = "getDimensions(Lnet/minecraft/entity/EntityPose;)Lnet/minecraft/entity/EntityDimensions;", at = @At("RETURN"), cancellable = true)
     private void injected(EntityPose pose, CallbackInfoReturnable<EntityDimensions> cir) {
 //        cir.getReturnValue();
-        if (this.isFlying) {
+        if (((IsFlying) this).get_is_flying()) {
             cir.setReturnValue(DIM);
         }
 
@@ -48,8 +48,16 @@ public abstract class PlayerHitBoxMixin extends LivingEntity implements IsFlying
     @Inject(method = "getActiveEyeHeight", at = @At("RETURN"), cancellable = true)
     private void injected(EntityPose pose, EntityDimensions dimensions, CallbackInfoReturnable<Float> cir) {
 //        cir.getReturnValue();
-        if (this.isFlying) {
+        if (((IsFlying) this).get_is_flying()) {
             cir.setReturnValue(0.1f);
+        }
+    }
+
+    @Inject(method = "getVelocityMultiplier", at = @At("RETURN"), cancellable = true)
+    private void injected(CallbackInfoReturnable<Float> cir) {
+//        cir.getReturnValue();
+        if (((IsFlying) this).get_is_flying()) {
+            cir.setReturnValue(1.0f);
         }
     }
 
@@ -61,15 +69,15 @@ public abstract class PlayerHitBoxMixin extends LivingEntity implements IsFlying
 //        this.markEffectsDirty();
 //    }
 
-    @Override
-    public boolean get_is_flying() {
-        return this.isFlying;
-    }
-
-    @Override
-    public void set_is_flying(boolean v) {
-
-        this.isFlying = v;
-        this.calculateDimensions();
-    }
+//    @Override
+//    public boolean get_is_flying() {
+//        return this.isFlying;
+//    }
+//
+//    @Override
+//    public void set_is_flying(boolean v) {
+//
+//        this.isFlying = v;
+//        this.calculateDimensions();
+//    }
 }

@@ -1,6 +1,7 @@
 package com.iung.fpv20.events;
 
 import com.iung.fpv20.Fpv20;
+import com.iung.fpv20.flying.GlobalFlying;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
@@ -25,6 +26,7 @@ public class ChangePlayer implements ClientTickEvents.StartTick {
 //            player.playSound(SoundEvent.of(Identifier.of("minecraft","block.amethyst_cluster.hit")), (float) v.length(),1);
 //            player.getCameraPosVec()
             Box box = player.getBoundingBox();
+            GlobalFlying.G.handle_flying(client);
 //            Fpv20.LOGGER.info("{}",box);
 //            player.setPosition();
 //            player.setBoundingBox(player.getDimensions(null).getBoxAt(player.getPos()));
