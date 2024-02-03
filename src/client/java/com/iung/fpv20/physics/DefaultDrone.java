@@ -31,8 +31,8 @@ public class DefaultDrone implements Drone {
         this.v = new Vector3f();
 
         this.mass = 0.5f;
-        this.area = (float) (FastMath.PI * 0.4 * 0.4);
-        this.max_force = 5;
+        this.area = (float) (FastMath.PI * 0.2 * 0.2);
+        this.max_force = 3f;
     }
 
     @Override
@@ -72,7 +72,14 @@ public class DefaultDrone implements Drone {
         Vector3f total_force = new Vector3f().add(ambientDragForce).add(thrust);
 
         // i don't know what's wrong, but it just falls too fast and i don't like it
-        this.a = total_force.div(mass).add(new Vector3f(G).mul(0.2f));
+        float gf = 0.2f;
+        if (Math.abs(this.v.y) > 2){
+            gf = 0;
+        }
+        Fpv20.LOGGER.info("####vy {}", this.v.y);
+
+        this.a = total_force.div(mass).add(new Vector3f(G).mul(gf));
+
         Fpv20.LOGGER.info("#a {}", this.a);
 
         Fpv20.LOGGER.info("#f {}", dt);

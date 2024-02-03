@@ -51,7 +51,7 @@ public class GlobalFlying {
         this.drone = new DefaultDrone();
         this.droneRotation = new Quaternionf();
         this.lastDroneRotation = new Quaternionf();
-        this.cam_angel_deg = 40;
+        this.cam_angel_deg = 30;
         this.last_pos = new Vec3d(0, 0, 0);
     }
 
