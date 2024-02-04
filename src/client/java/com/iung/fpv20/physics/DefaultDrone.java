@@ -32,7 +32,7 @@ public class DefaultDrone implements Drone {
 
         this.mass = 0.5f;
         this.area = (float) (FastMath.PI * 0.2 * 0.2);
-        this.max_force = 4f;
+        this.max_force = 8f;
     }
 
     @Override
