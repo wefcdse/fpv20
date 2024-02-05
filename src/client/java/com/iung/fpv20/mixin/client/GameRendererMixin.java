@@ -68,7 +68,7 @@ public class GameRendererMixin {
 //            ChangePlayer.onStartTick(client);
             GlobalFlying.G.handle_flying_rotate(client, dt);
             long time_end = System.nanoTime();
-            Fpv20.LOGGER.info("event_time {}", time_end - time_start);
+            Fpv20.LOGGER.debug("event_time {}", time_end - time_start);
 
         }
 
