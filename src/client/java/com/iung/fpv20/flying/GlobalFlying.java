@@ -160,7 +160,7 @@ public class GlobalFlying {
 //
 //        float dt = now_time - this.last_update_time;
 
-        Fpv20.LOGGER.info("handle_flying:dt {}", dt);
+        Fpv20.LOGGER.debug("handle_flying:dt {}", dt);
 
         if (!getFlying()) {
             return;
@@ -209,7 +209,7 @@ public class GlobalFlying {
         Vec3d pos = p.getPos();
 //        Vec3d v0 = pos.subtract(last_pos).multiply(1 / dt);
         Vec3d v0 = this.get_speed();
-        Fpv20.LOGGER.info("process hit:v0 {}", v0);
+        Fpv20.LOGGER.debug("process hit:v0 {}", v0);
         last_pos = pos;
         float aaa = 0.5f;
         boolean to_set_x = false;
@@ -218,19 +218,19 @@ public class GlobalFlying {
 
 
         if (Math.abs(v0.x) < 0.0001) {
-            Fpv20.LOGGER.info("process hit:x");
+            Fpv20.LOGGER.debug("process hit:x");
             vd.x = 0;
             to_set_y = true;
             to_set_z = true;
         }
         if (Math.abs(v0.y) < 0.0001) {
-            Fpv20.LOGGER.info("process hit:y");
+            Fpv20.LOGGER.debug("process hit:y");
             vd.y = 0;
             to_set_x = true;
             to_set_z = true;
         }
         if (Math.abs(v0.z) < 0.0001) {
-            Fpv20.LOGGER.info("process hit:z");
+            Fpv20.LOGGER.debug("process hit:z");
             vd.z = 0;
             to_set_y = true;
             to_set_x = true;
@@ -274,7 +274,7 @@ public class GlobalFlying {
         drone.update_physics(input_t, dt);
 
 
-//        Fpv20.LOGGER.info("{}", dt);
+//        Fpv20.LOGGER.debug("{}", dt);
         Vec3d v1 = drone.get_speed();
         p.setVelocity(v1);
 
@@ -292,9 +292,9 @@ public class GlobalFlying {
 //        drone.set_speed(new Vec3d(vd));
 
 
-//        Fpv20.LOGGER.info("v0 {}", p.getVelocity());
+//        Fpv20.LOGGER.debug("v0 {}", p.getVelocity());
 //        p.setVelocity(drone.get_speed());
-        Fpv20.LOGGER.info("after update phy:v1 {}", p.getVelocity());
+        Fpv20.LOGGER.debug("after update phy:v1 {}", p.getVelocity());
 
 
         Vector3f new_ypr = PhysicsCore.from_quaternion_to_ypr_deg(this.cacl_cam_rotation());
@@ -305,6 +305,7 @@ public class GlobalFlying {
 
         return;
     }
+
     public void handle_flying_phy(ClientPlayerEntity player, float dt) {
 
 
@@ -312,7 +313,7 @@ public class GlobalFlying {
             return;
         }
 
-        ClientPlayerEntity p =player;
+        ClientPlayerEntity p = player;
         if (p == null) {
             return;
         }
@@ -330,63 +331,37 @@ public class GlobalFlying {
         Vec3d pos = p.getPos();
 
         Vec3d v0 = this.get_speed();
-        Fpv20.LOGGER.info("process hit:v0 {}", v0);
+        Fpv20.LOGGER.debug("process hit:v0 {}", v0);
         last_pos = pos;
         float aaa = 0.5f;
-        boolean to_set_x = false;
-        boolean to_set_y = false;
-        boolean to_set_z = false;
+        boolean hit = false;
 
+        final float ZERO = 0.00001f;
 
-        if (Math.abs(v0.x) < 0.0001) {
-            Fpv20.LOGGER.info("process hit:x");
+        if (Math.abs(v0.x) < ZERO) {
+            hit = true;
+            Fpv20.LOGGER.debug("process hit:x");
             vd.x = 0;
-            to_set_y = true;
-            to_set_z = true;
         }
-        if (Math.abs(v0.y) < 0.0001) {
-            Fpv20.LOGGER.info("process hit:y");
+        if (Math.abs(v0.y) < ZERO) {
+            hit = true;
+            Fpv20.LOGGER.debug("process hit:y");
             vd.y = 0;
-            to_set_x = true;
-            to_set_z = true;
         }
-        if (Math.abs(v0.z) < 0.0001) {
-            Fpv20.LOGGER.info("process hit:z");
+        if (Math.abs(v0.z) < ZERO) {
+            hit = true;
+            Fpv20.LOGGER.debug("process hit:z");
             vd.z = 0;
-            to_set_y = true;
-            to_set_x = true;
+        }
+        if (hit) {
+            if (vd.length() > aaa * dt && vd.length() > 0.0000001) {
+                Vector3f vd1 = new Vector3f(vd).normalize().mul(-1f * aaa * dt);
+                vd.add(vd1);
+            } else {
+                vd.zero();
+            }
         }
 
-        if (to_set_x) {
-            float d = dt * aaa;
-            if (vd.x < -d) {
-                vd.x += d;
-            } else if (vd.x > d) {
-                vd.x -= d;
-            } else {
-                vd.x = 0;
-            }
-        }
-        if (to_set_y) {
-            float d = dt * aaa;
-            if (vd.y < -d) {
-                vd.y += d;
-            } else if (vd.y > d) {
-                vd.y -= d;
-            } else {
-                vd.y = 0;
-            }
-        }
-        if (to_set_z) {
-            float d = dt * aaa;
-            if (vd.z < -d) {
-                vd.z += d;
-            } else if (vd.z > d) {
-                vd.z -= d;
-            } else {
-                vd.z = 0;
-            }
-        }
 
         drone.set_speed(new Vec3d(vd));
         // // process hit
@@ -395,12 +370,11 @@ public class GlobalFlying {
         drone.update_physics(input_t, dt);
 
 
-
         Vec3d v1 = drone.get_speed();
         p.setVelocity(v1);
 
 
-        Fpv20.LOGGER.info("after update phy:v1 {}", p.getVelocity());
+        Fpv20.LOGGER.debug("after update phy:v1 {}", p.getVelocity());
 
 
     }
@@ -444,8 +418,6 @@ public class GlobalFlying {
         );
         drone.update_pose(q);
         this.set_drone_rotation(q);
-
-
 
 
         Vector3f new_ypr = PhysicsCore.from_quaternion_to_ypr_deg(this.cacl_cam_rotation());

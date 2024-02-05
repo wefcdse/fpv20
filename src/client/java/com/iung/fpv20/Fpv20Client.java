@@ -18,7 +18,6 @@ import org.spongepowered.asm.mixin.Unique;
 public class Fpv20Client implements ClientModInitializer {
     @Nullable
     public static volatile Controller controller = null;
-    public static AtomicDouble last_time_tickDelta = new AtomicDouble(0.0);
 
     @Override
     public void onInitializeClient() {
@@ -33,17 +32,16 @@ public class Fpv20Client implements ClientModInitializer {
                     controller1.poll();
                     controller1.sync_to_server();
                 } catch (Exception err) {
-//                    Fpv20.LOGGER.info("err:!", err);
+//                    Fpv20.LOGGER.debug("err:!", err);
                 }
 //                SpreadPlayersCommand
 
             }
 
-//            Fpv20.LOGGER.info(String.valueOf(e));
+//            Fpv20.LOGGER.debug(String.valueOf(e));
         });
 
         ClientTickEvents.START_CLIENT_TICK.register(client -> {
-            last_time_tickDelta.getAndUpdate(v -> FastMath.clamp(v - 1, -1, 0));
             ClientPlayerEntity player = client.player;
             if (player != null) {
                 GlobalFlying.G.update_tick_start(player);

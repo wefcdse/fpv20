@@ -62,12 +62,12 @@ public class DefaultDrone implements Drone {
         if (this.v.length() < 0.00001) {
             ambientDragForce = new Vector3f();
         }
-        Fpv20.LOGGER.info("#ambientDragForce {}", ambientDragForce);
+        Fpv20.LOGGER.debug("#ambientDragForce {}", ambientDragForce);
 
 
         float efficiency = MathHelper.lerp(throttle, 0.35f, 1f);
         Vector3f thrust = new Vector3f(drone_up).mul(max_force * throttle * efficiency);
-        Fpv20.LOGGER.info("#thrust {}", thrust);
+        Fpv20.LOGGER.debug("#thrust {}", thrust);
 
         Vector3f total_force = new Vector3f().add(ambientDragForce).add(thrust);
 
@@ -76,15 +76,15 @@ public class DefaultDrone implements Drone {
         if (Math.abs(this.v.y) > 3){
             gf = 0;
         }
-        Fpv20.LOGGER.info("####vy {}", this.v.y);
+        Fpv20.LOGGER.debug("####vy {}", this.v.y);
 
         this.a = total_force.div(mass).add(new Vector3f(G).mul(gf));
 
-        Fpv20.LOGGER.info("#a {}", this.a);
+        Fpv20.LOGGER.debug("#a {}", this.a);
 
-        Fpv20.LOGGER.info("#f {}", dt);
+        Fpv20.LOGGER.debug("#f {}", dt);
 
-        Fpv20.LOGGER.info("#dv:? {}", new Vector3f(this.a).mul(dt));
+        Fpv20.LOGGER.debug("#dv:? {}", new Vector3f(this.a).mul(dt));
 
 
         this.v.add(new Vector3f(this.a).mul(dt));
@@ -92,7 +92,7 @@ public class DefaultDrone implements Drone {
 
     @Override
     public Vec3d get_acceleration() {
-//        Fpv20.LOGGER.info("acc:{}", this.a);
+//        Fpv20.LOGGER.debug("acc:{}", this.a);
         return new Vec3d(this.a);
     }
 

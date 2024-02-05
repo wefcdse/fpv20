@@ -51,10 +51,10 @@ public class OptionsMainScreen extends BackableScreen {
 
 
 /////////////
-        this.addDrawableChild(ButtonWidget.builder(Text.literal("none"), (btn) -> {
+        this.addDrawableChild(ButtonWidget.builder(Text.literal("fly"), (btn) -> {
                     GlobalFlying.setFlying(!GlobalFlying.getFlying());
                 })
-                .dimensions(0, 0, 20, 20).build());
+                .dimensions(0, 0, 40, 20).build());
 
 //        this.addDrawable(new TextWidget(i, k, width, height, Text.of("ddd"), this.textRenderer));
 

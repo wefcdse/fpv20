@@ -20,9 +20,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(net.minecraft.client.render.GameRenderer.class)
 public class GameRendererMixin {
-    @Shadow
-    @Final
-    private Camera camera;
+//    @Shadow
+//    @Final
+//    private Camera camera;
+
+    private static long last_render = System.nanoTime();
 
 
 //    @Inject(
@@ -46,16 +48,17 @@ public class GameRendererMixin {
     public void mixin(float tickDelta, long limitTime, MatrixStack matrix, CallbackInfo ci) {
 
         long time_start = System.nanoTime();
+
+
         MinecraftClient client = MinecraftClient.getInstance();
 
-        float dt = (float) ((tickDelta - Fpv20Client.last_time_tickDelta.get()) * 0.05f);
-        dt = FastMath.clamp(dt, 0, 1);
-        if (tickDelta - Fpv20Client.last_time_tickDelta.get() < 0) {
-            Fpv20.LOGGER.info("GameRenderMixin:??? {},{}", tickDelta, Fpv20Client.last_time_tickDelta.get());
+//        float dt = (float) ((tickDelta - Fpv20Client.last_time_tickDelta.get()) * 0.05f);
+        float dt = (float) (time_start - last_render) / 1000_000_000f;
+        last_render = time_start;
+        // if fps is lower than 10, just use another computer
+        dt = FastMath.clamp(dt, 0, 0.1f);
 
-//            throw new NullPointerException();
-        }
-        Fpv20Client.last_time_tickDelta.set(tickDelta);
+
 
 //        if (Fpv20Client.last_time_tickDelta>tickDelta){
 //
