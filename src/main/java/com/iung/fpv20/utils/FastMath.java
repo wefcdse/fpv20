@@ -21,6 +21,8 @@ public class FastMath {
     public static float clamp(float input, float min, float max) {
         return (input < min) ? min : java.lang.Math.min(input, max);
     }
-
+    public static double clamp(double input, double min, double max) {
+        return (input < min) ? min : java.lang.Math.min(input, max);
+    }
 
 }

@@ -12,25 +12,16 @@ import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 
 
-public class ChangePlayer implements ClientTickEvents.StartTick {
+public class ChangePlayer  {
 
 
-    @Override
-    public void onStartTick(MinecraftClient client) {
+    public static void onStartTick(MinecraftClient client) {
         if (client.player != null) {
-//            float yaw = client.player.getYaw();
-//            client.player.setYaw(yaw + 360f * (1f / 20f));
-//            client.player.setVelocityClient(0f, 20, 0);
+
             ClientPlayerEntity player = client.player;
             Vec3d v = player.getVelocity();
-//            player.playSound(SoundEvent.of(Identifier.of("minecraft","block.amethyst_cluster.hit")), (float) v.length(),1);
-//            player.getCameraPosVec()
-            Box box = player.getBoundingBox();
+
             GlobalFlying.G.handle_flying(client);
-//            Fpv20.LOGGER.info("{}",box);
-//            player.setPosition();
-//            player.setBoundingBox(player.getDimensions(null).getBoxAt(player.getPos()));
         }
-//        client.player.getAbilities()
     }
 }

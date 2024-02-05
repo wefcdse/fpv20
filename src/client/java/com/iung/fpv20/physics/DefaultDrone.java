@@ -59,7 +59,7 @@ public class DefaultDrone implements Drone {
                 speed *
                 speed *
                 dragFactor);
-        if (this.v.length() < 0.0001) {
+        if (this.v.length() < 0.00001) {
             ambientDragForce = new Vector3f();
         }
         Fpv20.LOGGER.info("#ambientDragForce {}", ambientDragForce);

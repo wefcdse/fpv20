@@ -1,6 +1,11 @@
 package com.iung.fpv20.mixin.client;
 
+import com.iung.fpv20.Fpv20;
+import com.iung.fpv20.Fpv20Client;
+import com.iung.fpv20.events.ChangePlayer;
 import com.iung.fpv20.flying.GlobalFlying;
+import com.iung.fpv20.utils.FastMath;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.Camera;
 import net.minecraft.client.util.math.MatrixStack;
 import org.joml.Quaternionf;
@@ -19,8 +24,16 @@ public class GameRendererMixin {
     @Final
     private Camera camera;
 
-    @Unique
-    private static float this_time_tickDelta= 0.5F;
+
+//    @Inject(
+//            method = "tick",
+//            at = @At(
+//                    value = "HEAD"
+//            )
+//    )
+//    public void tick(CallbackInfo ci) {
+//        last_time_tickDelta = 0.0f;
+//    }
 
     @Inject(
             method = "renderWorld",
@@ -31,13 +44,39 @@ public class GameRendererMixin {
             )
     )
     public void mixin(float tickDelta, long limitTime, MatrixStack matrix, CallbackInfo ci) {
-        this_time_tickDelta = tickDelta;
-//        GlobalFlying.G.lastCamRoll += tickDelta / 20f * GlobalFlying.G.angular_speed;
-        if(GlobalFlying.getFlying()){
-            matrix.multiply(GlobalFlying.G.cacl_cam_rotation_last().nlerp(GlobalFlying.G.cacl_cam_rotation(),tickDelta));
 
-//            matrix.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(MathHelper.lerp(tickDelta, GlobalFlying.G.lastCamRoll, GlobalFlying.G.camRoll)));
+        long time_start = System.nanoTime();
+        MinecraftClient client = MinecraftClient.getInstance();
+
+        float dt = (float) ((tickDelta - Fpv20Client.last_time_tickDelta.get()) * 0.05f);
+        dt = FastMath.clamp(dt, 0, 1);
+        if (tickDelta - Fpv20Client.last_time_tickDelta.get() < 0) {
+            Fpv20.LOGGER.info("GameRenderMixin:??? {},{}", tickDelta, Fpv20Client.last_time_tickDelta.get());
+
+//            throw new NullPointerException();
         }
+        Fpv20Client.last_time_tickDelta.set(tickDelta);
+
+//        if (Fpv20Client.last_time_tickDelta>tickDelta){
+//
+//        }
+
+        if (client != null) {
+//            ChangePlayer.onStartTick(client);
+            GlobalFlying.G.handle_flying_rotate(client, dt);
+            long time_end = System.nanoTime();
+            Fpv20.LOGGER.info("event_time {}", time_end - time_start);
+
+        }
+
+//        this_time_tickDelta = tickDelta;
+//        GlobalFlying.G.lastCamRoll += tickDelta / 20f * GlobalFlying.G.angular_speed;
+        if (GlobalFlying.getFlying()) {
+//            matrix.multiply(GlobalFlying.G.cacl_cam_rotation_last().nlerp(GlobalFlying.G.cacl_cam_rotation(), tickDelta));
+            matrix.multiply(GlobalFlying.G.cacl_cam_rotation());
+
+        }
+
 //        Matrix4f mat = new Matrix4f();
 //
 //        Quaternionf r = RotationAxis.POSITIVE_Z.rotationDegrees(GlobalFlying.G.lastCamRoll);
@@ -71,9 +110,9 @@ public class GameRendererMixin {
             )
     )
     public void mixin1(MatrixStack instance, Quaternionf quaternion) {
-        if (GlobalFlying.getFlying()){
+        if (GlobalFlying.getFlying()) {
 
-        }else {
+        } else {
             instance.multiply(quaternion);
         }
     }
@@ -87,9 +126,9 @@ public class GameRendererMixin {
             )
     )
     public void mixin12(MatrixStack instance, Quaternionf quaternion) {
-        if (GlobalFlying.getFlying()){
+        if (GlobalFlying.getFlying()) {
 
-        }else {
+        } else {
             instance.multiply(quaternion);
         }
     }
