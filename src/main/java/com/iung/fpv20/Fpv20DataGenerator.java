@@ -1,5 +1,6 @@
 package com.iung.fpv20;
 
+import com.iung.fpv20.generate.Receipes;
 import com.iung.fpv20.generate.lang.ChineseLangProvider;
 import com.iung.fpv20.generate.lang.EnglishLangProvider;
 import com.iung.fpv20.generate.model.ModModelProvider;
@@ -13,5 +14,6 @@ public class Fpv20DataGenerator implements DataGeneratorEntrypoint {
 		pack.addProvider(EnglishLangProvider::new);
 		pack.addProvider(ChineseLangProvider::new);
 		pack.addProvider(ModModelProvider::new);
+		pack.addProvider(Receipes::new);
 	}
 }

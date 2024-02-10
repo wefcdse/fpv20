@@ -1,5 +1,6 @@
 {
   "block.fpv20.receiver_block": "receiver block",
+  "fpv20.btn.btn_config": "button/switch config",
   "fpv20.btn.calibrate": "calibrate",
   "fpv20.btn.calibrate.max_mid_min": "method:max zero min",
   "fpv20.btn.calibrate.max_min": "method:max min",
@@ -11,6 +12,7 @@
   "fpv20.btn.option": "option",
   "fpv20.btn.select": "select",
   "fpv20.btn.select_controller": "select controller",
+  "fpv20.btn.show_input": "show input",
   "fpv20.btn.start": "start",
   "fpv20.rate.1": "rate:%s",
   "fpv20.text.set_channel_name": "set channel name",

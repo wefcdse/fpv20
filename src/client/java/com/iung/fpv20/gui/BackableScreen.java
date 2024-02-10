@@ -1,5 +1,6 @@
 package com.iung.fpv20.gui;
 
+import com.iung.fpv20.Fpv20Client;
 import com.iung.fpv20.consts.Texts;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
@@ -17,6 +18,7 @@ public abstract class BackableScreen extends Screen {
 
     @Override
     public void close() {
+        Fpv20Client.update_config();
         if (this.client != null) {
             this.client.setScreen(parent);
         }

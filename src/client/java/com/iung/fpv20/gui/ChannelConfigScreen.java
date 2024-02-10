@@ -20,6 +20,12 @@ public class ChannelConfigScreen extends BackableScreen {
         this.channel = channel;
     }
 
+//    @Override
+//    public void close() {
+//        Fpv20Client.update_config();
+//        super.close();
+//    }
+
     @Override
     protected void init() {
         super.init();
@@ -40,7 +46,7 @@ public class ChannelConfigScreen extends BackableScreen {
                 x -> {
                     Controller controller = Fpv20Client.controller;
                     if (controller != null) {
-                        return controller.calibrations[channel].rate.map(x);
+                        return controller.calibrations[channel].rate_map(x);
                     }
                     return 0;
                 },
@@ -67,8 +73,8 @@ public class ChannelConfigScreen extends BackableScreen {
 
         Controller controller1 = Fpv20Client.controller;
         if (controller1 != null) {
-            start_a = controller1.calibrations[channel].rate.a;
-            start_b = controller1.calibrations[channel].rate.b;
+            start_a = controller1.calibrations[channel].rate_a;
+            start_b = controller1.calibrations[channel].rate_b;
         } else {
             return;
         }
@@ -81,7 +87,7 @@ public class ChannelConfigScreen extends BackableScreen {
                 slider -> {
                     Controller controller = Fpv20Client.controller;
                     if (controller != null) {
-                        controller.calibrations[channel].rate.a = slider.value();
+                        controller.calibrations[channel].rate_a = slider.value();
                     }
                 }
         ));
@@ -93,7 +99,7 @@ public class ChannelConfigScreen extends BackableScreen {
                 slider -> {
                     Controller controller = Fpv20Client.controller;
                     if (controller != null) {
-                        controller.calibrations[channel].rate.b = slider.value();
+                        controller.calibrations[channel].rate_b = slider.value();
                     }
                 }
         ));

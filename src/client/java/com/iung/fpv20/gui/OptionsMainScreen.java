@@ -41,13 +41,13 @@ public class OptionsMainScreen extends BackableScreen {
         k += 24;
 
 
-        this.addDrawableChild(ButtonWidget.builder(Text.literal("none"), (btn) -> {
+        this.addDrawableChild(ButtonWidget.builder(Texts.BTN_SHOW_INPUT, (btn) -> {
                     if (this.client != null) {
                         this.client.setScreen(new ShowInputScreen(this));
                     }
                 })
                 .dimensions(i, k, width, height).build());
-        this.addDrawableChild(ButtonWidget.builder(Text.literal("btn"), (btn) -> {
+        this.addDrawableChild(ButtonWidget.builder(Texts.BTN_BTN_CONFIG, (btn) -> {
                     if (this.client != null) {
                         this.client.setScreen(new BtnConfigScreen(this));
                     }

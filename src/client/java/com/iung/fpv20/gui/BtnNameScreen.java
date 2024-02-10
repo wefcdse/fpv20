@@ -20,6 +20,7 @@ public class BtnNameScreen extends BackableScreen {
         this.channel = channel;
     }
 
+
     @Override
     protected void init() {
         super.init();
@@ -62,13 +63,13 @@ public class BtnNameScreen extends BackableScreen {
 
         int slide_start = chart_left_padding + chart_height_width + padding;
 
-        float start_a = 2;
-        float start_b = 2;
+//        float start_a = 2;
+//        float start_b = 2;
 
         Controller controller1 = Fpv20Client.controller;
         if (controller1 != null) {
-            start_a = controller1.calibrations[channel].rate.a;
-            start_b = controller1.calibrations[channel].rate.b;
+//            start_a = controller1.calibrations[channel].rate.a;
+//            start_b = controller1.calibrations[channel].rate.b;
         } else {
             return;
         }

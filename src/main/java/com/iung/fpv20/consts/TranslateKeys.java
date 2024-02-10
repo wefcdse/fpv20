@@ -24,4 +24,7 @@ public final class TranslateKeys {
 
 
     public static final String TEXT_SET_CHANNEL_NAME = "fpv20.text.set_channel_name";
+
+    public static final String BTN_SHOW_INPUT = "fpv20.btn.show_input";
+    public static final String BTN_BTN_CONFIG = "fpv20.btn.btn_config";
 }

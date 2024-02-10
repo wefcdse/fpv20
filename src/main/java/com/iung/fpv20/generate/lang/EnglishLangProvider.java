@@ -37,5 +37,8 @@ public class EnglishLangProvider extends FabricLanguageProvider {
 
         translationBuilder.add(TranslateKeys.TEXT_SET_CHANNEL_NAME,"set channel name");
 
+        translationBuilder.add(TranslateKeys.BTN_SHOW_INPUT,"show input");
+        translationBuilder.add(TranslateKeys.BTN_BTN_CONFIG,"button/switch config");
+
     }
 }

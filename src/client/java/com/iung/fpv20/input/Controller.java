@@ -1,7 +1,9 @@
 package com.iung.fpv20.input;
 
+import com.iung.fpv20.Fpv20Client;
 import com.iung.fpv20.network.ChannelUpdatePacket;
 import com.iung.fpv20.utils.Calibration;
+import com.iung.fpv20.utils.RateMapper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import org.lwjgl.glfw.GLFW;
 
@@ -14,38 +16,75 @@ public class Controller {
     public float[] floats;
     byte[] bytes;
 
-    String[] names;
-    String[] btn_names;
+    public String[] names;
+    public String[] btn_names;
 
     public Calibration[] calibrations;
 
     public Controller(int id) {
         this.id = id;
-        this.calibrations = new Calibration[8];
-        for (int i = 0; i < 8; i++) {
-            calibrations[i] = new Calibration();
-        }
-        this.names = new String[8];
-        for (int i = 0; i < 8; i++) {
-            names[i] = String.format("CH%d", i);
-        }
-        names[0] = "r";
-        names[1] = "p";
-        names[2] = "t";
-        names[4] = "y";
+        this.calibrations = Fpv20Client.config.calibrations();
 
-        calibrations[2].calibrateMethod = Calibration.CalibrateMethod.MaxMin;
-
-
-        this.btn_names = new String[8];
-        for (int i = 0; i < 8; i++) {
-            btn_names[i] = String.format("BTN%d", i);
+        if (calibrations == null || calibrations.length != 8) {
+            Calibration[] c = new Calibration[8];
+            for (int i = 0; i < c.length; i++) {
+                c[i] = new Calibration(-1, 1, 0,0.3f, 0.5f, Calibration.CalibrateMethod.MaxMidMin);
+            }
+            Fpv20Client.config.calibrations(c);
+            this.calibrations = c;
         }
-        btn_names[0] = "sw";
+
+        this.names = Fpv20Client.config.stick_channel_names();
+        if (this.names == null || this.names.length != 8) {
+            String[] names = new String[8];
+            for (int i = 0; i < 8; i++) {
+                names[i] = String.format("CH%d", i);
+            }
+            Fpv20Client.config.stick_channel_names(names);
+            this.names = names;
+        }
+
+
+        this.btn_names = Fpv20Client.config.button_channel_names();
+
+        if (this.btn_names == null || this.btn_names.length != 8) {
+            String[] btn_names = new String[8];
+            for (int i = 0; i < 8; i++) {
+                btn_names[i] = String.format("BTN%d", i);
+            }
+            Fpv20Client.config.button_channel_names(btn_names);
+            this.btn_names = btn_names;
+        }
 
 
     }
 
+//    public Controller(int id) {
+//        this.id = id;
+//        this.calibrations = new Calibration[8];
+//        for (int i = 0; i < 8; i++) {
+//            calibrations[i] = new Calibration();
+//        }
+//        this.names = new String[8];
+//        for (int i = 0; i < 8; i++) {
+//            names[i] = String.format("CH%d", i);
+//        }
+//        names[0] = "r";
+//        names[1] = "p";
+//        names[2] = "t";
+//        names[4] = "y";
+//
+//        calibrations[2].calibrateMethod = Calibration.CalibrateMethod.MaxMin;
+//
+//
+//        this.btn_names = new String[8];
+//        for (int i = 0; i < 8; i++) {
+//            btn_names[i] = String.format("BTN%d", i);
+//        }
+//        btn_names[0] = "sw";
+//
+//
+//    }
 
     public void poll() {
         FloatBuffer a = GLFW.glfwGetJoystickAxes(id);
@@ -157,6 +196,7 @@ public class Controller {
         }
         names[channel] = name.replaceAll("\\s+", "_");
     }
+
     public void set_btn_name(int channel, String name) {
         if (channel >= bytes.length || channel < 0) {
             return;

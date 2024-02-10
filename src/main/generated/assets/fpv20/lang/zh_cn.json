@@ -1,5 +1,6 @@
 {
   "block.fpv20.receiver_block": "信号接收器",
+  "fpv20.btn.btn_config": "按钮或开关设置",
   "fpv20.btn.calibrate": "校准",
   "fpv20.btn.calibrate.max_mid_min": "校准方法:最大零点最小",
   "fpv20.btn.calibrate.max_min": "校准方法:最大最小值",
@@ -11,6 +12,7 @@
   "fpv20.btn.option": "选项",
   "fpv20.btn.select": "选择",
   "fpv20.btn.select_controller": "选择控制器",
+  "fpv20.btn.show_input": "显示输入信号",
   "fpv20.btn.start": "开始",
   "fpv20.rate.1": "rate:%s",
   "fpv20.text.set_channel_name": "设置信道名称",

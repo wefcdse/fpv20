@@ -35,6 +35,8 @@ public class ChineseLangProvider extends FabricLanguageProvider {
 
         translationBuilder.add(TranslateKeys.TEXT_SET_CHANNEL_NAME,"设置信道名称");
 
+        translationBuilder.add(TranslateKeys.BTN_SHOW_INPUT,"显示输入信号");
+        translationBuilder.add(TranslateKeys.BTN_BTN_CONFIG,"按钮或开关设置");
 
     }
 

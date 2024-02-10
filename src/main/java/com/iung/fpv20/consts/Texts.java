@@ -26,4 +26,8 @@ public final class Texts {
 
     public static final Text TEXT_SET_CHANNEL_NAME = Text.translatable(TranslateKeys.TEXT_SET_CHANNEL_NAME);
 
+    public static final Text BTN_SHOW_INPUT = Text.translatable(TranslateKeys.BTN_SHOW_INPUT);
+    public static final Text BTN_BTN_CONFIG = Text.translatable(TranslateKeys.BTN_BTN_CONFIG);
+
+
 }
