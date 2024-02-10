@@ -189,10 +189,10 @@ public class GlobalFlying {
             return;
         }
 
-        float input_t = controller.get_calibrated_value("t");
-        float input_y = controller.get_calibrated_value("y");
-        float input_p = controller.get_calibrated_value("p");
-        float input_r = controller.get_calibrated_value("r");
+        float input_t = controller.get_value_by_name("t");
+        float input_y = controller.get_value_by_name("y");
+        float input_p = controller.get_value_by_name("p");
+        float input_r = controller.get_value_by_name("r");
 
 
         PhysicsCore.rotate_from_local_yaw_pitch_roll(q, input_y, input_p, input_r,
@@ -323,7 +323,7 @@ public class GlobalFlying {
         if (controller == null) {
             return;
         }
-        float input_t = controller.get_calibrated_value("t");
+        float input_t = controller.get_value_by_name("t");
 
         // process hit
         Vec3d v = drone.get_speed();
@@ -336,10 +336,10 @@ public class GlobalFlying {
         float aaa = 0.5f;
         boolean hit = false;
 
-        final float ZERO = 0.00001f;
+        final float ZERO = 0.000001f;
 
         if (Math.abs(v0.x) < ZERO) {
-            hit = true;
+//            hit = true;
             Fpv20.LOGGER.debug("process hit:x");
             vd.x = 0;
         }
@@ -349,7 +349,7 @@ public class GlobalFlying {
             vd.y = 0;
         }
         if (Math.abs(v0.z) < ZERO) {
-            hit = true;
+//            hit = true;
             Fpv20.LOGGER.debug("process hit:z");
             vd.z = 0;
         }
@@ -407,10 +407,10 @@ public class GlobalFlying {
             return;
         }
 
-        float input_t = controller.get_calibrated_value("t");
-        float input_y = controller.get_calibrated_value("y");
-        float input_p = controller.get_calibrated_value("p");
-        float input_r = controller.get_calibrated_value("r");
+        float input_t = controller.get_value_by_name("t");
+        float input_y = controller.get_value_by_name("y");
+        float input_p = controller.get_value_by_name("p");
+        float input_r = controller.get_value_by_name("r");
 
         PhysicsCore.rotate_from_local_yaw_pitch_roll(q, input_y, input_p, input_r,
                 300, 300, 300,

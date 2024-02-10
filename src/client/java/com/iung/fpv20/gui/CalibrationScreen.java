@@ -1,6 +1,5 @@
 package com.iung.fpv20.gui;
 
-import com.iung.fpv20.Fpv20;
 import com.iung.fpv20.Fpv20Client;
 import com.iung.fpv20.consts.Texts;
 import com.iung.fpv20.consts.TranslateKeys;
@@ -18,9 +17,9 @@ public class CalibrationScreen extends BackableScreen {
     private boolean cc;
     private boolean cr;
 
-    private float[] max;
-    private float[] min;
-    private float[] mid;
+    private final float[] max;
+    private final float[] min;
+    private final float[] mid;
 
     private int channels;
 

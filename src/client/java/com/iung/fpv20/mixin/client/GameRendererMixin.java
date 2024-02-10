@@ -4,6 +4,7 @@ import com.iung.fpv20.Fpv20;
 import com.iung.fpv20.Fpv20Client;
 import com.iung.fpv20.events.ChangePlayer;
 import com.iung.fpv20.flying.GlobalFlying;
+import com.iung.fpv20.input.Controller;
 import com.iung.fpv20.utils.FastMath;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.Camera;
@@ -59,13 +60,14 @@ public class GameRendererMixin {
         dt = FastMath.clamp(dt, 0, 0.1f);
 
 
-
 //        if (Fpv20Client.last_time_tickDelta>tickDelta){
 //
 //        }
-
+        Controller controller = Fpv20Client.controller;
+        if (controller != null) {
+            controller.poll();
+        }
         if (client != null) {
-//            ChangePlayer.onStartTick(client);
             GlobalFlying.G.handle_flying_rotate(client, dt);
             long time_end = System.nanoTime();
             Fpv20.LOGGER.debug("event_time {}", time_end - time_start);

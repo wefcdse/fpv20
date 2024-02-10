@@ -1,14 +1,13 @@
 package com.iung.fpv20.input;
 
-import com.iung.fpv20.Fpv20;
 import com.iung.fpv20.network.ChannelUpdatePacket;
 import com.iung.fpv20.utils.Calibration;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.minecraft.entity.ai.brain.task.BreedTask;
 import org.lwjgl.glfw.GLFW;
 
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
+import java.util.Objects;
 
 public class Controller {
     private int id;
@@ -16,6 +15,7 @@ public class Controller {
     byte[] bytes;
 
     String[] names;
+    String[] btn_names;
 
     public Calibration[] calibrations;
 
@@ -35,6 +35,15 @@ public class Controller {
         names[4] = "y";
 
         calibrations[2].calibrateMethod = Calibration.CalibrateMethod.MaxMin;
+
+
+        this.btn_names = new String[8];
+        for (int i = 0; i < 8; i++) {
+            btn_names[i] = String.format("BTN%d", i);
+        }
+        btn_names[0] = "sw";
+
+
     }
 
 
@@ -65,20 +74,27 @@ public class Controller {
         if (!ClientPlayNetworking.canSend(ChannelUpdatePacket.TYPE)) {
             return;
         }
-        int length = Math.min(this.floats.length, this.names.length);
+        {
+            int length = Math.min(this.floats.length, this.names.length);
 
-        for (int i = 0; i < length; i++) {
-            ChannelUpdatePacket p = new ChannelUpdatePacket(this.names[i], this.get_calibrated_value(i));
-            ClientPlayNetworking.send(p);
+            for (int i = 0; i < length; i++) {
+                ChannelUpdatePacket p = new ChannelUpdatePacket(this.names[i], this.get_calibrated_value(i));
+                ClientPlayNetworking.send(p);
+            }
         }
+        {
+            int length = Math.min(this.bytes.length, this.btn_names.length);
+
+            for (int i = 0; i < length; i++) {
+                ChannelUpdatePacket p = new ChannelUpdatePacket(this.btn_names[i], this.get_btn(i));
+                ClientPlayNetworking.send(p);
+            }
+        }
+
     }
 
     public float[] getFloatsRaw() {
-        if (this.floats != null) {
-            return this.floats;
-        } else {
-            return new float[0];
-        }
+        return Objects.requireNonNullElseGet(this.floats, () -> new float[0]);
     }
 
     public float get_calibrated_value(int channel) {
@@ -110,15 +126,27 @@ public class Controller {
         return names[channel];
     }
 
-    public float get_calibrated_value(String name) {
+    public String get_btn_name(int channel) {
+        if (channel >= bytes.length || channel < 0) {
+            return "";
+        }
+        return btn_names[channel];
+    }
+
+    public float get_value_by_name(String name) {
         for (int i = 0; i < this.names.length; i++) {
             if (name.equals(this.names[i])) {
                 return this.get_calibrated_value(i);
             }
         }
+
+        for (int i = 0; i < this.btn_names.length; i++) {
+            if (name.equals(this.btn_names[i])) {
+                return this.get_btn(i);
+            }
+        }
         return 0;
     }
-
 
     public void set_name(int channel, String name) {
         if (channel >= floats.length || channel < 0) {
@@ -128,5 +156,26 @@ public class Controller {
             return;
         }
         names[channel] = name.replaceAll("\\s+", "_");
+    }
+    public void set_btn_name(int channel, String name) {
+        if (channel >= bytes.length || channel < 0) {
+            return;
+        }
+        if (name.isBlank()) {
+            return;
+        }
+        btn_names[channel] = name.replaceAll("\\s+", "_");
+    }
+
+    public float get_btn(int channel) {
+        if (channel > this.bytes.length) {
+            return 0;
+        } else {
+            return this.bytes[channel];
+        }
+    }
+
+    public int get_btn_channels() {
+        return this.bytes.length;
     }
 }

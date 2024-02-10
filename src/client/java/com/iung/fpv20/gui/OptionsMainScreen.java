@@ -47,6 +47,12 @@ public class OptionsMainScreen extends BackableScreen {
                     }
                 })
                 .dimensions(i, k, width, height).build());
+        this.addDrawableChild(ButtonWidget.builder(Text.literal("btn"), (btn) -> {
+                    if (this.client != null) {
+                        this.client.setScreen(new BtnConfigScreen(this));
+                    }
+                })
+                .dimensions(j, k, width, height).build());
         k += 24;
 
 
