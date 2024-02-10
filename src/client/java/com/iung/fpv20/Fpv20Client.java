@@ -1,6 +1,7 @@
 package com.iung.fpv20;
 
-import com.iung.fpv20.config.Fpv20ClientConfig;
+//import com.iung.fpv20.config.Fpv20ClientConfig;
+import com.iung.fpv20.config.Fpv20ClientConfig1;
 import com.iung.fpv20.consts.ScreenHandlers;
 import com.iung.fpv20.flying.GlobalFlying;
 import com.iung.fpv20.gui.handle_screen.ReceiverScreen;
@@ -17,7 +18,7 @@ public class Fpv20Client implements ClientModInitializer {
     @Nullable
     public static volatile Controller controller = null;
 
-    public static Fpv20ClientConfig config = Fpv20ClientConfig.createAndLoad();
+    public static Fpv20ClientConfig1 config = Fpv20ClientConfig1.createAndLoad();
 
     static boolean last_tick_flying = false;
 
@@ -25,8 +26,6 @@ public class Fpv20Client implements ClientModInitializer {
     public void onInitializeClient() {
         HandledScreens.register(ScreenHandlers.RECEIVER_SCREEN_HANDLER, ReceiverScreen::new);
 //
-
-
 
 
         ClientTickEvents.START_CLIENT_TICK.register((e) -> {
@@ -76,10 +75,12 @@ public class Fpv20Client implements ClientModInitializer {
 
         ClientLifecycleEvents.CLIENT_STOPPING.register(client -> {
 //            update_config();
+            config.save();
         });
 
     }
-    public static void update_config(){
+
+    public static void update_config() {
         Controller controller1 = controller;
         if (controller1 != null) {
             config.calibrations(null);
