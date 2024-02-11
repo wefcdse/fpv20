@@ -5,13 +5,13 @@
 	"name": "fpv20",
 	"description": "This is an example description! Tell everyone what your mod is about!",
 	"authors": [
-		"Me!"
+		"iung"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"homepage": "https://github.com/wefcdse/fpv20",
+		"sources": "https://github.com/wefcdse/fpv20"
 	},
-	"license": "CC0-1.0",
+	"license": "GPL-3.0",
 	"icon": "assets/fpv20/icon.png",
 	"environment": "*",
 	"entrypoints": {
