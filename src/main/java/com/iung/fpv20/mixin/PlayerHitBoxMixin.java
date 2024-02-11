@@ -49,7 +49,7 @@ public abstract class PlayerHitBoxMixin extends LivingEntity {
     private void injected(EntityPose pose, EntityDimensions dimensions, CallbackInfoReturnable<Float> cir) {
 //        cir.getReturnValue();
         if (((IsFlying) this).get_is_flying()) {
-            cir.setReturnValue(0.14f);
+            cir.setReturnValue(0.13f);
         }
     }
 
