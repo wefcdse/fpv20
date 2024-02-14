@@ -1,9 +1,12 @@
 package com.iung.fpv20.physics;
 
+import com.iung.fpv20.utils.Quaternionf;
 import net.minecraft.util.math.Vec3d;
-import org.joml.Quaternionf;
-import org.joml.Vector3f;
-import org.joml.Vector3fc;
+//import org.joml.Quaternionf;
+//import org.joml.Vector3f;
+import com.iung.fpv20.utils.Vector3f;
+
+//import org.joml.Vector3fc;
 
 import static com.iung.fpv20.utils.LocalMath.DEG_TO_RAD;
 import static com.iung.fpv20.utils.LocalMath.RAD_TO_DEG;

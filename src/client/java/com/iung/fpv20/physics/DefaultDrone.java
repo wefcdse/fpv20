@@ -4,8 +4,14 @@ import com.iung.fpv20.Fpv20;
 import com.iung.fpv20.utils.FastMath;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
-import org.joml.Quaternionf;
-import org.joml.Vector3f;
+//import org.joml.Quaternionf;
+import com.iung.fpv20.utils.Quaternionf;
+
+
+import com.iung.fpv20.utils.Vector3f;
+//import org.joml.Vector3f;
+
+
 import oshi.driver.mac.net.NetStat;
 
 public class DefaultDrone implements Drone {
@@ -48,6 +54,7 @@ public class DefaultDrone implements Drone {
     @Override
     public void update_physics(float throttle, float dt) {
         Quaternionf pose = this.get_pose().conjugate();
+//        Quaternionf pose = this.get_pose();
         Vector3f drone_up = new Vector3f(0, 1, 0).rotate(pose);
 
         float speed = this.v.length();
@@ -93,17 +100,17 @@ public class DefaultDrone implements Drone {
     @Override
     public Vec3d get_acceleration() {
 //        Fpv20.LOGGER.debug("acc:{}", this.a);
-        return new Vec3d(this.a);
+        return new Vec3d(this.a.to_joml());
     }
 
     @Override
     public Vec3d get_speed() {
-        return new Vec3d(this.v);
+        return new Vec3d(this.v.to_joml());
     }
 
     @Override
     public void set_speed(Vec3d v) {
-        this.v = v.toVector3f();
+        this.v = new Vector3f(v.toVector3f());
     }
 
     @Override

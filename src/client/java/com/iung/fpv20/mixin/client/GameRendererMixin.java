@@ -78,7 +78,7 @@ public class GameRendererMixin {
 //        GlobalFlying.G.lastCamRoll += tickDelta / 20f * GlobalFlying.G.angular_speed;
         if (GlobalFlying.getFlying()) {
 //            matrix.multiply(GlobalFlying.G.cacl_cam_rotation_last().nlerp(GlobalFlying.G.cacl_cam_rotation(), tickDelta));
-            matrix.multiply(GlobalFlying.G.cacl_cam_rotation());
+            matrix.multiply(GlobalFlying.G.cacl_cam_rotation().to_joml_quat());
 
         }
 

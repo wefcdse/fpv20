@@ -2,11 +2,10 @@ package com.iung.fpv20.utils;
 
 
 import org.joml.Math;
-import org.joml.Quaternionf;
-import org.joml.Quaternionfc;
-import org.joml.Vector3f;
+import com.iung.fpv20.utils.Vector3f;
+import org.joml.Vector3fc;
 
-public class Quat {
+public class Quaternionf {
 //    static public class Quaternionf extends Quat {
 //        public Quaternionf() {
 //        }
@@ -22,11 +21,11 @@ public class Quat {
     public float w;
 
 
-    public Quat() {
+    public Quaternionf() {
         this.w = 1.0f;
     }
 
-    public Quat conjugate(Quat dest) {
+    public Quaternionf conjugate(Quaternionf dest) {
         dest.x = -x;
         dest.y = -y;
         dest.z = -z;
@@ -34,18 +33,19 @@ public class Quat {
         return dest;
     }
 
-    public Quat conjugate() {
+    public Quaternionf conjugate() {
         return conjugate(this);
     }
 
-    public Quat set(Quat q) {
+    public Quaternionf set(Quaternionf q) {
         this.x = q.x;
         this.y = q.y;
         this.z = q.z;
         this.w = q.w;
         return this;
     }
-    public Quat set(float x, float y, float z, float w) {
+
+    public Quaternionf set(float x, float y, float z, float w) {
         this.x = x;
         this.y = y;
         this.z = z;
@@ -53,7 +53,7 @@ public class Quat {
         return this;
     }
 
-    public Quat(Quat source) {
+    public Quaternionf(Quaternionf source) {
         set(source);
     }
 
@@ -62,11 +62,11 @@ public class Quat {
     }
 
 
-    public Quat rotateLocalZ(float angle) {
+    public Quaternionf rotateLocalZ(float angle) {
         return rotateLocalZ(angle, this);
     }
 
-    public Quat rotateLocalZ(float angle, Quat dest) {
+    public Quaternionf rotateLocalZ(float angle, Quaternionf dest) {
         float hangle = angle * 0.5f;
         float s = Math.sin(hangle);
         float c = Math.cosFromSin(s, hangle);
@@ -77,11 +77,11 @@ public class Quat {
         return dest;
     }
 
-    public Quat rotateLocalX(float angle) {
+    public Quaternionf rotateLocalX(float angle) {
         return rotateLocalX(angle, this);
     }
 
-    public Quat rotateLocalX(float angle, Quat dest) {
+    public Quaternionf rotateLocalX(float angle, Quaternionf dest) {
         float hangle = angle * 0.5f;
         float s = Math.sin(hangle);
         float c = Math.cosFromSin(s, hangle);
@@ -92,11 +92,11 @@ public class Quat {
         return dest;
     }
 
-    public Quat rotateLocalY(float angle) {
+    public Quaternionf rotateLocalY(float angle) {
         return rotateLocalY(angle, this);
     }
 
-    public Quat rotateLocalY(float angle,Quat dest) {
+    public Quaternionf rotateLocalY(float angle, Quaternionf dest) {
         float hangle = angle * 0.5f;
         float s = Math.sin(hangle);
         float c = Math.cosFromSin(s, hangle);
@@ -107,11 +107,11 @@ public class Quat {
         return dest;
     }
 
-    public Quat rotateX(float angle) {
+    public Quaternionf rotateX(float angle) {
         return rotateX(angle, this);
     }
 
-    public Quat rotateX(float angle, Quat dest) {
+    public Quaternionf rotateX(float angle, Quaternionf dest) {
         float sin = Math.sin(angle * 0.5f);
         float cos = Math.cosFromSin(sin, angle * 0.5f);
         return dest.set(w * sin + x * cos,
@@ -120,11 +120,11 @@ public class Quat {
                 w * cos - x * sin);
     }
 
-    public Quat rotateY(float angle) {
+    public Quaternionf rotateY(float angle) {
         return rotateY(angle, this);
     }
 
-    public Quat rotateY(float angle, Quat dest) {
+    public Quaternionf rotateY(float angle, Quaternionf dest) {
         float sin = Math.sin(angle * 0.5f);
         float cos = Math.cosFromSin(sin, angle * 0.5f);
         return dest.set(x * cos - z * sin,
@@ -133,11 +133,11 @@ public class Quat {
                 w * cos - y * sin);
     }
 
-    public Quat rotateZ(float angle) {
+    public Quaternionf rotateZ(float angle) {
         return rotateZ(angle, this);
     }
 
-    public Quat rotateZ(float angle, Quat dest) {
+    public Quaternionf rotateZ(float angle, Quaternionf dest) {
         float sin = Math.sin(angle * 0.5f);
         float cos = Math.cosFromSin(sin, angle * 0.5f);
         return dest.set(x * cos + y * sin,
@@ -153,4 +153,17 @@ public class Quat {
         return eulerAngles;
     }
 
+
+    public Vector3f transform(float x, float y, float z, Vector3f dest) {
+        float xx = this.x * this.x, yy = this.y * this.y, zz = this.z * this.z, ww = this.w * this.w;
+        float xy = this.x * this.y, xz = this.x * this.z, yz = this.y * this.z, xw = this.x * this.w;
+        float zw = this.z * this.w, yw = this.y * this.w, k = 1 / (xx + yy + zz + ww);
+        return dest.set(Math.fma((xx - yy - zz + ww) * k, x, Math.fma(2 * (xy - zw) * k, y, (2 * (xz + yw) * k) * z)),
+                Math.fma(2 * (xy + zw) * k, x, Math.fma((yy - xx - zz + ww) * k, y, (2 * (yz - xw) * k) * z)),
+                Math.fma(2 * (xz - yw) * k, x, Math.fma(2 * (yz + xw) * k, y, ((zz - xx - yy + ww) * k) * z)));
+    }
+
+    public Vector3f transform(Vector3f vec, Vector3f dest) {
+        return transform(vec.x, vec.y, vec.z, dest);
+    }
 }

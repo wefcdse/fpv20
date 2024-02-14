@@ -13,8 +13,11 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.Vec3d;
-import org.joml.Quaternionf;
-import org.joml.Vector3f;
+//import org.joml.Quaternionf;
+import com.iung.fpv20.utils.Quaternionf;
+import com.iung.fpv20.utils.Vector3f;
+//import org.joml.Vector3f;
+
 
 import static com.iung.fpv20.utils.LocalMath.DEG_TO_RAD;
 
@@ -267,7 +270,7 @@ public class GlobalFlying {
             }
         }
 
-        drone.set_speed(new Vec3d(vd));
+        drone.set_speed(new Vec3d(vd.to_joml()));
         // // process hit
 
 
@@ -363,7 +366,7 @@ public class GlobalFlying {
         }
 
 
-        drone.set_speed(new Vec3d(vd));
+        drone.set_speed(new Vec3d(vd.to_joml()));
         // // process hit
 
 
