@@ -2,6 +2,10 @@ package com.iung.fpv20.physics;
 
 import com.iung.fpv20.Fpv20;
 import com.iung.fpv20.utils.FastMath;
+import net.minecraft.block.Blocks;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 //import org.joml.Quaternionf;
@@ -54,6 +58,8 @@ public class DefaultDrone implements Drone {
     @Override
     public void update_physics(float throttle, float dt) {
         Quaternionf pose = this.get_pose().conjugate();
+
+
 //        Quaternionf pose = this.get_pose();
         Vector3f drone_up = new Vector3f(0, 1, 0).rotate(pose);
 
@@ -80,7 +86,7 @@ public class DefaultDrone implements Drone {
 
         // i don't know what's wrong, but it just falls too fast and i don't like it
         float gf = 0.1f;
-        if (Math.abs(this.v.y) > 3){
+        if (Math.abs(this.v.y) > 3) {
             gf = 0;
         }
         Fpv20.LOGGER.debug("####vy {}", this.v.y);
@@ -94,7 +100,35 @@ public class DefaultDrone implements Drone {
         Fpv20.LOGGER.debug("#dv:? {}", new Vector3f(this.a).mul(dt));
 
 
-        this.v.add(new Vector3f(this.a).mul(dt));
+//        this.v.add(new Vector3f(this.a).mul(dt));
+
+
+        // debugging
+        do {
+            Vector3f du = new Vector3f(drone_up);
+            ClientPlayerEntity player = MinecraftClient.getInstance().player;
+            if (player == null) {
+                break;
+            }
+            {
+                Vec3d p1 = player.getPos();
+                Vec3d p2 = p1.add(new Vec3d(new Vector3f(thrust).normalize().mul(10).to_joml()));
+                BlockPos p = new BlockPos((int) p2.x, (int) p2.y, (int) p2.z);
+                player.getWorld().setBlockState(p, Blocks.REDSTONE_BLOCK.getDefaultState(), 0);
+            }
+            {
+                Vec3d p1 = player.getPos();
+                Vec3d p2 = p1.add(new Vec3d(new Vector3f(this.a).normalize().mul(10).to_joml()));
+                BlockPos p = new BlockPos((int) p2.x, (int) p2.y, (int) p2.z);
+                player.getWorld().setBlockState(p, Blocks.GRASS_BLOCK.getDefaultState(), 0);
+            }
+            {
+                Vec3d p1 = player.getPos();
+                Vec3d p2 = p1.add(new Vec3d(new Vector3f(drone_up).normalize().mul(10).to_joml()));
+                BlockPos p = new BlockPos((int) p2.x, (int) p2.y, (int) p2.z);
+                player.getWorld().setBlockState(p, Blocks.BLACK_WOOL.getDefaultState(), 0);
+            }
+        } while (false);
     }
 
     @Override
@@ -117,6 +151,6 @@ public class DefaultDrone implements Drone {
     public void re_init() {
         this.pose = new Quaternionf();
         this.v = new Vector3f();
-
+        this.a = new Vector3f();
     }
 }
