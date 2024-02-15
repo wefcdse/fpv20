@@ -137,5 +137,13 @@ public class GameRendererMixin {
             instance.multiply(quaternion);
         }
     }
-
+    @Inject(
+            method = "renderHand",
+            at =  @At("HEAD"), cancellable = true
+    )
+    public void mixin12(MatrixStack matrices, Camera camera, float tickDelta, CallbackInfo ci) {
+        if(GlobalFlying.getFlying()){
+            ci.cancel();
+        }
+    }
 }
