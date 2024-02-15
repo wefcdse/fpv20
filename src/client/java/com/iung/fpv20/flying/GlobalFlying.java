@@ -34,7 +34,7 @@ public class GlobalFlying {
 
     private boolean last_tick_flying;
 
-    private float cam_angel_deg;
+    //    private float cam_angel_deg;
     private Drone drone;
 
     private Vec3d last_pos;
@@ -74,7 +74,7 @@ public class GlobalFlying {
         this.drone = new DefaultDrone();
         this.droneRotation = new Quaternionf();
         this.lastDroneRotation = new Quaternionf();
-        this.cam_angel_deg = 30;
+//        this.cam_angel_deg = 30;
         this.last_pos = new Vec3d(0, 0, 0);
         this.last_tick_pos = new Vec3d(0, 0, 0);
         this.last_tick_nano = System.nanoTime();
@@ -108,14 +108,14 @@ public class GlobalFlying {
 
     public Quaternionf cacl_cam_rotation() {
         Quaternionf new_r = new Quaternionf(this.droneRotation);
-        new_r.rotateLocalX(-this.cam_angel_deg * DEG_TO_RAD);
+        new_r.rotateLocalX(-Fpv20Client.config.getCamera_angle() * DEG_TO_RAD);
         return new_r;
     }
 
-    //    @Deprecated
+    @Deprecated
     public Quaternionf cacl_cam_rotation_last() {
         Quaternionf new_r = new Quaternionf(this.lastDroneRotation);
-        new_r.rotateLocalX(-this.cam_angel_deg * DEG_TO_RAD);
+        new_r.rotateLocalX(-Fpv20Client.config.getCamera_angle() * DEG_TO_RAD);
         return new_r;
     }
 

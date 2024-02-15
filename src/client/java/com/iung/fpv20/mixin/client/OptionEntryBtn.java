@@ -2,7 +2,7 @@ package com.iung.fpv20.mixin.client;
 
 
 import com.iung.fpv20.consts.Texts;
-import com.iung.fpv20.gui.OptionsMainScreen;
+import com.iung.fpv20.gui.screens.OptionsMainScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.option.ControlsOptionsScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;

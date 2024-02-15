@@ -1,4 +1,4 @@
-package com.iung.fpv20.gui;
+package com.iung.fpv20.gui.screens;
 
 import com.iung.fpv20.Fpv20Client;
 import com.iung.fpv20.consts.TranslateKeys;

@@ -1,13 +1,10 @@
-package com.iung.fpv20.gui;
+package com.iung.fpv20.gui.screens;
 
 import com.iung.fpv20.Fpv20Client;
 import com.iung.fpv20.consts.Texts;
-import com.iung.fpv20.consts.TranslateKeys;
 import com.iung.fpv20.gui.widget.*;
 import com.iung.fpv20.input.Controller;
-import com.iung.fpv20.utils.Calibration;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.gui.widget.TextWidget;
 import net.minecraft.text.Text;

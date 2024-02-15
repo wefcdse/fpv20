@@ -28,7 +28,7 @@ public class Controller {
         if (calibrations == null || calibrations.length != 8) {
             Calibration[] c = new Calibration[8];
             for (int i = 0; i < c.length; i++) {
-                c[i] = new Calibration(-1, 1, 0,0.3f, 0.5f, Calibration.CalibrateMethod.MaxMidMin);
+                c[i] = new Calibration(-1, 1, 0, 0.3f, 0.5f, Calibration.CalibrateMethod.MaxMidMin);
             }
             Fpv20Client.config.calibrations(c);
             this.calibrations = c;
@@ -140,7 +140,7 @@ public class Controller {
         if (floats == null) {
             return 0;
         }
-        if (channel > floats.length) {
+        if (channel > floats.length || channel < 0) {
             return 0;
         }
         float value = floats[channel];
@@ -151,7 +151,7 @@ public class Controller {
         if (floats == null) {
             return 0;
         }
-        if (channel > floats.length) {
+        if (channel > floats.length || channel < 0) {
             return 0;
         }
         float value = floats[channel];
@@ -163,6 +163,15 @@ public class Controller {
             return "";
         }
         return names[channel];
+    }
+
+    public int get_channel_id(String name){
+        for (int i = 0; i < this.names.length; i++) {
+            if (name.equals(this.names[i])) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     public String get_btn_name(int channel) {

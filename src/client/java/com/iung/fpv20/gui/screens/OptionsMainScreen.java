@@ -1,15 +1,10 @@
-package com.iung.fpv20.gui;
+package com.iung.fpv20.gui.screens;
 
 import com.iung.fpv20.consts.Texts;
 import com.iung.fpv20.flying.GlobalFlying;
-import com.iung.fpv20.mixin_utils.IsFlying;
-import com.iung.fpv20.network.DroneFlyPacket;
-import com.iung.fpv20.utils.RateMapper;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.text.Text;
-import net.minecraft.client.gui.widget.TextWidget;
 
 public class OptionsMainScreen extends BackableScreen {
 

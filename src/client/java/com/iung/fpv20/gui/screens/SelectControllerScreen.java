@@ -1,10 +1,8 @@
-package com.iung.fpv20.gui;
+package com.iung.fpv20.gui.screens;
 
 import com.iung.fpv20.gui.entry.SelectControllerEntry;
 import com.iung.fpv20.gui.list.SelectControllerList;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.OptionListWidget;
-import net.minecraft.client.option.SimpleOption;
 import net.minecraft.text.Text;
 import org.lwjgl.glfw.GLFW;
 

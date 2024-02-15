@@ -26,6 +26,7 @@ public class SelectControllerEntry extends LinerEntry {
             Fpv20.LOGGER.info("selected controller {}", controller_id);
 
             Fpv20Client.controller = new Controller(this.controller_id);
+            Fpv20Client.config.setSelected_controller(this.controller_id);
             Fpv20.LOGGER.info("selected controller {}", controller_id);
             parent_screen.close();
         }).dimensions(0, 0, parent_screen.width, height).build());

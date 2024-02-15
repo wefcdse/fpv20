@@ -5,6 +5,7 @@
   "client": [
     "ExampleClientMixin",
     "GameRendererMixin",
+    "Hud",
     "OptionEntryBtn"
   ],
   "injectors": {

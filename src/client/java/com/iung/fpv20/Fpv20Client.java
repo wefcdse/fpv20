@@ -1,24 +1,34 @@
 package com.iung.fpv20;
 
 //import com.iung.fpv20.config.Fpv20ClientConfig;
+
 import com.iung.fpv20.config.Fpv20ClientConfig1;
 import com.iung.fpv20.consts.ScreenHandlers;
 import com.iung.fpv20.flying.GlobalFlying;
 import com.iung.fpv20.gui.handle_screen.ReceiverScreen;
+import com.iung.fpv20.gui.hud.SticksHud;
 import com.iung.fpv20.input.Controller;
 import com.iung.fpv20.utils.Calibration;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
+import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.network.ClientPlayerEntity;
 import org.jetbrains.annotations.Nullable;
 
 public class Fpv20Client implements ClientModInitializer {
     @Nullable
-    public static volatile Controller controller = null;
-
+    public static volatile Controller controller;
     public static Fpv20ClientConfig1 config = Fpv20ClientConfig1.createAndLoad();
+
+    static {
+        int c = Fpv20Client.config.selected_controller();
+        if (c >= 0) {
+            controller = new Controller(c);
+        }
+    }
+
 
     static boolean last_tick_flying = false;
 
@@ -27,6 +37,7 @@ public class Fpv20Client implements ClientModInitializer {
         HandledScreens.register(ScreenHandlers.RECEIVER_SCREEN_HANDLER, ReceiverScreen::new);
 //
 
+        HudRenderCallback.EVENT.register(new SticksHud());
 
         ClientTickEvents.START_CLIENT_TICK.register((e) -> {
             Controller controller1 = controller;

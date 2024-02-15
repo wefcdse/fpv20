@@ -1,17 +1,11 @@
-package com.iung.fpv20.gui;
+package com.iung.fpv20.gui.screens;
 
-import com.iung.fpv20.consts.Texts;
 import com.iung.fpv20.consts.TranslateKeys;
 import com.iung.fpv20.gui.widget.FuncChart;
 import com.iung.fpv20.gui.widget.Slider1;
-import com.iung.fpv20.utils.LocalMath;
 import com.iung.fpv20.utils.RateMapper;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.gui.widget.TextWidget;
 import net.minecraft.text.Text;
-
-import java.util.concurrent.atomic.AtomicReference;
 
 public class RateScreen extends BackableScreen {
     RateMapper mapper;
