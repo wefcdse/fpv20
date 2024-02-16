@@ -6,15 +6,17 @@ another fpv mod for Minecraft 1.20.1 fabric
 
 inspired by [Minecraft FPV](https://www.curseforge.com/minecraft/mc-mods/fpv-drone)
 
-video: https://www.bilibili.com/video/BV1o4421c7Ek/
 
-!!! early development, but it's safe to use, since it will not break the save
+[//]: # (!!! early development, but it's safe to use, since it will not break the save)
 
 ## links
 
 [curseforge](https://www.curseforge.com/minecraft/mc-mods/fpv20)
 
 [github](https://github.com/wefcdse/fpv20)
+
+[video](https://www.bilibili.com/video/BV1o4421c7Ek/)
+
 
 ## usage
 
