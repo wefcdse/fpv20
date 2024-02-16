@@ -2,8 +2,6 @@ package com.iung.fpv20.config;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import com.iung.fpv20.utils.Calibration;
 
 import java.nio.file.Files;

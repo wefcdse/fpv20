@@ -6,7 +6,8 @@
     "Entity",
     "ExampleMixin",
     "MoveFastMixin",
-    "PlayerHitBoxMixin"
+    "PlayerHitBoxMixin",
+    "PlayerStepMixin"
   ],
   "injectors": {
     "defaultRequire": 1

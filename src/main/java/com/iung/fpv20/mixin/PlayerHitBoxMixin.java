@@ -53,13 +53,14 @@ public abstract class PlayerHitBoxMixin extends LivingEntity {
         }
     }
 
-    @Inject(method = "getVelocityMultiplier", at = @At("RETURN"), cancellable = true)
+    @Inject(method = "getVelocityMultiplier", at = @At("HEAD"), cancellable = true)
     private void injected(CallbackInfoReturnable<Float> cir) {
 //        cir.getReturnValue();
         if (((IsFlying) this).get_is_flying()) {
             cir.setReturnValue(1.0f);
         }
     }
+
 
 //    @Inject(method = "attack", at = @At("RETURN"))
 //    private void injected(Entity target, CallbackInfo ci) {

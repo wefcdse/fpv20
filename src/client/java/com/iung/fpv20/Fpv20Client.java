@@ -8,7 +8,6 @@ import com.iung.fpv20.flying.GlobalFlying;
 import com.iung.fpv20.gui.handle_screen.ReceiverScreen;
 import com.iung.fpv20.gui.hud.SticksHud;
 import com.iung.fpv20.input.Controller;
-import com.iung.fpv20.utils.Calibration;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;

@@ -1,6 +1,7 @@
 package com.iung.fpv20;
 
 import com.iung.fpv20.blocks.ReceiverBlockEntity;
+import com.iung.fpv20.config.Fpv20ConfigServer;
 import com.iung.fpv20.consts.ModBlocks;
 import com.iung.fpv20.consts.ModItemGroups;
 import com.iung.fpv20.consts.ScreenHandlers;
@@ -12,6 +13,7 @@ import com.iung.fpv20.network.SetReceiverPacket;
 import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.entity.BlockEntity;
@@ -26,6 +28,7 @@ import org.slf4j.LoggerFactory;
 public class Fpv20 implements ModInitializer {
     public static final String MOD_ID = "fpv20";
 
+    public static Fpv20ConfigServer config = Fpv20ConfigServer.createAndLoad();
 
     // This logger is used to write text to the console and the log file.
     // It is considered best practice to use your mod id as the logger's name.
@@ -65,6 +68,7 @@ public class Fpv20 implements ModInitializer {
 
         });
 
+        ServerLifecycleEvents.SERVER_STOPPING.register(e -> config.save());
 
         ServerPlayNetworking.registerGlobalReceiver(DroneFlyPacket.TYPE, (packet, player, responseSender) -> {
 
