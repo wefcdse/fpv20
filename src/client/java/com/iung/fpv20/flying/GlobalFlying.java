@@ -8,6 +8,7 @@ import com.iung.fpv20.network.DroneFlyPacket;
 import com.iung.fpv20.physics.DefaultDrone;
 import com.iung.fpv20.physics.Drone;
 import com.iung.fpv20.physics.PhysicsCore;
+import com.iung.fpv20.sound.FlyingSound;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
@@ -83,13 +84,16 @@ public class GlobalFlying {
     }
 
     public static void setFlying(boolean if_fly) {
-        IsFlying p = (IsFlying) MinecraftClient.getInstance().player;
+        MinecraftClient client = MinecraftClient.getInstance();
+        ClientPlayerEntity player = client.player;
+        IsFlying p = (IsFlying) player;
         if (p != null) {
 
             if (ClientPlayNetworking.canSend(DroneFlyPacket.TYPE)) {
                 ClientPlayNetworking.send(new DroneFlyPacket(if_fly));
             }
             p.set_is_flying(if_fly);
+            client.getSoundManager().play(new FlyingSound(player));
         }
     }
 
