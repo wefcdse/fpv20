@@ -302,8 +302,13 @@ public class GlobalFlying {
 
 
         Vector3f new_ypr = PhysicsCore.from_quaternion_to_ypr_deg(this.cacl_cam_rotation());
-        p.setYaw(new_ypr.x);
-        p.setPitch(new_ypr.y);
+        if (false) {
+            p.setYaw(new_ypr.x);
+            p.setPitch(new_ypr.y);
+        } else {
+            p.setYaw(0);
+            p.setPitch(0);
+        }
 //        this.set_cam_roll(new_ypr.z);
 
 
@@ -425,8 +430,13 @@ public class GlobalFlying {
 
 
         Vector3f new_ypr = PhysicsCore.from_quaternion_to_ypr_deg(this.cacl_cam_rotation());
-        p.setYaw(new_ypr.x);
-        p.setPitch(new_ypr.y);
+        if (Fpv20.config.in_fabric()) {
+            p.setYaw(new_ypr.x);
+            p.setPitch(new_ypr.y);
+        } else {
+            p.setYaw(180);
+            p.setPitch(0);
+        }
 
     }
 }

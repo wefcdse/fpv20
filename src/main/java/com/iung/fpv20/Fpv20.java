@@ -1,7 +1,7 @@
 package com.iung.fpv20;
 
 import com.iung.fpv20.blocks.ReceiverBlockEntity;
-import com.iung.fpv20.config.Fpv20ConfigServer;
+import com.iung.fpv20.config.Fpv20ConfigCommon;
 import com.iung.fpv20.consts.ModBlocks;
 import com.iung.fpv20.consts.ModItemGroups;
 import com.iung.fpv20.consts.ScreenHandlers;
@@ -14,21 +14,15 @@ import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
-import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class Fpv20 implements ModInitializer {
     public static final String MOD_ID = "fpv20";
 
-    public static Fpv20ConfigServer config = Fpv20ConfigServer.createAndLoad();
+    public static Fpv20ConfigCommon config = Fpv20ConfigCommon.createAndLoad();
 
     // This logger is used to write text to the console and the log file.
     // It is considered best practice to use your mod id as the logger's name.

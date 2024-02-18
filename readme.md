@@ -4,6 +4,10 @@
 
 another fpv mod for Minecraft 1.20.1 fabric
 
+it can also run in forge
+by [Sinytra Connector](https://www.curseforge.com/minecraft/mc-mods/sinytra-connector).
+when used in forge, you need to set `is_in_forge` to `true` in `config/fpv20_common.json`
+
 inspired by [Minecraft FPV](https://www.curseforge.com/minecraft/mc-mods/fpv-drone)
 
 
@@ -49,7 +53,7 @@ use the receiver block:
 
 why you should use this:
 
-- you want to play in 1.20.1 and fabric
+- you want to play in 1.20.1 and fabric (or forge, using [Sinytra Connector](https://www.curseforge.com/minecraft/mc-mods/sinytra-connector))
 - you want a better performance. 1.20.1 fabric has
   more modern optimize mods
 - you want to use a controller's input as a redstone signal
@@ -59,12 +63,18 @@ why you should use [Minecraft FPV](https://www.curseforge.com/minecraft/mc-mods/
 - you need a better and easy to use gui
 - you need some more realistic visual effects, such as
   fish eye and noise
-- you need a better physic simulation
+- you need a realistic physical simulation. 
+This mod's physical simulation **feels** good, 
+but is not realistic.
 - you want a configurable drone
-- you need better sound effect
-- you need to play in forge. This mod is in fabric,
-  and it **cannot** run correctly in forge
-  by [Sinytra Connector](https://www.curseforge.com/minecraft/mc-mods/sinytra-connector) currently
+
+[//]: # (- you need better sound effect)
+
+[//]: # (- you need to play in forge. This mod is in fabric,)
+
+[//]: # (  and it **cannot** run correctly in forge)
+
+[//]: # (  by [Sinytra Connector]&#40;https://www.curseforge.com/minecraft/mc-mods/sinytra-connector&#41; currently)
 
 ## advertisement
 
