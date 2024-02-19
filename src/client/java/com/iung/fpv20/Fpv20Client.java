@@ -3,6 +3,7 @@ package com.iung.fpv20;
 //import com.iung.fpv20.config.Fpv20ClientConfig;
 
 import com.iung.fpv20.config.Fpv20ClientConfig1;
+import com.iung.fpv20.config.Fpv20ConfigClientManual;
 import com.iung.fpv20.consts.ScreenHandlers;
 import com.iung.fpv20.flying.GlobalFlying;
 import com.iung.fpv20.gui.handle_screen.ReceiverScreen;
@@ -27,6 +28,8 @@ public class Fpv20Client implements ClientModInitializer {
             controller = new Controller(c);
         }
     }
+
+    public static Fpv20ConfigClientManual config1 = Fpv20ConfigClientManual.createAndLoad();
 
 
     static boolean last_tick_flying = false;
@@ -86,6 +89,7 @@ public class Fpv20Client implements ClientModInitializer {
         ClientLifecycleEvents.CLIENT_STOPPING.register(client -> {
 //            update_config();
             config.save();
+            config1.save();
         });
 
     }

@@ -13,7 +13,7 @@ public class Fpv20ClientConfig1 {
     public String[] stick_channel_names;
     public String[] button_channel_names;
     public Calibration[] calibrations;
-    private float camera_angle = 35;
+//    private float camera_angle = 35;
     private int selected_controller;
 
     public int selected_controller() {
@@ -25,13 +25,13 @@ public class Fpv20ClientConfig1 {
     }
 
 
-    public float getCamera_angle() {
-        return camera_angle;
-    }
-
-    public void setCamera_angle(float camera_angle) {
-        this.camera_angle = camera_angle;
-    }
+//    public float getCamera_angle() {
+//        return camera_angle;
+//    }
+//
+//    public void setCamera_angle(float camera_angle) {
+//        this.camera_angle = camera_angle;
+//    }
 
 
     private String to_json() {

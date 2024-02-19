@@ -12,6 +12,8 @@ import java.nio.FloatBuffer;
 import java.util.Objects;
 
 public class Controller {
+    public static int MAX_CHANNELS = 64;
+
     private int id;
     public float[] floats;
     byte[] bytes;
@@ -25,8 +27,8 @@ public class Controller {
         this.id = id;
         this.calibrations = Fpv20Client.config.calibrations();
 
-        if (calibrations == null || calibrations.length != 8) {
-            Calibration[] c = new Calibration[8];
+        if (calibrations == null || calibrations.length != MAX_CHANNELS) {
+            Calibration[] c = new Calibration[MAX_CHANNELS];
             for (int i = 0; i < c.length; i++) {
                 c[i] = new Calibration(-1, 1, 0, 0.3f, 0.5f, Calibration.CalibrateMethod.MaxMidMin);
             }
@@ -35,9 +37,9 @@ public class Controller {
         }
 
         this.names = Fpv20Client.config.stick_channel_names();
-        if (this.names == null || this.names.length != 8) {
-            String[] names = new String[8];
-            for (int i = 0; i < 8; i++) {
+        if (this.names == null || this.names.length != MAX_CHANNELS) {
+            String[] names = new String[MAX_CHANNELS];
+            for (int i = 0; i < MAX_CHANNELS; i++) {
                 names[i] = String.format("CH%d", i);
             }
             Fpv20Client.config.stick_channel_names(names);
@@ -47,9 +49,9 @@ public class Controller {
 
         this.btn_names = Fpv20Client.config.button_channel_names();
 
-        if (this.btn_names == null || this.btn_names.length != 8) {
-            String[] btn_names = new String[8];
-            for (int i = 0; i < 8; i++) {
+        if (this.btn_names == null || this.btn_names.length != MAX_CHANNELS) {
+            String[] btn_names = new String[MAX_CHANNELS];
+            for (int i = 0; i < MAX_CHANNELS; i++) {
                 btn_names[i] = String.format("BTN%d", i);
             }
             Fpv20Client.config.button_channel_names(btn_names);

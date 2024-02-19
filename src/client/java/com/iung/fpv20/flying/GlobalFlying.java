@@ -112,14 +112,14 @@ public class GlobalFlying {
 
     public Quaternionf cacl_cam_rotation() {
         Quaternionf new_r = new Quaternionf(this.droneRotation);
-        new_r.rotateLocalX(-Fpv20Client.config.getCamera_angle() * DEG_TO_RAD);
+        new_r.rotateLocalX(-Fpv20Client.config1.getCamera_angle() * DEG_TO_RAD);
         return new_r;
     }
 
     @Deprecated
     public Quaternionf cacl_cam_rotation_last() {
         Quaternionf new_r = new Quaternionf(this.lastDroneRotation);
-        new_r.rotateLocalX(-Fpv20Client.config.getCamera_angle() * DEG_TO_RAD);
+        new_r.rotateLocalX(-Fpv20Client.config1.getCamera_angle() * DEG_TO_RAD);
         return new_r;
     }
 
