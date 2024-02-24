@@ -24,6 +24,8 @@ public class ShowInputScreen extends BackableScreen {
         int width = 150;
         int height = 20;
 
+        i = 10;
+
         int channels_width = 10;
         int padding_around = 15;
         int padding_inner = 4;

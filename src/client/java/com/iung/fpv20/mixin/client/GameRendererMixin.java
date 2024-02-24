@@ -57,6 +57,9 @@ public class GameRendererMixin {
         float dt = (float) (time_start - last_render) / 1000_000_000f;
         last_render = time_start;
         // if fps is lower than 10, just use another computer
+        if (dt < 0) {
+            ((String) null).isBlank();
+        }
         dt = FastMath.clamp(dt, 0, 0.1f);
 
 
@@ -137,12 +140,13 @@ public class GameRendererMixin {
             instance.multiply(quaternion);
         }
     }
+
     @Inject(
             method = "renderHand",
-            at =  @At("HEAD"), cancellable = true
+            at = @At("HEAD"), cancellable = true
     )
     public void mixin12(MatrixStack matrices, Camera camera, float tickDelta, CallbackInfo ci) {
-        if(GlobalFlying.getFlying()){
+        if (GlobalFlying.getFlying()) {
             ci.cancel();
         }
     }

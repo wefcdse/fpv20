@@ -1,5 +1,6 @@
 package com.iung.fpv20.input;
 
+import com.iung.fpv20.Fpv20;
 import com.iung.fpv20.Fpv20Client;
 import com.iung.fpv20.network.ChannelUpdatePacket;
 import com.iung.fpv20.utils.Calibration;
@@ -92,15 +93,25 @@ public class Controller {
         FloatBuffer a = GLFW.glfwGetJoystickAxes(id);
         ByteBuffer b = GLFW.glfwGetJoystickButtons(id);
 
-        if (a == null || b == null) {
-            return;
+//        if (a == null || b == null) {
+//            return;
+//        }
+
+        float[] floats = new float[0];
+        if (a != null) {
+            floats = new float[a.remaining()];
+            a.get(floats);
+            Fpv20.LOGGER.debug("read floats {}", floats);
         }
 
-        float[] floats = new float[a.remaining()];
-        a.get(floats);
 
-        byte[] bytes = new byte[b.remaining()];
-        b.get(bytes);
+        byte[] bytes = new byte[0];
+        if (b != null) {
+            bytes = new byte[b.remaining()];
+            b.get(bytes);
+            Fpv20.LOGGER.debug("read bytes {}", bytes);
+
+        }
 
         this.floats = floats;
         this.bytes = bytes;
@@ -167,7 +178,7 @@ public class Controller {
         return names[channel];
     }
 
-    public int get_channel_id(String name){
+    public int get_channel_id(String name) {
         for (int i = 0; i < this.names.length; i++) {
             if (name.equals(this.names[i])) {
                 return i;
@@ -209,6 +220,9 @@ public class Controller {
     }
 
     public void set_btn_name(int channel, String name) {
+        if (this.bytes == null) {
+            return;
+        }
         if (channel >= bytes.length || channel < 0) {
             return;
         }
@@ -219,7 +233,10 @@ public class Controller {
     }
 
     public float get_btn(int channel) {
-        if (channel > this.bytes.length) {
+        if (this.bytes == null) {
+            return 0;
+        }
+        if (channel >= this.bytes.length) {
             return 0;
         } else {
             return this.bytes[channel];
