@@ -8,7 +8,13 @@ public class Value01Display extends AbstractChart {
 
     public Value01Display(int x, int y, int width, int height, ValueGetter valueGetter) {
         super(x, y, width, height);
-        this.valueGetter = valueGetter;
+        this.valueGetter = () -> {
+            try {
+                return valueGetter.get();
+            } catch (Exception e) {
+                return 0;
+            }
+        };
     }
 
     @Override

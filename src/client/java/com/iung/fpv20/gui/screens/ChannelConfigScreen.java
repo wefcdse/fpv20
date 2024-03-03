@@ -105,48 +105,75 @@ public class ChannelConfigScreen extends BackableScreen {
         ));
 
 
-        Text btn_text = null;
-        switch (controller1.calibrations[channel].calibrateMethod) {
-            case MaxMin -> {
-                btn_text = Texts.BTN_CALIBRATE_MAX_MIN;
-            }
-            case MaxMidMin -> {
-                btn_text = Texts.BTN_CALIBRATE_MAX_MID_MIN;
-            }
+        {
+            Text btn_text = null;
+            switch (controller1.calibrations[channel].calibrateMethod) {
+                case MaxMin -> {
+                    btn_text = Texts.BTN_CALIBRATE_MAX_MIN;
+                }
+                case MaxMidMin -> {
+                    btn_text = Texts.BTN_CALIBRATE_MAX_MID_MIN;
+                }
 
-            case Raw -> {
-                btn_text = Texts.BTN_CALIBRATE_RAW;
-            }
+                case Raw -> {
+                    btn_text = Texts.BTN_CALIBRATE_RAW;
+                }
 
+            }
+            addDrawableChild(ButtonWidget.builder(btn_text, (btn) -> {
+                if (btn.getMessage() == Texts.BTN_CALIBRATE_MAX_MIN) {
+                    btn.setMessage(Texts.BTN_CALIBRATE_MAX_MID_MIN);
+                    Controller controller = Fpv20Client.controller;
+                    if (controller != null) {
+                        controller.calibrations[channel].calibrateMethod = Calibration.CalibrateMethod.MaxMidMin;
+                    }
+                } else if (btn.getMessage() == Texts.BTN_CALIBRATE_MAX_MID_MIN) {
+                    btn.setMessage(Texts.BTN_CALIBRATE_RAW);
+                    Controller controller = Fpv20Client.controller;
+                    if (controller != null) {
+                        controller.calibrations[channel].calibrateMethod = Calibration.CalibrateMethod.Raw;
+                    }
+                } else {
+                    btn.setMessage(Texts.BTN_CALIBRATE_MAX_MIN);
+                    Controller controller = Fpv20Client.controller;
+                    if (controller != null) {
+                        controller.calibrations[channel].calibrateMethod = Calibration.CalibrateMethod.MaxMin;
+                    }
+                }
+
+            }).dimensions(slide_start, 30 + (padding + height) * 2, this.width - slide_start - padding, height).build());
         }
-        addDrawableChild(ButtonWidget.builder(btn_text, (btn) -> {
-            if (btn.getMessage() == Texts.BTN_CALIBRATE_MAX_MIN) {
-                btn.setMessage(Texts.BTN_CALIBRATE_MAX_MID_MIN);
-                Controller controller = Fpv20Client.controller;
-                if (controller != null) {
-                    controller.calibrations[channel].calibrateMethod = Calibration.CalibrateMethod.MaxMidMin;
-                }
-            } else if (btn.getMessage() == Texts.BTN_CALIBRATE_MAX_MID_MIN) {
-                btn.setMessage(Texts.BTN_CALIBRATE_RAW);
-                Controller controller = Fpv20Client.controller;
-                if (controller != null) {
-                    controller.calibrations[channel].calibrateMethod = Calibration.CalibrateMethod.Raw;
-                }
+
+        {
+            Text btn_text;
+            if (controller1.calibrations[channel].reversed) {
+                btn_text = Texts.BTN_REVERSED;
             } else {
-                btn.setMessage(Texts.BTN_CALIBRATE_MAX_MIN);
-                Controller controller = Fpv20Client.controller;
-                if (controller != null) {
-                    controller.calibrations[channel].calibrateMethod = Calibration.CalibrateMethod.MaxMin;
-                }
+                btn_text = Texts.BTN_NO_REVERSED;
             }
+            addDrawableChild(ButtonWidget.builder(btn_text, (btn) -> {
+                if (btn.getMessage() == Texts.BTN_REVERSED) {
+                    btn.setMessage(Texts.BTN_NO_REVERSED);
+                    Controller controller = Fpv20Client.controller;
+                    if (controller != null) {
+                        controller.calibrations[channel].reversed = false;
+                    }
+                }  else {
+                    btn.setMessage(Texts.BTN_REVERSED);
+                    Controller controller = Fpv20Client.controller;
+                    if (controller != null) {
+                        controller.calibrations[channel].reversed = true;
+                    }
+                }
 
-        }).dimensions(slide_start, 30 + (padding + height) * 2, this.width - slide_start - padding, height).build());
-
+            }).dimensions(slide_start, 30 + (padding + height) * 3, this.width - slide_start - padding, height).build());
+        }
 
         ////////////////////////////
-        int height2 = down - (30 + (padding + height) * 3) - padding;
+        int y2 = 30 + (padding + height) * 4;
+        int height2 = down - (y2) - padding;
 
-        this.addDrawable(new Value11Display(slide_start + 5, 30 + (padding + height) * 3, 20, height2, () -> {
+        this.addDrawable(new Value11Display(slide_start + 5, y2, 20, height2, () -> {
             Controller ctrl = Fpv20Client.controller;
             if (ctrl != null) {
                 return ctrl.getFloatsRaw()[channel];
@@ -156,7 +183,7 @@ public class ChannelConfigScreen extends BackableScreen {
         }));
 
 
-        this.addDrawable(new Value11Or01Display(slide_start + 5 * 2 + 20, 30 + (padding + height) * 3, 20, height2, () -> {
+        this.addDrawable(new Value11Or01Display(slide_start + 5 * 2 + 20, y2, 20, height2, () -> {
             Controller ctrl = Fpv20Client.controller;
             if (ctrl != null) {
                 return ctrl.get_calibrated_value_no_rate(channel);
@@ -174,7 +201,7 @@ public class ChannelConfigScreen extends BackableScreen {
 
         }));
 
-        this.addDrawable(new Value11Or01Display(slide_start + 5 * 3 + 20 * 2, 30 + (padding + height) * 3, 20, height2, () -> {
+        this.addDrawable(new Value11Or01Display(slide_start + 5 * 3 + 20 * 2, y2, 20, height2, () -> {
             Controller ctrl = Fpv20Client.controller;
             if (ctrl != null) {
                 return ctrl.get_calibrated_value(channel);
@@ -195,7 +222,7 @@ public class ChannelConfigScreen extends BackableScreen {
         int tb_start = slide_start + 5 * 4 + 20 * 3;
         String text = controller1.get_name(channel);
         this.addDrawableChild(new TextWidget(
-                tb_start, 30 + (padding + height) * 3, this.width - tb_start - padding, height,
+                tb_start, y2, this.width - tb_start - padding, height,
                 Texts.TEXT_SET_CHANNEL_NAME, this.textRenderer
         ));
 

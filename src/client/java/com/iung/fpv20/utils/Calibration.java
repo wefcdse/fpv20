@@ -11,6 +11,8 @@ public class Calibration {
     public float rate_b;
     public CalibrateMethod calibrateMethod;
 
+    public boolean reversed = false;
+
 
     //    public Calibration() {
 //    }
@@ -68,6 +70,14 @@ public class Calibration {
                 return value;
             }
         }
+        if (this.reversed) {
+            if (this.calibrateMethod == CalibrateMethod.MaxMin) {
+                value = 1 - value;
+            } else {
+                value = -value;
+            }
+        }
+
         return this.rate_map(value);
     }
 
@@ -95,6 +105,14 @@ public class Calibration {
                 }
             }
             case Raw -> {
+                return value;
+            }
+        }
+        if (this.reversed) {
+            if (this.calibrateMethod == CalibrateMethod.MaxMin) {
+                value = 1 - value;
+            } else {
+                value = -value;
             }
         }
         return value;

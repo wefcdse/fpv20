@@ -27,4 +27,7 @@ public final class TranslateKeys {
 
     public static final String BTN_SHOW_INPUT = "fpv20.btn.show_input";
     public static final String BTN_BTN_CONFIG = "fpv20.btn.btn_config";
+
+    public static final String BTN_REVERSED = "fpv20.btn.reversed";
+    public static final String BTN_NO_REVERSED = "fpv20.btn.no_reversed";
 }

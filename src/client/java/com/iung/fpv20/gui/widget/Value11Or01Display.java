@@ -11,8 +11,21 @@ public class Value11Or01Display extends AbstractChart {
 
     public Value11Or01Display(int x, int y, int width, int height, ValueGetter valueGetter, Supplier<Mode> modeGetter) {
         super(x, y, width, height);
-        this.valueGetter = valueGetter;
-        this.modeGetter = modeGetter;
+        this.valueGetter = () -> {
+            try {
+                return valueGetter.get();
+            } catch (Exception e) {
+                return 0;
+            }
+        };
+        this.modeGetter = () -> {
+            try {
+                return modeGetter.get();
+            } catch (Exception e) {
+                return Mode.$11;
+            }
+        };
+        ;
     }
 
     @Override

@@ -29,5 +29,8 @@ public final class Texts {
     public static final Text BTN_SHOW_INPUT = Text.translatable(TranslateKeys.BTN_SHOW_INPUT);
     public static final Text BTN_BTN_CONFIG = Text.translatable(TranslateKeys.BTN_BTN_CONFIG);
 
+    public static final Text BTN_REVERSED = Text.translatable(TranslateKeys.BTN_REVERSED);
+    public static final Text BTN_NO_REVERSED = Text.translatable(TranslateKeys.BTN_NO_REVERSED);
+
 
 }
