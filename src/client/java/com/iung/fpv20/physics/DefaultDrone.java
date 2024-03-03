@@ -65,7 +65,7 @@ public class DefaultDrone implements Drone {
         Fpv20.LOGGER.debug("#ambientDragForce {}", ambientDragForce);
 
 
-        float efficiency = MathHelper.lerp(throttle, 0.35f, 1f);
+        float efficiency = MathHelper.lerp(Math.abs(throttle), 0.35f, 1f);
         Vector3f thrust = new Vector3f(drone_up).mul(max_force * throttle * efficiency);
         Fpv20.LOGGER.debug("#thrust {}", thrust);
 
@@ -73,7 +73,7 @@ public class DefaultDrone implements Drone {
 
         // i don't know what's wrong, but it just falls too fast and i don't like it
         float gf = 0.1f;
-        if (Math.abs(this.v.y) > 3){
+        if (Math.abs(this.v.y) > 3) {
             gf = 0;
         }
         Fpv20.LOGGER.debug("####vy {}", this.v.y);
