@@ -46,16 +46,15 @@
   },
   "requirements": [
     [
+      "has_the_recipe",
       "has_redstone_block",
       "has_quartz",
-      "has_receiver_block",
-      "has_the_recipe"
+      "has_receiver_block"
     ]
   ],
   "rewards": {
     "recipes": [
       "fpv20:receiver_block"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

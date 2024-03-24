@@ -7,8 +7,10 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.widget.ElementListWidget;
 
 public class SelectControllerList extends ElementListWidget<LinerEntry> {
+    private final int left;
+
     public SelectControllerList(MinecraftClient minecraftClient, int width, int left, int top, int bottom, int element_height) {
-        super(minecraftClient, width + left, bottom - top, top, bottom, element_height);
+        super(minecraftClient, width + left, bottom - top, top, bottom);
         this.left = left;
     }
 

@@ -16,9 +16,15 @@ public class RenewingText extends TextWidget {
         this.messageGetter = messageGetter;
     }
 
+//    @Override
+//    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+//        super.render(context, mouseX, mouseY, delta);
+//    }
+
     @Override
-    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+    public void renderWidget(DrawContext context, int mouseX, int mouseY, float delta) {
         this.setMessage(this.messageGetter.get());
-        super.render(context, mouseX, mouseY, delta);
+
+        super.renderWidget(context, mouseX, mouseY, delta);
     }
 }
