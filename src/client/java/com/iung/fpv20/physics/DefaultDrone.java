@@ -1,6 +1,7 @@
 package com.iung.fpv20.physics;
 
 import com.iung.fpv20.Fpv20;
+import com.iung.fpv20.Fpv20Client;
 import com.iung.fpv20.utils.FastMath;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -30,13 +31,16 @@ public class DefaultDrone implements Drone {
         this.a = new Vector3f();
         this.v = new Vector3f();
 
-        this.mass = 0.5f;
+        this.mass = Fpv20Client.config1.drone.mass;
+
         this.area = (float) (FastMath.PI * 0.2 * 0.2);
-        this.max_force = 16f;
+        this.max_force = Fpv20Client.config1.drone.max_force;
     }
 
     @Override
     public void update_pose(Quaternionf new_pos) {
+//        Fpv20.LOGGER.info("{},{}", mass, max_force);
+
         this.pose = new Quaternionf(new_pos);
     }
 
