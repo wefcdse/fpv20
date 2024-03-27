@@ -39,8 +39,8 @@ public class DefaultDrone implements Drone {
 
     @Override
     public void update_pose(Quaternionf new_pos) {
-        Fpv20.LOGGER.info("{},{}", mass, max_force);
-        
+//        Fpv20.LOGGER.info("{},{}", mass, max_force);
+
         this.pose = new Quaternionf(new_pos);
     }
 

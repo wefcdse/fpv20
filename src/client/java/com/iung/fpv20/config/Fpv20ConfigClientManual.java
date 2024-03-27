@@ -15,8 +15,11 @@ public class Fpv20ConfigClientManual {
         public float mass = 0.5f;
         public float max_force = 16f;
     }
+
     public Drone drone = new Drone();
 
+    public boolean free_camera_yaw = false;
+    public boolean free_camera_pitch = false;
 
     public float getCamera_angle() {
         return camera_angle;

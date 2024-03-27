@@ -391,6 +391,8 @@ public class GlobalFlying {
     public void handle_flying_rotate(MinecraftClient client, float dt) {
 
         if (!getFlying()) {
+            this.last_tick_flying = false;
+
             return;
         }
 
@@ -405,6 +407,15 @@ public class GlobalFlying {
             float yaw = p.getYaw();
             float pitch = p.getPitch();
             drone.re_init();
+            if (Fpv20Client.config1.free_camera_yaw) {
+                p.setYaw(180);
+            }
+            if (Fpv20Client.config1.free_camera_pitch) {
+                p.setPitch(0);
+
+            }
+            Fpv20.LOGGER.info("start flying");
+
             drone.update_pose(PhysicsCore.from_ypr_deg(yaw, pitch, 0));
         }
         this.last_tick_flying = getFlying();
@@ -430,13 +441,26 @@ public class GlobalFlying {
 
 
         Vector3f new_ypr = PhysicsCore.from_quaternion_to_ypr_deg(this.cacl_cam_rotation());
+
+
         if (Fpv20.config.in_fabric()) {
-            p.setYaw(new_ypr.x);
-            p.setPitch(new_ypr.y);
+            if (!Fpv20Client.config1.free_camera_yaw) {
+                p.setYaw(new_ypr.x);
+            }
+            if (!Fpv20Client.config1.free_camera_pitch) {
+                p.setPitch(new_ypr.y);
+            }
         } else {
-            p.setYaw(180);
-            p.setPitch(0);
+            if (!Fpv20Client.config1.free_camera_yaw) {
+                p.setYaw(180);
+            }
+            if (!Fpv20Client.config1.free_camera_pitch) {
+                p.setPitch(0);
+            }
+//            p.setYaw(180);
+//            p.setPitch(0);
         }
+
 
     }
 }
