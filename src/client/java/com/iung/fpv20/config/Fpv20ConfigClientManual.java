@@ -11,6 +11,12 @@ public class Fpv20ConfigClientManual {
 
     private float camera_angle = 35;
 
+    public static class Drone {
+        public float mass = 0.5f;
+        public float max_force = 16f;
+    }
+    public Drone drone = new Drone();
+
 
     public float getCamera_angle() {
         return camera_angle;
@@ -19,7 +25,6 @@ public class Fpv20ConfigClientManual {
     public void setCamera_angle(float camera_angle) {
         this.camera_angle = camera_angle;
     }
-
 
 
     private String to_json() {
