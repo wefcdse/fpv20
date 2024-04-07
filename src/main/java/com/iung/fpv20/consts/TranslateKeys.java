@@ -30,4 +30,7 @@ public final class TranslateKeys {
 
     public static final String BTN_REVERSED = "fpv20.btn.reversed";
     public static final String BTN_NO_REVERSED = "fpv20.btn.no_reversed";
+
+    public static final String BTN_RELOAD_CONFIG = "fpv20.btn.reload_config";
+
 }

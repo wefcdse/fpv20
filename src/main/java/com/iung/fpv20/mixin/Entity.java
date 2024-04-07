@@ -25,6 +25,9 @@ public abstract class Entity extends net.minecraft.entity.Entity implements IsFl
     @Unique
     public boolean isFlying = false;
 
+    @Unique
+    public Object obj = new Object();
+
     public Entity(EntityType<?> type, World world) {
         super(type, world);
     }
@@ -40,5 +43,15 @@ public abstract class Entity extends net.minecraft.entity.Entity implements IsFl
 
         this.isFlying = v;
         this.calculateDimensions();
+    }
+
+    @Override
+    public Object get_obj() {
+        return this.obj;
+    }
+
+    @Override
+    public void set_obj(Object obj) {
+        this.obj = obj;
     }
 }

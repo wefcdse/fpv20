@@ -41,6 +41,8 @@ public class ChineseLangProvider extends FabricLanguageProvider {
         translationBuilder.add(TranslateKeys.BTN_REVERSED,"反转输入信号");
         translationBuilder.add(TranslateKeys.BTN_NO_REVERSED,"不反转输入信号");
 
+        translationBuilder.add(TranslateKeys.BTN_RELOAD_CONFIG,"重新加载配置");
+
     }
 
 

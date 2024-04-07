@@ -42,5 +42,7 @@ public class EnglishLangProvider extends FabricLanguageProvider {
 
         translationBuilder.add(TranslateKeys.BTN_REVERSED,"reversed");
         translationBuilder.add(TranslateKeys.BTN_NO_REVERSED,"no reverse");
+
+        translationBuilder.add(TranslateKeys.BTN_RELOAD_CONFIG,"refresh config");
     }
 }

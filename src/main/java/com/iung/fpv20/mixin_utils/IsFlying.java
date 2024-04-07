@@ -7,4 +7,7 @@ public interface IsFlying {
     default void set_is_flying(boolean v){
 
     }
+
+    Object get_obj();
+    void set_obj(Object obj);
 }

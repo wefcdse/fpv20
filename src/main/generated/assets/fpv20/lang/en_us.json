@@ -11,6 +11,7 @@
   "fpv20.btn.end": "end",
   "fpv20.btn.no_reversed": "no reverse",
   "fpv20.btn.option": "option",
+  "fpv20.btn.reload_config": "refresh config",
   "fpv20.btn.reversed": "reversed",
   "fpv20.btn.select": "select",
   "fpv20.btn.select_controller": "select controller",

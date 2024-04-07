@@ -21,4 +21,34 @@ public class Hud {
             ci.cancel();
         }
     }
+
+    @Inject(
+            method = "renderMountHealth",
+            at =  @At("HEAD"), cancellable = true
+    )
+    public void mixin2(DrawContext context, CallbackInfo ci) {
+        if(GlobalFlying.getFlying()){
+            ci.cancel();
+        }
+    }
+
+    @Inject(
+            method = "renderStatusBars",
+            at =  @At("HEAD"), cancellable = true
+    )
+    public void mixin3(DrawContext context, CallbackInfo ci) {
+        if(GlobalFlying.getFlying()){
+            ci.cancel();
+        }
+    }
+
+    @Inject(
+            method = "renderExperienceBar",
+            at =  @At("HEAD"), cancellable = true
+    )
+    public void mixin4(DrawContext context, int x, CallbackInfo ci) {
+        if(GlobalFlying.getFlying()){
+            ci.cancel();
+        }
+    }
 }

@@ -4,6 +4,7 @@ package com.iung.fpv20;
 
 import com.iung.fpv20.config.Fpv20ClientConfig1;
 import com.iung.fpv20.config.Fpv20ConfigClientManual;
+import com.iung.fpv20.config.Fpv20ConfigCommon;
 import com.iung.fpv20.consts.ScreenHandlers;
 import com.iung.fpv20.flying.GlobalFlying;
 import com.iung.fpv20.gui.handle_screen.ReceiverScreen;
@@ -33,6 +34,7 @@ public class Fpv20Client implements ClientModInitializer {
 
 
     static boolean last_tick_flying = false;
+    static boolean last_tick_reload = false;
 
     @Override
     public void onInitializeClient() {
@@ -77,6 +79,17 @@ public class Fpv20Client implements ClientModInitializer {
                         GlobalFlying.setFlying(start_flying);
                     }
                     last_tick_flying = start_flying;
+                } catch (Exception err) {
+                    Fpv20.LOGGER.error("err:!", err);
+                }
+
+                try {
+                    boolean reload = controller1.get_value_by_name("reload") > 0.5;
+                    if (last_tick_reload != reload) {
+                        Fpv20Client.config1 = Fpv20ConfigClientManual.createAndLoad();
+                        Fpv20.config = Fpv20ConfigCommon.createAndLoad();
+                    }
+                    last_tick_reload = reload;
                 } catch (Exception err) {
                     Fpv20.LOGGER.error("err:!", err);
                 }

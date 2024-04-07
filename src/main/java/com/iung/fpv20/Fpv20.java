@@ -65,7 +65,13 @@ public class Fpv20 implements ModInitializer {
         ServerLifecycleEvents.SERVER_STOPPING.register(e -> config.save());
 
         ServerPlayNetworking.registerGlobalReceiver(DroneFlyPacket.TYPE, (packet, player, responseSender) -> {
-
+            if (packet.fly) {
+                boolean f = player.getAbilities().invulnerable;
+                ((IsFlying) player).set_obj(f);
+                player.getAbilities().invulnerable = true;
+            } else {
+                player.getAbilities().invulnerable = (boolean) (Boolean) ((IsFlying) player).get_obj();
+            }
             ((IsFlying) player).set_is_flying(packet.fly);
 //            player.setBoundingBox(player.getDimensions(null).getBoxAt(player.getPos()));
 //            player.refreshPositionAfterTeleport(player.getPos());
