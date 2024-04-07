@@ -11,6 +11,7 @@
   "fpv20.btn.end": "结束",
   "fpv20.btn.no_reversed": "不反转输入信号",
   "fpv20.btn.option": "选项",
+  "fpv20.btn.reload_config": "重新加载配置",
   "fpv20.btn.reversed": "反转输入信号",
   "fpv20.btn.select": "选择",
   "fpv20.btn.select_controller": "选择控制器",

@@ -8,4 +8,8 @@ public class Utils {
             return default_value;
         return f.apply(obj);
     }
+    @FunctionalInterface
+    public interface FloatGetter {
+        float get();
+    }
 }

@@ -8,13 +8,24 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
-import oshi.driver.mac.net.NetStat;
 
-public class DefaultDrone implements Drone {
+import java.nio.channels.NotYetBoundException;
+
+public class Plane implements Drone {
+
+    public static class Plate {
+        private Quaternionf pose;
+        private float area;
+
+        public Vector3f force(Quaternionf super_pose, Vector3f v_global, float c1) {
+            Vector3f up = new Vector3f(0, 1, 0).rotate(pose).rotate(super_pose);
+            throw (new NullPointerException());
+        }
+
+    }
 
     private static final Vector3f G = new Vector3f(0, -9.8f, 0);
     private static final float AIR_DENSITY = 1.225F;
-
 
 
     private Quaternionf pose;
@@ -28,7 +39,7 @@ public class DefaultDrone implements Drone {
     private Vector3f a;
     private Vector3f v;
 
-    public DefaultDrone() {
+    public Plane() {
         this.pose = new Quaternionf();
         this.a = new Vector3f();
         this.v = new Vector3f();

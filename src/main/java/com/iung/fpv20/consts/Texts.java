@@ -32,5 +32,6 @@ public final class Texts {
     public static final Text BTN_REVERSED = Text.translatable(TranslateKeys.BTN_REVERSED);
     public static final Text BTN_NO_REVERSED = Text.translatable(TranslateKeys.BTN_NO_REVERSED);
 
+    public static final Text BTN_RELOAD_CONFIG = Text.translatable(TranslateKeys.BTN_RELOAD_CONFIG);
 
 }
