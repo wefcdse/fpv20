@@ -4,6 +4,9 @@ import com.iung.fpv20.Fpv20;
 import com.iung.fpv20.Fpv20Client;
 import com.iung.fpv20.utils.FastMath;
 import com.iung.fpv20.utils.Utils;
+import net.minecraft.block.Blocks;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import org.joml.Quaternionf;
@@ -17,15 +20,31 @@ public class Plane implements Drone {
         private Quaternionf pose;
         private float area;
 
+        public Plate(Quaternionf pose, float area) {
+            this.pose = pose;
+            this.area = area;
+        }
+
+        /**
+         * @param super_pose
+         * @param v_global
+         * @param c1         总之表示有效流速*面积到受力的换算关系
+         * @return
+         */
         public Vector3f force(Quaternionf super_pose, Vector3f v_global, float c1) {
-            Vector3f up = new Vector3f(0, 1, 0).rotate(pose).rotate(super_pose);
-            throw (new NullPointerException());
+            Vector3f up_global = new Vector3f(0, 1, 0).rotate(pose).rotate(super_pose);
+            sb(up_global, 10);
+
+            float a = -up_global.dot(v_global);
+            float b = a * c1;
+            return up_global.normalize().mul(b);
+//            throw (new NullPointerException());
         }
 
     }
 
     private static final Vector3f G = new Vector3f(0, -9.8f, 0);
-    private static final float AIR_DENSITY = 1.225F;
+//    private static final float AIR_DENSITY = 1.225F;
 
 
     private Quaternionf pose;
@@ -33,8 +52,9 @@ public class Plane implements Drone {
 
     private Utils.FloatGetter max_force;
 
-    private float area;
+//    private float area;
 
+    private Plate main_wing;
 
     private Vector3f a;
     private Vector3f v;
@@ -46,8 +66,10 @@ public class Plane implements Drone {
 
         this.mass = () -> Fpv20Client.config1.drone.mass;
 
-        this.area = (float) (FastMath.PI * 0.2 * 0.2);
+//        this.area = (float) (FastMath.PI * 0.2 * 0.2);
         this.max_force = () -> Fpv20Client.config1.drone.max_force;
+
+        this.main_wing = new Plate(new Quaternionf(), 1);
     }
 
     @Override
@@ -62,31 +84,29 @@ public class Plane implements Drone {
         return new Quaternionf(this.pose);
     }
 
+    private static void sb(Vector3f v, float sc) {
+        if (true) {
+            return;
+        }
+        float x = (float) MinecraftClient.getInstance().player.getPos().x;
+        float y = (float) MinecraftClient.getInstance().player.getPos().y;
+        float z = (float) MinecraftClient.getInstance().player.getPos().z;
+        MinecraftClient.getInstance().world.setBlockState(new BlockPos((int) (x + v.x * sc), (int) (y + v.y * sc), (int) (z + v.z * sc)), Blocks.STONE.getDefaultState());
+    }
+
     @Override
     public void update_physics(float throttle, float dt) {
         Quaternionf pose = this.get_pose().conjugate();
         Vector3f drone_up = new Vector3f(0, 1, 0).rotate(pose);
+        Vector3f drone_front = new Vector3f(0, 0, -1).rotate(pose);
 
         float speed = this.v.length();
 
 
-        float dragFactor = (AIR_DENSITY * area) /
-                2F; // kg / m
-        Vector3f ambientDragForce = new Vector3f(this.v).normalize().mul(-1f *
-                speed *
-                speed *
-                dragFactor);
-        if (this.v.length() < 0.00001) {
-            ambientDragForce = new Vector3f();
-        }
-        Fpv20.LOGGER.debug("#ambientDragForce {}", ambientDragForce);
-
-
         float efficiency = MathHelper.lerp(Math.abs(throttle), 0.35f, 1f);
-        Vector3f thrust = new Vector3f(drone_up).mul(max_force.get() * throttle * efficiency);
+        Vector3f thrust = new Vector3f(drone_front).mul(max_force.get() * throttle * efficiency);
         Fpv20.LOGGER.debug("#thrust {}", thrust);
 
-        Vector3f total_force = new Vector3f().add(ambientDragForce).add(thrust);
 
         // i don't know what's wrong, but it just falls too fast and i don't like it
         float gf = 0.1f;
@@ -94,9 +114,20 @@ public class Plane implements Drone {
             gf = 0;
         }
         Fpv20.LOGGER.debug("####vy {}", this.v.y);
+        Vector3f g1 = new Vector3f(G).mul(gf);
 
-        this.a = total_force.div(mass.get()).add(new Vector3f(G).mul(gf));
+        Vector3f drag = main_wing.force(pose, this.v, Fpv20Client.config1.plane.c1);
+        Vector3f da = drag.div(mass.get());
 
+        Fpv20.LOGGER.info("#drag {}", da);
+        Fpv20.LOGGER.info("#g {}", g1);
+
+//        this.a = total_force.div(mass.get()).add(new Vector3f(G).mul(gf));
+        this.a = thrust.div(mass.get()).add(g1).add(da);
+        if (this.a.length() > 20f) {
+            this.a.normalize();
+            this.a.mul(20);
+        }
         Fpv20.LOGGER.debug("#a {}", this.a);
 
         Fpv20.LOGGER.debug("#f {}", dt);

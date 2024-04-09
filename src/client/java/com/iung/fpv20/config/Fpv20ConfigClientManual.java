@@ -18,6 +18,27 @@ public class Fpv20ConfigClientManual {
 
     public Drone drone = new Drone();
 
+    public static enum DroneType {
+        DefaultDrone,
+        Plane
+    }
+
+    public DroneType drone_select = DroneType.DefaultDrone;
+
+    public static class Plane {
+        public float c1 = 1.0f;
+    }
+
+    public Plane plane = new Plane();
+
+    public static class AngularVelocity_DegSec {
+        public float yaw = 300;
+        public float pitch = 300;
+        public float roll = 300;
+    }
+
+    public AngularVelocity_DegSec angular_velocity__deg_sec = new AngularVelocity_DegSec();
+
     public boolean free_camera_yaw = false;
     public boolean free_camera_pitch = false;
 
