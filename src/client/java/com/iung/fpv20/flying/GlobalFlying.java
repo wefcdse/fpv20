@@ -8,6 +8,7 @@ import com.iung.fpv20.network.DroneFlyPacket;
 import com.iung.fpv20.physics.DefaultDrone;
 import com.iung.fpv20.physics.Drone;
 import com.iung.fpv20.physics.PhysicsCore;
+import com.iung.fpv20.physics.Plane;
 import com.iung.fpv20.sound.FlyingSound;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.MinecraftClient;
@@ -72,7 +73,10 @@ public class GlobalFlying {
 //        this.angular_speed = angular_speed;
         this.last_update_time = time_now_float();
         this.last_tick_flying = false;
-        this.drone = new DefaultDrone();
+        switch (Fpv20Client.config1.drone_select) {
+            case DefaultDrone -> this.drone = new DefaultDrone();
+            case Plane -> this.drone = new Plane();
+        }
         this.droneRotation = new Quaternionf();
         this.lastDroneRotation = new Quaternionf();
 //        this.cam_angel_deg = 30;
@@ -433,7 +437,9 @@ public class GlobalFlying {
         float input_r = controller.get_value_by_name("r");
 
         PhysicsCore.rotate_from_local_yaw_pitch_roll(q, input_y, input_p, input_r,
-                300, 300, 300,
+                Fpv20Client.config1.angular_velocity__deg_sec.yaw,
+                Fpv20Client.config1.angular_velocity__deg_sec.pitch,
+                Fpv20Client.config1.angular_velocity__deg_sec.roll,
                 dt
         );
         drone.update_pose(q);
