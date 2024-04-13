@@ -23,6 +23,7 @@ public class Fpv20Client implements ClientModInitializer {
     public static volatile Controller controller;
     public static Fpv20ClientConfig1 config = Fpv20ClientConfig1.createAndLoad();
 
+
     static {
         int c = Fpv20Client.config.selected_controller();
         if (c >= 0) {
@@ -35,6 +36,8 @@ public class Fpv20Client implements ClientModInitializer {
 
     static boolean last_tick_flying = false;
     static boolean last_tick_reload = false;
+
+    public static boolean in_slow_motion = false;
 
     @Override
     public void onInitializeClient() {
@@ -79,6 +82,12 @@ public class Fpv20Client implements ClientModInitializer {
                         GlobalFlying.setFlying(start_flying);
                     }
                     last_tick_flying = start_flying;
+                } catch (Exception err) {
+                    Fpv20.LOGGER.error("err:!", err);
+                }
+
+                try {
+                    in_slow_motion = controller1.get_value_by_name(config1.slow_motion_switch_name) > 0.5f;
                 } catch (Exception err) {
                     Fpv20.LOGGER.error("err:!", err);
                 }

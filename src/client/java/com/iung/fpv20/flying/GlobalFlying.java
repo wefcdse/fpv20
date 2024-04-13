@@ -18,6 +18,8 @@ import net.minecraft.util.math.Vec3d;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
+import static com.iung.fpv20.Fpv20Client.config1;
+import static com.iung.fpv20.Fpv20Client.in_slow_motion;
 import static com.iung.fpv20.utils.LocalMath.DEG_TO_RAD;
 
 public class GlobalFlying {
@@ -127,13 +129,13 @@ public class GlobalFlying {
         return new_r;
     }
 
-    public void handle_flying(MinecraftClient client) {
+    public void _handle_flying(MinecraftClient client) {
 
         float now_time = time_now_float();
 
         float dt = now_time - this.last_update_time;
 
-        this.handle_flying_inner(client, dt);
+        this._handle_flying_inner(client, dt);
 
         this.last_tick_flying = getFlying();
         this.last_update_time = now_time;
@@ -145,7 +147,7 @@ public class GlobalFlying {
 
         float dt = (float) (tick_delta * 0.05);
 
-        this.handle_flying_inner(client, dt);
+        this._handle_flying_inner(client, dt);
 
         this.last_tick_flying = getFlying();
         this.last_update_time = now_time;
@@ -162,7 +164,7 @@ public class GlobalFlying {
     }
 
 
-    private void handle_flying_inner(MinecraftClient client, float dt) {
+    private void _handle_flying_inner(MinecraftClient client, float dt) {
 
 //        float now_time = time_now_float();
 //
@@ -320,8 +322,9 @@ public class GlobalFlying {
     }
 
     public void handle_flying_phy(ClientPlayerEntity player, float dt) {
-
-
+        if (in_slow_motion) {
+            dt *= config1.slow_motion_time_rate;
+        }
         if (!getFlying()) {
             return;
         }
@@ -384,7 +387,13 @@ public class GlobalFlying {
 
 
         Vec3d v1 = drone.get_speed();
-        p.setVelocity(v1);
+
+
+        if (in_slow_motion) {
+            p.setVelocity(v1.multiply(Fpv20Client.config1.slow_motion_time_rate));
+        } else {
+            p.setVelocity(v1);
+        }
 
 
         Fpv20.LOGGER.debug("after update phy:v1 {}", p.getVelocity());
@@ -393,6 +402,10 @@ public class GlobalFlying {
     }
 
     public void handle_flying_rotate(MinecraftClient client, float dt) {
+        if (in_slow_motion) {
+            dt *= config1.slow_motion_time_rate;
+        }
+
 
         if (!getFlying()) {
             this.last_tick_flying = false;
