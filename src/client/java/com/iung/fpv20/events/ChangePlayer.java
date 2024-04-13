@@ -21,7 +21,7 @@ public class ChangePlayer  {
             ClientPlayerEntity player = client.player;
             Vec3d v = player.getVelocity();
 
-            GlobalFlying.G.handle_flying(client);
+            GlobalFlying.G._handle_flying(client);
         }
     }
 }

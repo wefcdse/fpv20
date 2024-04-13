@@ -42,6 +42,11 @@ public class Fpv20ConfigClientManual {
     public boolean free_camera_yaw = false;
     public boolean free_camera_pitch = false;
 
+    public float slow_motion_time_rate = 0.2f;
+    public String slow_motion_switch_name = "sm";
+
+
+    /////////////////////////////////
     public float getCamera_angle() {
         return camera_angle;
     }
