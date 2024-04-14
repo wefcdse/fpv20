@@ -38,6 +38,12 @@ playing fpv:
 - set throttle's calibration type to `max min`
 - enter a world, turn the switch. and enjoy flying!
 
+slow motion
+
+- set one channel's name to the same as `config/fpv20_client.json/slow_motion_switch_name`
+- when this channel's value is over 0.5, it starts slow motion,
+the drone will fly slow.
+
 use the receiver block:
 
 - select a controller
