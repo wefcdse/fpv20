@@ -48,10 +48,10 @@ public class Fpv20Client implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         osdKeybind = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-                "key.fpv20.osdkeybind",
+                "fpv20.keybind.osd",
                 InputUtil.Type.KEYSYM,
                 GLFW.GLFW_KEY_O,
-                "category.fpv20.keybinds"
+                "fpv20.keybinds.category"
         ));
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {

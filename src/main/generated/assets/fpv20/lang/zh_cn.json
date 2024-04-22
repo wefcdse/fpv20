@@ -19,5 +19,7 @@
   "fpv20.btn.start": "开始",
   "fpv20.rate.1": "rate:%s",
   "fpv20.text.set_channel_name": "设置信道名称",
-  "fpv20.title.main_option_screen": "FPV选项"
+  "fpv20.title.main_option_screen": "FPV选项",
+  "fpv20.keybinds.category": "fpv20",
+  "fpv20.keybind.osd": "切换OSD"
 }
