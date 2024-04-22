@@ -34,7 +34,6 @@ public class SticksHud implements HudRenderCallback {
 
     @Override
     public void onHudRender(DrawContext drawContext, float tickDelta) {
-        // TODO: turn this into a keybind
         if (!Fpv20Client.config.show_osd()) {
             return;
         }

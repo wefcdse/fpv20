@@ -13,10 +13,14 @@ import com.iung.fpv20.input.Controller;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
+import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.client.option.KeyBinding;
+import net.minecraft.client.util.InputUtil;
 import org.jetbrains.annotations.Nullable;
+import org.lwjgl.glfw.GLFW;
 
 public class Fpv20Client implements ClientModInitializer {
     @Nullable
@@ -39,8 +43,23 @@ public class Fpv20Client implements ClientModInitializer {
 
     public static boolean in_slow_motion = false;
 
+    private static KeyBinding osdKeybind;
+
     @Override
     public void onInitializeClient() {
+        osdKeybind = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+                "key.fpv20.osdkeybind",
+                InputUtil.Type.KEYSYM,
+                GLFW.GLFW_KEY_O,
+                "category.fpv20.keybinds"
+        ));
+
+        ClientTickEvents.END_CLIENT_TICK.register(client -> {
+            while (osdKeybind.wasPressed()) {
+                config.setShow_osd(!config.show_osd());
+            }
+        });
+
         HandledScreens.register(ScreenHandlers.RECEIVER_SCREEN_HANDLER, ReceiverScreen::new);
 //
 
