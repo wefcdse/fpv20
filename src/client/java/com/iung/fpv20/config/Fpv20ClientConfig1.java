@@ -16,6 +16,8 @@ public class Fpv20ClientConfig1 {
 //    private float camera_angle = 35;
     private int selected_controller;
 
+    private boolean show_osd = true;
+
     public int selected_controller() {
         return selected_controller;
     }
@@ -89,5 +91,6 @@ public class Fpv20ClientConfig1 {
         calibrations = value;
     }
 
-
+    public boolean show_osd(){ return show_osd; }
+    public void setShow_osd(boolean value){ show_osd = value; }
 }
