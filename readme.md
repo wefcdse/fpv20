@@ -55,6 +55,11 @@ use the receiver block:
   the positive half of the channel.
   the output is always `abs(signal) * 15`
 
+toggling the sticks on the screen (OSD):
+
+- use the keybind (by default `O`)
+- use the button in the fpv setting
+
 ## use this or use [Minecraft FPV](https://www.curseforge.com/minecraft/mc-mods/fpv-drone)
 
 why you should use this:
