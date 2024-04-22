@@ -19,5 +19,7 @@
   "fpv20.btn.start": "start",
   "fpv20.rate.1": "rate:%s",
   "fpv20.text.set_channel_name": "set channel name",
-  "fpv20.title.main_option_screen": "FPV options"
+  "fpv20.title.main_option_screen": "FPV options",
+  "fpv20.keybinds.category": "fpv20",
+  "fpv20.keybind.osd": "Toggle OSD"
 }
