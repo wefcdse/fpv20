@@ -67,6 +67,15 @@ public class OptionsMainScreen extends BackableScreen {
                 })
                 .dimensions(0, 0, 40, 20).build());
 
+        this.addDrawableChild(ButtonWidget.builder(Text.literal("Show OSD: " + (Fpv20Client.config.show_osd() ? "yes" : "no")), (btn) -> {
+                Fpv20Client.config.setShow_osd(!Fpv20Client.config.show_osd());
+
+                if (this.client != null) {
+                    this.client.setScreen(new OptionsMainScreen(this.parent));
+                }
+            })
+            .dimensions(45, 0, 80, 20).build());
+
 //        this.addDrawable(new TextWidget(i, k, width, height, Text.of("ddd"), this.textRenderer));
 
 //        this.addDrawable(new Value11Display(40, 40, 30, 50, () -> {
