@@ -11,15 +11,17 @@
   "fpv20.btn.end": "end",
   "fpv20.btn.no_reversed": "no reverse",
   "fpv20.btn.option": "option",
+  "fpv20.btn.osd.off": "show osd: no",
+  "fpv20.btn.osd.on": "show osd: yes",
   "fpv20.btn.reload_config": "refresh config",
   "fpv20.btn.reversed": "reversed",
   "fpv20.btn.select": "select",
   "fpv20.btn.select_controller": "select controller",
   "fpv20.btn.show_input": "show input",
   "fpv20.btn.start": "start",
+  "fpv20.keybind.osd": "Toggle OSD",
+  "fpv20.keybinds.category": "fpv20",
   "fpv20.rate.1": "rate:%s",
   "fpv20.text.set_channel_name": "set channel name",
-  "fpv20.title.main_option_screen": "FPV options",
-  "fpv20.keybinds.category": "fpv20",
-  "fpv20.keybind.osd": "Toggle OSD"
+  "fpv20.title.main_option_screen": "FPV options"
 }

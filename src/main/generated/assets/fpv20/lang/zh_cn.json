@@ -11,15 +11,17 @@
   "fpv20.btn.end": "结束",
   "fpv20.btn.no_reversed": "不反转输入信号",
   "fpv20.btn.option": "选项",
+  "fpv20.btn.osd.off": "显示OSD: 不",
+  "fpv20.btn.osd.on": "显示OSD: 是的",
   "fpv20.btn.reload_config": "重新加载配置",
   "fpv20.btn.reversed": "反转输入信号",
   "fpv20.btn.select": "选择",
   "fpv20.btn.select_controller": "选择控制器",
   "fpv20.btn.show_input": "显示输入信号",
   "fpv20.btn.start": "开始",
+  "fpv20.keybind.osd": "切换OSD",
+  "fpv20.keybinds.category": "fpv20",
   "fpv20.rate.1": "rate:%s",
   "fpv20.text.set_channel_name": "设置信道名称",
-  "fpv20.title.main_option_screen": "FPV选项",
-  "fpv20.keybinds.category": "fpv20",
-  "fpv20.keybind.osd": "切换OSD"
+  "fpv20.title.main_option_screen": "FPV选项"
 }
