@@ -44,5 +44,10 @@ public class EnglishLangProvider extends FabricLanguageProvider {
         translationBuilder.add(TranslateKeys.BTN_NO_REVERSED,"no reverse");
 
         translationBuilder.add(TranslateKeys.BTN_RELOAD_CONFIG,"refresh config");
+
+        translationBuilder.add(TranslateKeys.BTN_OSD_ON, "show osd: yes");
+        translationBuilder.add(TranslateKeys.BTN_OSD_OFF, "show osd: no");
+        translationBuilder.add(TranslateKeys.KEYBINDS_CATEGORY, "fpv20");
+        translationBuilder.add(TranslateKeys.KEYBIND_OSD, "Toggle OSD");
     }
 }
