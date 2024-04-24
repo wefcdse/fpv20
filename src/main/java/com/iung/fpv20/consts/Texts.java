@@ -5,7 +5,6 @@ import net.minecraft.text.Text;
 public final class Texts {
     public static final Text BTN_OPTION_ENTRY = Text.translatable(TranslateKeys.BTN_OPTION_ENTRY);
     public static final Text TITLE_MAIN_OPTION_SCREEN = Text.translatable(TranslateKeys.TITLE_MAIN_OPTION_SCREEN);
-
     public static final Text BTN_SELECT_CONTROLLER = Text.translatable(TranslateKeys.BTN_SELECT_CONTROLLER);
     public static final Text BTN_SELECT = Text.translatable(TranslateKeys.BTN_SELECT);
 
@@ -34,4 +33,7 @@ public final class Texts {
 
     public static final Text BTN_RELOAD_CONFIG = Text.translatable(TranslateKeys.BTN_RELOAD_CONFIG);
 
+    public static final Text BTN_OSD_ON = Text.translatable(TranslateKeys.BTN_OSD_ON);
+
+    public static final Text BTN_OSD_OFF = Text.translatable(TranslateKeys.BTN_OSD_OFF);
 }
