@@ -34,6 +34,9 @@ public class SticksHud implements HudRenderCallback {
 
     @Override
     public void onHudRender(DrawContext drawContext, float tickDelta) {
+        if (!Fpv20Client.config.show_osd()) {
+            return;
+        }
 
         if (!GlobalFlying.getFlying()) {
             return;

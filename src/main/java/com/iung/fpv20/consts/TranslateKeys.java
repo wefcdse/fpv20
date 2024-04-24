@@ -33,4 +33,11 @@ public final class TranslateKeys {
 
     public static final String BTN_RELOAD_CONFIG = "fpv20.btn.reload_config";
 
+    public static final String BTN_OSD_ON = "fpv20.btn.osd.on";
+
+    public static final String BTN_OSD_OFF = "fpv20.btn.osd.off";
+
+    public static final String KEYBINDS_CATEGORY = "fpv20.keybinds.category";
+
+    public static final String KEYBIND_OSD = "fpv20.keybind.osd";
 }
