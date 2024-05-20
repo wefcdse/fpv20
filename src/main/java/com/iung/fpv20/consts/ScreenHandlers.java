@@ -12,13 +12,14 @@ import net.minecraft.util.Identifier;
 
 public class ScreenHandlers {
     public static final ScreenHandlerType<ReceiverBlockHandler> RECEIVER_SCREEN_HANDLER;
+
     static {
-        RECEIVER_SCREEN_HANDLER = Registry.register(Registries.SCREEN_HANDLER, ModBlocks.RECEIVER_BLOCK_ID,
+        RECEIVER_SCREEN_HANDLER = Fpv20.config.client_only ? null : Registry.register(Registries.SCREEN_HANDLER, ModBlocks.RECEIVER_BLOCK_ID,
                 new ExtendedScreenHandlerType<>(ReceiverBlockHandler::new));
 
     }
 
-    public static void reg(){
+    public static void reg() {
 
     }
 }

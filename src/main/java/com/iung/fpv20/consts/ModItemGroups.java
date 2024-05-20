@@ -11,14 +11,15 @@ import net.minecraft.util.Identifier;
 
 public class ModItemGroups {
 
-    public static final ItemGroup RUBY_GROUP = Registry.register(Registries.ITEM_GROUP,
-            new Identifier(Fpv20.MOD_ID,"ruby"),
+    public static final ItemGroup RUBY_GROUP = Fpv20.config.client_only ? null : Registry.register(Registries.ITEM_GROUP,
+            new Identifier(Fpv20.MOD_ID, "ruby"),
             FabricItemGroup.builder().displayName(Text.literal("FPV20"))
-                    .icon(()->new ItemStack(ModBlocks.RECEIVER_BLOCK.asItem())).entries((displayContext, entries) -> {
+                    .icon(() -> new ItemStack(ModBlocks.RECEIVER_BLOCK.asItem())).entries((displayContext, entries) -> {
                         entries.add(ModBlocks.RECEIVER_BLOCK);
 
                     }).build());
-    public static void registerItemGroups(){
+
+    public static void registerItemGroups() {
         Fpv20.LOGGER.info("Registering Item Group for " + Fpv20.MOD_ID);
     }
 
