@@ -12,6 +12,7 @@ public class Fpv20ConfigCommon {
 
     private float step_height = 1.2f;
     private boolean is_in_forge = false;
+    public boolean client_only = false;
 
     public boolean in_forge() {
         return this.is_in_forge;
