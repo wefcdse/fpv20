@@ -24,6 +24,9 @@ inspired by [Minecraft FPV](https://www.curseforge.com/minecraft/mc-mods/fpv-dro
 
 ## usage
 
+client only:
+- set `client_only` in `config/fpv20_common.json` to `true`
+
 the gui entry is in options - controls
 
 playing fpv:
