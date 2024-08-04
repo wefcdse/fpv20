@@ -16,6 +16,7 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -27,7 +28,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-public class ReceiverBlockEntity extends BlockEntity implements NamedScreenHandlerFactory, ExtendedScreenHandlerFactory {
+public class ReceiverBlockEntity extends BlockEntity implements NamedScreenHandlerFactory, ExtendedScreenHandlerFactory<ReceiverBlockHandler.ReceiverBlockHandlerData> {
 
     public String channel;
     public boolean neg;
@@ -40,17 +41,18 @@ public class ReceiverBlockEntity extends BlockEntity implements NamedScreenHandl
         this.neg = false;
     }
 
+
     @Override
-    public void writeNbt(NbtCompound nbt) {
+    public void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         // Save the current value of the number to the tag
+        super.writeNbt(nbt, registryLookup);
         nbt.putString("fpv20_channel", channel);
         nbt.putBoolean("fpv20_neg", neg);
-        super.writeNbt(nbt);
     }
 
     @Override
-    public void readNbt(NbtCompound nbt) {
-        super.readNbt(nbt);
+    public void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
+        super.readNbt(nbt, registryLookup);
         channel = nbt.getString("fpv20_channel");
         neg = nbt.getBoolean("fpv20_neg");
     }
@@ -85,8 +87,8 @@ public class ReceiverBlockEntity extends BlockEntity implements NamedScreenHandl
     }
 
     @Override
-    public NbtCompound toInitialChunkDataNbt() {
-        return createNbt();
+    public NbtCompound toInitialChunkDataNbt(RegistryWrapper.WrapperLookup registryLookup) {
+        return createNbt(registryLookup);
     }
 
     //////////////////////////
@@ -105,9 +107,13 @@ public class ReceiverBlockEntity extends BlockEntity implements NamedScreenHandl
     }
 
 
-    @Override
-    public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
+//    @Override
+//    public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
+//        buf.writeBlockPos(pos);
+//    }
 
-        buf.writeBlockPos(pos);
+    @Override
+    public ReceiverBlockHandler.ReceiverBlockHandlerData getScreenOpeningData(ServerPlayerEntity player) {
+        return new ReceiverBlockHandler.ReceiverBlockHandlerData(pos);
     }
 }

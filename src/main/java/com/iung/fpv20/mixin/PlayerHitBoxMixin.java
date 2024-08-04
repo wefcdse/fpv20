@@ -6,6 +6,7 @@ import net.minecraft.entity.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -15,8 +16,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(PlayerEntity.class)
 public abstract class PlayerHitBoxMixin extends LivingEntity {
 
+
     @Unique
-    private static final EntityDimensions DIM = new EntityDimensions(0.5f, 0.15f, false);
+    private static final EntityDimensions DIM = new EntityDimensions(0.5f, 0.15f,0.15f * 0.85F, EntityAttachments.of(0.5f, 0.15f),false);
 //    @Unique
 //    private static int a = 1;
 
@@ -36,22 +38,22 @@ public abstract class PlayerHitBoxMixin extends LivingEntity {
 //        super.tickMovement();
 //    }
 
-    @Inject(method = "getDimensions(Lnet/minecraft/entity/EntityPose;)Lnet/minecraft/entity/EntityDimensions;", at = @At("RETURN"), cancellable = true)
-    private void injected(EntityPose pose, CallbackInfoReturnable<EntityDimensions> cir) {
-//        cir.getReturnValue();
-        if (((IsFlying) this).get_is_flying()) {
-            cir.setReturnValue(DIM);
-        }
-
-    }
-
-    @Inject(method = "getActiveEyeHeight", at = @At("RETURN"), cancellable = true)
-    private void injected(EntityPose pose, EntityDimensions dimensions, CallbackInfoReturnable<Float> cir) {
-//        cir.getReturnValue();
-        if (((IsFlying) this).get_is_flying()) {
-            cir.setReturnValue(0.13f);
-        }
-    }
+//    @Inject(method = "getDimensions", at = @At("RETURN"), cancellable = true)
+//    private void injected(EntityPose pose, CallbackInfoReturnable<EntityDimensions> cir) {
+////        cir.getReturnValue();
+//        if (((IsFlying) this).get_is_flying()) {
+//            cir.setReturnValue(DIM);
+//        }
+//
+//    }
+//
+//    @Inject(method = "getActiveEyeHeight", at = @At("RETURN"), cancellable = true)
+//    private void injected(EntityPose pose, EntityDimensions dimensions, CallbackInfoReturnable<Float> cir) {
+////        cir.getReturnValue();
+//        if (((IsFlying) this).get_is_flying()) {
+//            cir.setReturnValue(0.13f);
+//        }
+//    }
 
     @Inject(method = "getVelocityMultiplier", at = @At("HEAD"), cancellable = true)
     private void injected(CallbackInfoReturnable<Float> cir) {

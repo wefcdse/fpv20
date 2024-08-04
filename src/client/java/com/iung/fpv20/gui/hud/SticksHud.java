@@ -6,6 +6,7 @@ import com.iung.fpv20.input.Controller;
 import com.iung.fpv20.utils.Utils;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.render.RenderTickCounter;
 
 import java.util.Objects;
 
@@ -33,7 +34,7 @@ public class SticksHud implements HudRenderCallback {
 
 
     @Override
-    public void onHudRender(DrawContext drawContext, float tickDelta) {
+    public void onHudRender(DrawContext drawContext, RenderTickCounter tickCounter) {
         if (!Fpv20Client.config.show_osd()) {
             return;
         }

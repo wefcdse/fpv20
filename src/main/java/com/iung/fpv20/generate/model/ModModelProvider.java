@@ -27,6 +27,6 @@ public class ModModelProvider extends FabricModelProvider {
 
     private static Model registerItemBlockModel(Block parent, TextureKey... requiredTextureKeys) {
         String name = ModelIds.getBlockModelId(parent).getPath();
-        return new Model(Optional.of(new Identifier(Fpv20.MOD_ID, name)), Optional.empty(), requiredTextureKeys);
+        return new Model(Optional.of(Identifier.of(Fpv20.MOD_ID, name)), Optional.empty(), requiredTextureKeys);
     }
 }

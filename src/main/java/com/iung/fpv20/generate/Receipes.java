@@ -10,7 +10,9 @@ import net.minecraft.data.server.recipe.RecipeProvider;
 import net.minecraft.data.server.recipe.ShapelessRecipeJsonBuilder;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.book.RecipeCategory;
+import net.minecraft.registry.RegistryWrapper;
 
+import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
 import static com.iung.fpv20.consts.ModBlocks.RECEIVER_BLOCK;
@@ -20,8 +22,8 @@ import static net.minecraft.item.Items.QUARTZ;
 public class Receipes extends FabricRecipeProvider {
 
 
-    public Receipes(FabricDataOutput output) {
-        super(output);
+    public Receipes(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
+        super(output, registryLookup);
     }
 
     @Override

@@ -22,7 +22,7 @@ public class OptionEntryBtn extends Screen {
     @Unique
     private static final int WIDTH = 30;
 
-    @Inject(at = @At("HEAD"), method = "init()V")
+    @Inject(at = @At("HEAD"), method = "addOptions")
 
     public void init(CallbackInfo ci) {
         int i = this.width / 2 - 155 - 10 - WIDTH;

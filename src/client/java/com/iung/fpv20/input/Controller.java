@@ -2,7 +2,8 @@ package com.iung.fpv20.input;
 
 import com.iung.fpv20.Fpv20;
 import com.iung.fpv20.Fpv20Client;
-import com.iung.fpv20.network.ChannelUpdatePacket;
+//import com.iung.fpv20.network.ChannelUpdatePacket;
+import com.iung.fpv20.network.ChannelUpdatePayload;
 import com.iung.fpv20.utils.Calibration;
 import com.iung.fpv20.utils.RateMapper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
@@ -115,6 +116,7 @@ public class Controller {
 
         this.floats = floats;
         this.bytes = bytes;
+//        Fpv20.LOGGER.info("bytes:{}", bytes);
 
 
 //        Fpv20.LOGGER.info("{}", floats);
@@ -123,14 +125,14 @@ public class Controller {
     }
 
     public void sync_to_server() {
-        if (!ClientPlayNetworking.canSend(ChannelUpdatePacket.TYPE)) {
+        if (!ClientPlayNetworking.canSend(ChannelUpdatePayload.ID)) {
             return;
         }
         {
             int length = Math.min(this.floats.length, this.names.length);
 
             for (int i = 0; i < length; i++) {
-                ChannelUpdatePacket p = new ChannelUpdatePacket(this.names[i], this.get_calibrated_value(i));
+                ChannelUpdatePayload p = new ChannelUpdatePayload(this.names[i], this.get_calibrated_value(i));
                 ClientPlayNetworking.send(p);
             }
         }
@@ -138,7 +140,7 @@ public class Controller {
             int length = Math.min(this.bytes.length, this.btn_names.length);
 
             for (int i = 0; i < length; i++) {
-                ChannelUpdatePacket p = new ChannelUpdatePacket(this.btn_names[i], this.get_btn(i));
+                ChannelUpdatePayload p = new ChannelUpdatePayload(this.btn_names[i], this.get_btn(i));
                 ClientPlayNetworking.send(p);
             }
         }
@@ -206,6 +208,7 @@ public class Controller {
                 return this.get_btn(i);
             }
         }
+//        Fpv20.LOGGER.info("no such channel:{}", name);
         return 0;
     }
 
@@ -239,6 +242,7 @@ public class Controller {
         if (channel >= this.bytes.length) {
             return 0;
         } else {
+//            Fpv20.LOGGER.info("get_btn:{},channel:{}", this.bytes[channel], channel);
             return this.bytes[channel];
         }
     }

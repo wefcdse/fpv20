@@ -4,7 +4,8 @@ import com.iung.fpv20.Fpv20;
 import com.iung.fpv20.Fpv20Client;
 import com.iung.fpv20.input.Controller;
 import com.iung.fpv20.mixin_utils.IsFlying;
-import com.iung.fpv20.network.DroneFlyPacket;
+//import com.iung.fpv20.network.DroneFlyPacket;
+import com.iung.fpv20.network.DroneFlyPayload;
 import com.iung.fpv20.physics.DefaultDrone;
 import com.iung.fpv20.physics.Drone;
 import com.iung.fpv20.physics.PhysicsCore;
@@ -95,8 +96,8 @@ public class GlobalFlying {
         IsFlying p = (IsFlying) player;
         if (p != null) {
 
-            if (ClientPlayNetworking.canSend(DroneFlyPacket.TYPE)) {
-                ClientPlayNetworking.send(new DroneFlyPacket(if_fly));
+            if (ClientPlayNetworking.canSend(DroneFlyPayload.ID)) {
+                ClientPlayNetworking.send(new DroneFlyPayload(if_fly));
             }
             p.set_is_flying(if_fly);
             client.getSoundManager().play(new FlyingSound(player));

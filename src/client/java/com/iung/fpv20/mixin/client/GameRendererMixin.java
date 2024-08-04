@@ -7,8 +7,10 @@ import com.iung.fpv20.input.Controller;
 import com.iung.fpv20.utils.FastMath;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.Camera;
+import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.RotationAxis;
+import org.joml.Matrix4f;
 import org.joml.Quaternionf;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -40,23 +42,23 @@ public class GameRendererMixin {
     @Inject(
             method = "renderWorld",
             at = @At(
-                    value = "INVOKE",
-                    target = "Lnet/minecraft/util/math/RotationAxis;rotationDegrees(F)Lorg/joml/Quaternionf;",
-                    ordinal = 2
+                    value = "HEAD"
+//                    target = "Lnet/minecraft/util/math/RotationAxis;rotationDegrees(F)Lorg/joml/Quaternionf;",
+//                    ordinal = 2
             )
     )
-    public void mixin(float tickDelta, long limitTime, MatrixStack matrix, CallbackInfo ci) {
+    public void mixin(RenderTickCounter tickCounter, CallbackInfo ci) {
 
-        if (GlobalFlying.getFlying()) {
-            if (Fpv20Client.config1.free_camera_pitch) {
-                matrix.multiply(RotationAxis.POSITIVE_X.rotationDegrees(camera.getPitch()));
-
-            }
-            if (Fpv20Client.config1.free_camera_yaw) {
-                matrix.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(camera.getYaw() + 180.0F));
-
-            }
-        }
+//        if (GlobalFlying.getFlying()) {
+//            if (Fpv20Client.config1.free_camera_pitch) {
+//                matrix.multiply(RotationAxis.POSITIVE_X.rotationDegrees(camera.getPitch()));
+//
+//            }
+//            if (Fpv20Client.config1.free_camera_yaw) {
+//                matrix.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(camera.getYaw() + 180.0F));
+//
+//            }
+//        }
 
         long time_start = System.nanoTime();
 
@@ -89,11 +91,11 @@ public class GameRendererMixin {
 
 //        this_time_tickDelta = tickDelta;
 //        GlobalFlying.G.lastCamRoll += tickDelta / 20f * GlobalFlying.G.angular_speed;
-        if (GlobalFlying.getFlying()) {
-//            matrix.multiply(GlobalFlying.G.cacl_cam_rotation_last().nlerp(GlobalFlying.G.cacl_cam_rotation(), tickDelta));
-            matrix.multiply(GlobalFlying.G.cacl_cam_rotation());
-
-        }
+//        if (GlobalFlying.getFlying()) {
+////            matrix.multiply(GlobalFlying.G.cacl_cam_rotation_last().nlerp(GlobalFlying.G.cacl_cam_rotation(), tickDelta));
+//            matrix.multiply(GlobalFlying.G.cacl_cam_rotation());
+//
+//        }
 
 //        Matrix4f mat = new Matrix4f();
 //
@@ -119,43 +121,43 @@ public class GameRendererMixin {
 //
 //    }
 
-    @Redirect(
-            method = "renderWorld",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lnet/minecraft/client/util/math/MatrixStack;multiply(Lorg/joml/Quaternionf;)V",
-                    ordinal = 2
-            )
-    )
-    public void mixin1(MatrixStack instance, Quaternionf quaternion) {
-        if (GlobalFlying.getFlying()) {
+//    @Redirect(
+//            method = "renderWorld",
+//            at = @At(
+//                    value = "INVOKE",
+//                    target = "Lnet/minecraft/client/util/math/MatrixStack;multiply(Lorg/joml/Quaternionf;)V",
+//                    ordinal = 2
+//            )
+//    )
+//    public void mixin1(MatrixStack instance, Quaternionf quaternion) {
+//        if (GlobalFlying.getFlying()) {
+//
+//        } else {
+//            instance.multiply(quaternion);
+//        }
+//    }
 
-        } else {
-            instance.multiply(quaternion);
-        }
-    }
-
-    @Redirect(
-            method = "renderWorld",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lnet/minecraft/client/util/math/MatrixStack;multiply(Lorg/joml/Quaternionf;)V",
-                    ordinal = 3
-            )
-    )
-    public void mixin12(MatrixStack instance, Quaternionf quaternion) {
-        if (GlobalFlying.getFlying()) {
-
-        } else {
-            instance.multiply(quaternion);
-        }
-    }
+//    @Redirect(
+//            method = "renderWorld",
+//            at = @At(
+//                    value = "INVOKE",
+//                    target = "Lnet/minecraft/client/util/math/MatrixStack;multiply(Lorg/joml/Quaternionf;)V",
+//                    ordinal = 3
+//            )
+//    )
+//    public void mixin12(MatrixStack instance, Quaternionf quaternion) {
+//        if (GlobalFlying.getFlying()) {
+//
+//        } else {
+//            instance.multiply(quaternion);
+//        }
+//    }
 
     @Inject(
             method = "renderHand",
             at = @At("HEAD"), cancellable = true
     )
-    public void mixin12(MatrixStack matrices, Camera camera, float tickDelta, CallbackInfo ci) {
+    public void mixin12(Camera camera, float tickDelta, Matrix4f matrix4f, CallbackInfo ci) {
         if (GlobalFlying.getFlying()) {
             ci.cancel();
         }

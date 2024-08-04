@@ -5,7 +5,8 @@ import com.iung.fpv20.Fpv20Client;
 import com.iung.fpv20.blocks.ReceiverBlockEntity;
 import com.iung.fpv20.consts.Texts;
 import com.iung.fpv20.input.Controller;
-import com.iung.fpv20.network.SetReceiverPacket;
+//import com.iung.fpv20.network.SetReceiverPacket;
+import com.iung.fpv20.network.SetReceiverPayload;
 import com.iung.fpv20.screen_handler.ReceiverBlockHandler;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.gui.DrawContext;
@@ -87,8 +88,8 @@ public class ReceiverScreen extends HandledScreen<ReceiverBlockHandler> {
         k += 24;
 
         this.addDrawableChild(ButtonWidget.builder(Text.translatable("gui.done"), (btn) -> {
-            if (ClientPlayNetworking.canSend(SetReceiverPacket.TYPE)) {
-                ClientPlayNetworking.send(new SetReceiverPacket(this.channel_name, this.neg, this.pos));
+            if (ClientPlayNetworking.canSend(SetReceiverPayload.ID)) {
+                ClientPlayNetworking.send(new SetReceiverPayload(this.channel_name, this.neg, this.pos));
             }
             this.close();
         }).dimensions(i, k, width, height).build());

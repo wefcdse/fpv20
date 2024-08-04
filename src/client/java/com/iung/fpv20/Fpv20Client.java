@@ -93,12 +93,15 @@ public class Fpv20Client implements ClientModInitializer {
         });
 
         ClientTickEvents.START_CLIENT_TICK.register(client -> {
+//            Fpv20.LOGGER.info("tick3");
             Controller controller1 = controller;
             if (controller1 != null) {
                 try {
                     boolean start_flying = controller1.get_value_by_name("sw") > 0.5f;
+//                    Fpv20.LOGGER.info("start_flying:{}", controller1.get_value_by_name("sw"));
                     if (last_tick_flying != start_flying) {
                         GlobalFlying.setFlying(start_flying);
+                        Fpv20.LOGGER.info("开始飞行");
                     }
                     last_tick_flying = start_flying;
                 } catch (Exception err) {
