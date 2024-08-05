@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:quartz"
-            ]
+            "items": "minecraft:quartz"
           }
         ]
       },
@@ -17,9 +15,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "fpv20:receiver_block"
-            ]
+            "items": "fpv20:receiver_block"
           }
         ]
       },
@@ -29,9 +25,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:redstone_block"
-            ]
+            "items": "minecraft:redstone_block"
           }
         ]
       },

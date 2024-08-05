@@ -69,16 +69,29 @@ public class ChannelConfigScreen extends BackableScreen {
         int slide_start = chart_left_padding + chart_height_width + padding;
 
         float start_a = 2;
+        float start_dz = 0;
         float start_b = 2;
 
         Controller controller1 = Fpv20Client.controller;
         if (controller1 != null) {
+            start_dz = controller1.calibrations[channel].dead_zone;
             start_a = controller1.calibrations[channel].rate_a;
             start_b = controller1.calibrations[channel].rate_b;
         } else {
             return;
         }
-
+        addDrawableChild(new Slider1(slide_start,
+                30 - (padding + height), this.width - slide_start - padding, height, Text.translatable(TranslateKeys.DEAD_ZONE, start_dz), start_dz,
+                slider -> {
+                    slider.setMessage(Text.translatable(TranslateKeys.DEAD_ZONE, slider.value()));
+                },
+                slider -> {
+                    Controller controller = Fpv20Client.controller;
+                    if (controller != null) {
+                        controller.calibrations[channel].dead_zone = slider.value();
+                    }
+                }
+        ));
         addDrawableChild(new Slider1(slide_start,
                 30, this.width - slide_start - padding, height, Text.translatable(TranslateKeys.RATE_1, start_a), start_a,
                 slider -> {
@@ -158,7 +171,7 @@ public class ChannelConfigScreen extends BackableScreen {
                     if (controller != null) {
                         controller.calibrations[channel].reversed = false;
                     }
-                }  else {
+                } else {
                     btn.setMessage(Texts.BTN_REVERSED);
                     Controller controller = Fpv20Client.controller;
                     if (controller != null) {

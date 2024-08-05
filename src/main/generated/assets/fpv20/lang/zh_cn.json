@@ -19,6 +19,7 @@
   "fpv20.btn.select_controller": "选择控制器",
   "fpv20.btn.show_input": "显示输入信号",
   "fpv20.btn.start": "开始",
+  "fpv20.dead_zone": "死区:%s",
   "fpv20.keybind.osd": "切换OSD",
   "fpv20.keybinds.category": "fpv20",
   "fpv20.rate.1": "rate:%s",

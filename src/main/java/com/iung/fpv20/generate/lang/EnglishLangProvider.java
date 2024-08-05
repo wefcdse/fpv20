@@ -52,5 +52,6 @@ public class EnglishLangProvider extends FabricLanguageProvider {
         translationBuilder.add(TranslateKeys.BTN_OSD_OFF, "show osd: no");
         translationBuilder.add(TranslateKeys.KEYBINDS_CATEGORY, "fpv20");
         translationBuilder.add(TranslateKeys.KEYBIND_OSD, "Toggle OSD");
+        translationBuilder.add(TranslateKeys.DEAD_ZONE, "dead zone:%s");
     }
 }

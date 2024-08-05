@@ -7,6 +7,7 @@ public final class TranslateKeys {
     public static final String BTN_SELECT = "fpv20.btn.select";
 
     public static final String RATE_1 = "fpv20.rate.1";
+    public static final String DEAD_ZONE = "fpv20.dead_zone";
 
     public static final String BTN_CALIBRATE = "fpv20.btn.calibrate";
 

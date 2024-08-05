@@ -19,6 +19,7 @@
   "fpv20.btn.select_controller": "select controller",
   "fpv20.btn.show_input": "show input",
   "fpv20.btn.start": "start",
+  "fpv20.dead_zone": "dead zone:%s",
   "fpv20.keybind.osd": "Toggle OSD",
   "fpv20.keybinds.category": "fpv20",
   "fpv20.rate.1": "rate:%s",

@@ -50,6 +50,7 @@ public class ChineseLangProvider extends FabricLanguageProvider {
         translationBuilder.add(TranslateKeys.BTN_OSD_OFF, "显示OSD: 不");
         translationBuilder.add(TranslateKeys.KEYBINDS_CATEGORY, "fpv20");
         translationBuilder.add(TranslateKeys.KEYBIND_OSD, "切换OSD");
+        translationBuilder.add(TranslateKeys.DEAD_ZONE, "死区:%s");
     }
 
 

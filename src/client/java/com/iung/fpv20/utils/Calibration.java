@@ -9,6 +9,7 @@ public class Calibration {
     //    public RateMapper rate;
     public float rate_a;
     public float rate_b;
+    public float dead_zone;
     public CalibrateMethod calibrateMethod;
 
     public boolean reversed = false;
@@ -22,7 +23,8 @@ public class Calibration {
         this.mid = 0;
         this.rate_a = 0.3f;
         this.rate_b = 0.5f;
-        Fpv20.LOGGER.info("?????");
+        this.dead_zone = 0;
+//        Fpv20.LOGGER.info("?????");
         this.calibrateMethod = CalibrateMethod.MaxMidMin;
     }
 
@@ -45,6 +47,7 @@ public class Calibration {
         this.rate_a = rate_a;
         this.rate_b = rate_b;
         this.calibrateMethod = calibrateMethod;
+        this.dead_zone = 0;
     }
 
     public float map(float value) {
@@ -82,6 +85,10 @@ public class Calibration {
     }
 
     public float rate_map(float v) {
+        float dead_zone_fix_offs = v > 0.02 ? dead_zone :
+                v < -0.01 ? -dead_zone : 0;
+        v = v + dead_zone_fix_offs;
+        v = v / (1 + dead_zone);
         return LocalMath.bfRate(v, 1f, rate_a, rate_b) / LocalMath.bfRate(1f, 1f, rate_a, rate_b);
     }
 
