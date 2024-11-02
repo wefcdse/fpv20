@@ -16,6 +16,7 @@ public class ChineseLangProvider extends FabricLanguageProvider {
     @Override
     public void generateTranslations(RegistryWrapper.WrapperLookup wrapperLookup, TranslationBuilder translationBuilder) {
         translationBuilder.add(ModBlocks.RECEIVER_BLOCK, "信号接收器");
+        translationBuilder.add(ModBlocks.RECEIVER_BLOCK.asItem(), "信号接收器");
 
         translationBuilder.add(TranslateKeys.BTN_OPTION_ENTRY, "FPV");
         translationBuilder.add(TranslateKeys.TITLE_MAIN_OPTION_SCREEN, "FPV选项");

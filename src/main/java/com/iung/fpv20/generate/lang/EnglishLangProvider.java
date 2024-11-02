@@ -16,6 +16,7 @@ public class EnglishLangProvider extends FabricLanguageProvider {
     @Override
     public void generateTranslations(RegistryWrapper.WrapperLookup wrapperLookup, TranslationBuilder translationBuilder) {
         translationBuilder.add(ModBlocks.RECEIVER_BLOCK, "receiver block");
+        translationBuilder.add(ModBlocks.RECEIVER_BLOCK.asItem(), "receiver block");
 
 
         translationBuilder.add(TranslateKeys.BTN_OPTION_ENTRY, "FPV");

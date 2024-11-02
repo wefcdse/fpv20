@@ -4,8 +4,8 @@ import com.iung.fpv20.Fpv20;
 import com.iung.fpv20.blocks.ReceiverBlock;
 import com.iung.fpv20.blocks.ReceiverBlockEntity;
 import net.fabricmc.fabric.api.item.v1.FabricItem;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntityType;
@@ -13,12 +13,19 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
 //import net.minecraft.util.Identifier;
 
 public class ModBlocks {
-    public static Identifier RECEIVER_BLOCK_ID = Fpv20.config.client_only ? null : Identifier.of(Fpv20.MOD_ID, "receiver_block");
-    public static final Block RECEIVER_BLOCK = Fpv20.config.client_only ? null : registerBlock(RECEIVER_BLOCK_ID, new ReceiverBlock(FabricBlockSettings.copyOf(Blocks.REDSTONE_BLOCK)));
+    public static Identifier RECEIVER_BLOCK_ID = Identifier.of(Fpv20.MOD_ID, "receiver_block");
+    public static final Block RECEIVER_BLOCK = registerBlock(RECEIVER_BLOCK_ID,
+            new ReceiverBlock(
+                    AbstractBlock.Settings
+                            .copy(Blocks.REDSTONE_BLOCK)
+                            .registryKey(RegistryKey.of(RegistryKeys.BLOCK, RECEIVER_BLOCK_ID))
+            ));
 
     public static final BlockEntityType<ReceiverBlockEntity> RECEIVER_BLOCK_ENTITY = Fpv20.config.client_only ? null : Registry.register(
             Registries.BLOCK_ENTITY_TYPE,
@@ -34,7 +41,7 @@ public class ModBlocks {
 
     private static Item registerBlockItem(Identifier id, Block block) {
         return Registry.register(Registries.ITEM, id,
-                new BlockItem(block, new Item.Settings()));
+                new BlockItem(block, new Item.Settings().registryKey(RegistryKey.of(RegistryKeys.ITEM,RECEIVER_BLOCK_ID))));
     }
 
     public static void registerModBlocks() {
