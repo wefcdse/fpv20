@@ -6,21 +6,17 @@ import com.iung.fpv20.utils.FastMath;
 import com.iung.fpv20.utils.Utils;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
-import org.joml.Quaternionf;
-import org.joml.Vector3f;
+import net.minecraft.util.math.*;
 
 import java.nio.channels.NotYetBoundException;
 
 public class Plane implements Drone {
 
     public static class Plate {
-        private Quaternionf pose;
+        private Quaternion pose;
         private float area;
 
-        public Plate(Quaternionf pose, float area) {
+        public Plate(Quaternion pose, float area) {
             this.pose = pose;
             this.area = area;
         }
@@ -31,8 +27,8 @@ public class Plane implements Drone {
          * @param c1         总之表示有效流速*面积到受力的换算关系
          * @return
          */
-        public Vector3f force(Quaternionf super_pose, Vector3f v_global, float c1) {
-            Vector3f up_global = new Vector3f(0, 1, 0).rotate(pose).rotate(super_pose);
+        public Vec3f force(Quaternion super_pose, Vec3f v_global, float c1) {
+            Vec3f up_global = new Vec3f(0, 1, 0).rotate(pose).rotate(super_pose);
             sb(up_global, 10);
 
             float a = -up_global.dot(v_global);
@@ -43,11 +39,11 @@ public class Plane implements Drone {
 
     }
 
-    private static final Vector3f G = new Vector3f(0, -9.8f, 0);
+    private static final Vec3f G = new Vec3f(0, -9.8f, 0);
 //    private static final float AIR_DENSITY = 1.225F;
 
 
-    private Quaternionf pose;
+    private Quaternion pose;
     private Utils.FloatGetter mass;
 
     private Utils.FloatGetter max_force;
@@ -56,35 +52,35 @@ public class Plane implements Drone {
 
     private Plate main_wing;
 
-    private Vector3f a;
-    private Vector3f v;
+    private Vec3f a;
+    private Vec3f v;
 
     public Plane() {
-        this.pose = new Quaternionf();
-        this.a = new Vector3f();
-        this.v = new Vector3f();
+        this.pose = new Quaternion(0,0,0,false);
+        this.a = new Vec3f();
+        this.v = new Vec3f();
 
         this.mass = () -> Fpv20Client.config1.drone.mass;
 
 //        this.area = (float) (FastMath.PI * 0.2 * 0.2);
         this.max_force = () -> Fpv20Client.config1.drone.max_force;
 
-        this.main_wing = new Plate(new Quaternionf(), 1);
+        this.main_wing = new Plate(new Quaternion(0,0,0,false), 1);
     }
 
     @Override
-    public void update_pose(Quaternionf new_pos) {
+    public void update_pose(Quaternion new_pos) {
 //        Fpv20.LOGGER.info("{},{}", mass, max_force);
 
-        this.pose = new Quaternionf(new_pos);
+        this.pose = new Quaternion(new_pos);
     }
 
     @Override
-    public Quaternionf get_pose() {
-        return new Quaternionf(this.pose);
+    public Quaternion get_pose() {
+        return new Quaternion(this.pose);
     }
 
-    private static void sb(Vector3f v, float sc) {
+    private static void sb(Vec3f v, float sc) {
         if (true) {
             return;
         }
@@ -96,15 +92,15 @@ public class Plane implements Drone {
 
     @Override
     public void update_physics(float throttle, float dt) {
-        Quaternionf pose = this.get_pose().conjugate();
-        Vector3f drone_up = new Vector3f(0, 1, 0).rotate(pose);
-        Vector3f drone_front = new Vector3f(0, 0, -1).rotate(pose);
+        Quaternion pose = this.get_pose().conjugate();
+        Vec3f drone_up = new Vec3f(0, 1, 0).rotate(pose);
+        Vec3f drone_front = new Vec3f(0, 0, -1).rotate(pose);
 
         float speed = this.v.length();
 
 
         float efficiency = MathHelper.lerp(Math.abs(throttle), 0.35f, 1f);
-        Vector3f thrust = new Vector3f(drone_front).mul(max_force.get() * throttle * efficiency);
+        Vec3f thrust = new Vec3f(drone_front).mul(max_force.get() * throttle * efficiency);
         Fpv20.LOGGER.debug("#thrust {}", thrust);
 
 
@@ -114,15 +110,15 @@ public class Plane implements Drone {
             gf = 0;
         }
         Fpv20.LOGGER.debug("####vy {}", this.v.y);
-        Vector3f g1 = new Vector3f(G).mul(gf);
+        Vec3f g1 = new Vec3f(G).mul(gf);
 
-        Vector3f drag = main_wing.force(pose, this.v, Fpv20Client.config1.plane.c1);
-        Vector3f da = drag.div(mass.get());
+        Vec3f drag = main_wing.force(pose, this.v, Fpv20Client.config1.plane.c1);
+        Vec3f da = drag.div(mass.get());
 
         Fpv20.LOGGER.info("#drag {}", da);
         Fpv20.LOGGER.info("#g {}", g1);
 
-//        this.a = total_force.div(mass.get()).add(new Vector3f(G).mul(gf));
+//        this.a = total_force.div(mass.get()).add(new Vec3f(G).mul(gf));
         this.a = thrust.div(mass.get()).add(g1).add(da);
         if (this.a.length() > 20f) {
             this.a.normalize();
@@ -132,10 +128,10 @@ public class Plane implements Drone {
 
         Fpv20.LOGGER.debug("#f {}", dt);
 
-        Fpv20.LOGGER.debug("#dv:? {}", new Vector3f(this.a).mul(dt));
+        Fpv20.LOGGER.debug("#dv:? {}", new Vec3f(this.a).mul(dt));
 
 
-        this.v.add(new Vector3f(this.a).mul(dt));
+        this.v.add(new Vec3f(this.a).mul(dt));
     }
 
     @Override
@@ -151,13 +147,13 @@ public class Plane implements Drone {
 
     @Override
     public void set_speed(Vec3d v) {
-        this.v = v.toVector3f();
+        this.v = v.toVec3f();
     }
 
     @Override
     public void re_init() {
-        this.pose = new Quaternionf();
-        this.v = new Vector3f();
+        this.pose = new Quaternion(0,0,0,false);
+        this.v = new Vec3f();
 
     }
 }

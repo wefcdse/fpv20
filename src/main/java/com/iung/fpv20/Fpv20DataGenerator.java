@@ -10,10 +10,11 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 public class Fpv20DataGenerator implements DataGeneratorEntrypoint {
 	@Override
 	public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
-		FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
-		pack.addProvider(EnglishLangProvider::new);
-		pack.addProvider(ChineseLangProvider::new);
-		pack.addProvider(ModModelProvider::new);
-		pack.addProvider(Receipes::new);
+
+//		FabricDataGenerator.Pack pack = fabricDataGenerator.addProvider();
+		fabricDataGenerator.addProvider(EnglishLangProvider::new);
+		fabricDataGenerator.addProvider(ChineseLangProvider::new);
+		fabricDataGenerator.addProvider(ModModelProvider::new);
+		fabricDataGenerator.addProvider(Receipes::new);
 	}
 }

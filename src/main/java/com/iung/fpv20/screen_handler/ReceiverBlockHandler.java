@@ -13,16 +13,21 @@ public class ReceiverBlockHandler extends ScreenHandler {
 
     public ReceiverBlockHandler(int syncId, PlayerInventory playerInventory, PacketByteBuf buf) {
         super(ScreenHandlers.RECEIVER_SCREEN_HANDLER, syncId);
-        this.pos=buf.readBlockPos();
+        this.pos = buf.readBlockPos();
     }
 
-    public ReceiverBlockHandler(int syncId,BlockPos pos) {
+    public ReceiverBlockHandler(int syncId, BlockPos pos) {
         super(ScreenHandlers.RECEIVER_SCREEN_HANDLER, syncId);
         this.pos = pos;
     }
 
-    @Override
+    //    @Override
     public ItemStack quickMove(PlayerEntity player, int slot) {
+        return ItemStack.EMPTY;
+    }
+
+    @Override
+    public ItemStack transferSlot(PlayerEntity player, int index) {
         return ItemStack.EMPTY;
     }
 

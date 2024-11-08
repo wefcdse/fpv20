@@ -1,12 +1,13 @@
 package com.iung.fpv20.gui.entry;
 
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawContext;
+//import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.Selectable;
 import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.gui.widget.ElementListWidget;
-import net.minecraft.client.gui.widget.TextWidget;
+//import net.minecraft.client.gui.widget.TextWidget;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 
 import java.util.ArrayList;
@@ -17,6 +18,15 @@ public class LinerEntry extends ElementListWidget.Entry<LinerEntry> {
 
     public LinerEntry() {
         this.elements = new ArrayList<>();
+    }
+
+    @Override
+    public void render(MatrixStack matrices, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
+        this.elements.forEach((e) -> {
+//            e.setY(y);
+            e.y = y;
+            e.render(matrices, mouseX, mouseY, tickDelta);
+        });
     }
 
     @Override
@@ -31,12 +41,12 @@ public class LinerEntry extends ElementListWidget.Entry<LinerEntry> {
         return this.elements;
     }
 
-    @Override
-    public void render(DrawContext context, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
-        this.elements.forEach((e) -> {
-            e.setY(y);
-            e.render(context, mouseX, mouseY, tickDelta);
-        });
-
-    }
+//    @Override
+//    public void render(DrawContext context, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
+//        this.elements.forEach((e) -> {
+//            e.setY(y);
+//            e.render(context, mouseX, mouseY, tickDelta);
+//        });
+//
+//    }
 }

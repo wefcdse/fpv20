@@ -10,22 +10,37 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LivingEntity.class)
-public abstract class PlayerStepMixin {
+public abstract class PlayerStepMixin extends Entity {
+    public PlayerStepMixin(EntityType<?> type, World world) {
+        super(type, world);
+    }
 
-
-    @Inject(method = "getStepHeight", at = @At("HEAD"), cancellable = true)
-    private void injected(CallbackInfoReturnable<Float> cir) {
+    //@Shadow
+//private float stepHeight;
+    @Inject(method = "baseTick", at = @At("HEAD"))
+    private void injected(CallbackInfo ci) {
 //        cir.getReturnValue();
         if (((IsFlying) this).get_is_flying()) {
-            cir.setReturnValue(Fpv20.config.step_height());
+            this.stepHeight = Fpv20.config.step_height();
+        } else {
+            this.stepHeight = 0.6F;
         }
     }
+//    @Inject(method = "getStepHeight", at = @At("HEAD"), cancellable = true)
+//    private void injected(CallbackInfoReturnable<Float> cir) {
+////        cir.getReturnValue();
+//        if (((IsFlying) this).get_is_flying()) {
+//            cir.setReturnValue(Fpv20.config.step_height());
+//        }
+//    }
 
 
 //    @Inject(method = "attack", at = @At("RETURN"))

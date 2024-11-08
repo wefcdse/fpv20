@@ -2,13 +2,21 @@ package com.iung.fpv20.generate.lang;
 
 import com.iung.fpv20.consts.ModBlocks;
 import com.iung.fpv20.consts.TranslateKeys;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
+//import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 
 public class ChineseLangProvider extends FabricLanguageProvider {
-    public ChineseLangProvider(FabricDataOutput dataOutput) {
-        super(dataOutput,"zh_cn");
+    public ChineseLangProvider(FabricDataGenerator dataGenerator) {
+        super(dataGenerator);
     }
+
+    protected ChineseLangProvider(FabricDataGenerator dataGenerator, String languageCode) {
+        super(dataGenerator, languageCode);
+    }
+//    public ChineseLangProvider(FabricDataOutput dataOutput) {
+//        super(dataOutput,"zh_cn");
+//    }
 
     @Override
     public void generateTranslations(TranslationBuilder translationBuilder) {

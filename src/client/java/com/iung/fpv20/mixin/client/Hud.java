@@ -1,7 +1,7 @@
 package com.iung.fpv20.mixin.client;
 
 import com.iung.fpv20.flying.GlobalFlying;
-import net.minecraft.client.gui.DrawContext;
+//import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.render.Camera;
 import net.minecraft.client.util.math.MatrixStack;
@@ -16,7 +16,7 @@ public class Hud {
             method = "renderHotbar",
             at =  @At("HEAD"), cancellable = true
     )
-    public void mixin12(float tickDelta, DrawContext context, CallbackInfo ci) {
+    public void mixin12(float tickDelta, MatrixStack matrices, CallbackInfo ci) {
         if(GlobalFlying.getFlying()){
             ci.cancel();
         }
@@ -26,7 +26,7 @@ public class Hud {
             method = "renderMountHealth",
             at =  @At("HEAD"), cancellable = true
     )
-    public void mixin2(DrawContext context, CallbackInfo ci) {
+    public void mixin2(MatrixStack matrices, CallbackInfo ci) {
         if(GlobalFlying.getFlying()){
             ci.cancel();
         }
@@ -36,7 +36,7 @@ public class Hud {
             method = "renderStatusBars",
             at =  @At("HEAD"), cancellable = true
     )
-    public void mixin3(DrawContext context, CallbackInfo ci) {
+    public void mixin3(MatrixStack matrices, CallbackInfo ci) {
         if(GlobalFlying.getFlying()){
             ci.cancel();
         }
@@ -46,7 +46,7 @@ public class Hud {
             method = "renderExperienceBar",
             at =  @At("HEAD"), cancellable = true
     )
-    public void mixin4(DrawContext context, int x, CallbackInfo ci) {
+    public void mixin4(MatrixStack matrices, int x, CallbackInfo ci) {
         if(GlobalFlying.getFlying()){
             ci.cancel();
         }

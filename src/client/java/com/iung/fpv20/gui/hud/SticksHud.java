@@ -4,8 +4,12 @@ import com.iung.fpv20.Fpv20Client;
 import com.iung.fpv20.flying.GlobalFlying;
 import com.iung.fpv20.input.Controller;
 import com.iung.fpv20.utils.Utils;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
-import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.MinecraftClient;
+//import net.minecraft.client.gui.DrawContext;
+//import net.minecraft.client.gui.hud.BossBarHud
+import net.minecraft.client.util.math.MatrixStack;
 
 import java.util.Objects;
 
@@ -85,8 +89,13 @@ public class SticksHud implements HudRenderCallback {
         return Math.round(this.r.get() * size / 2);
     }
 
-    static void fill_centered(DrawContext drawContext, int x, int y, int r, int color) {
+    static void fill_centered(MatrixStack drawContext, int x, int y, int r, int color) {
         drawContext.fill(x - r, y - r, x + r, y + r, color);
+    }
+
+    @Override
+    public void onHudRender(MatrixStack matrixStack, float tickDelta) {
+        MinecraftClient.getInstance().inGameHud.render();
     }
 
 

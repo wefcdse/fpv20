@@ -8,14 +8,15 @@ import com.iung.fpv20.input.Controller;
 import com.iung.fpv20.network.SetReceiverPacket;
 import com.iung.fpv20.screen_handler.ReceiverBlockHandler;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.minecraft.client.gui.DrawContext;
+//import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.Drawable;
 import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.Selectable;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.TextFieldWidget;
-import net.minecraft.client.gui.widget.TextWidget;
+//import net.minecraft.client.gui.widget.TextWidget;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
@@ -36,9 +37,9 @@ public class ReceiverScreen extends HandledScreen<ReceiverBlockHandler> {
         super(handler, inventory, title);
     }
 
-    @Override
-    protected void drawBackground(DrawContext context, float delta, int mouseX, int mouseY) {
-    }
+//    @Override
+//    protected void drawBackground(DrawContext context, float delta, int mouseX, int mouseY) {
+//    }
 
     @Override
     protected void init() {
@@ -97,6 +98,11 @@ public class ReceiverScreen extends HandledScreen<ReceiverBlockHandler> {
 ////////////////////////////////////////////////
     }
 
+    @Override
+    protected void drawBackground(MatrixStack matrices, float delta, int mouseX, int mouseY) {
+
+    }
+
 
     @Override
     protected <T extends Drawable> T addDrawable(T drawable) {
@@ -112,7 +118,7 @@ public class ReceiverScreen extends HandledScreen<ReceiverBlockHandler> {
     }
 
     @Override
-    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+    public void render(MatrixStack context, int mouseX, int mouseY, float delta) {
 //        super.render(context, mouseX, mouseY, delta);
         this.drawBackground(context, delta, mouseX, mouseY);
         for (Drawable drawable : this.drawables) {
