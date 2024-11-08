@@ -151,6 +151,20 @@ public class GameRendererMixin {
         }
     }
 
+    @Shadow
+    private boolean renderHand;
+
+    @Inject(
+            method = "renderWorld",
+            at = @At(
+                    value = "HEAD"
+
+            )
+    )
+    public void render(float tickDelta, long limitTime, MatrixStack matrices, CallbackInfo ci) {
+        renderHand = !GlobalFlying.getFlying();
+    }
+
     @Inject(
             method = "renderHand",
             at = @At("HEAD"), cancellable = true
