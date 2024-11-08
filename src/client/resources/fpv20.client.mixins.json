@@ -6,7 +6,8 @@
     "ExampleClientMixin",
     "GameRendererMixin",
     "Hud",
-    "OptionEntryBtn"
+    "OptionEntryBtn",
+    "PlayerEntityRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

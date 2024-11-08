@@ -45,6 +45,8 @@ public class Fpv20ConfigClientManual {
     public float slow_motion_time_rate = 0.2f;
     public String slow_motion_switch_name = "sm";
 
+    public boolean disable_player_render_when_flying = true;
+
 
     /////////////////////////////////
     public float getCamera_angle() {
