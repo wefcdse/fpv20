@@ -163,7 +163,7 @@ public class GameRendererMixin {
 
             )
     )
-    public void render(float tickDelta, long limitTime, MatrixStack matrices, CallbackInfo ci) {
+    public void render(RenderTickCounter tickCounter, CallbackInfo ci) {
         renderHand = !GlobalFlying.getFlying();
     }
 
