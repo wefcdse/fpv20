@@ -20,7 +20,7 @@ public class PlayerEntityRendererMixin {
             method = "renderRightArm",
             at =  @At("HEAD"), cancellable = true
     )
-    public void mixin0(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, Identifier skinTexture, boolean sleeveVisible, CallbackInfo ci) {
+    public void mixin0(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, AbstractClientPlayerEntity player, CallbackInfo ci) {
         if(GlobalFlying.getFlying() && Fpv20Client.config1.disable_player_render_when_flying){
             ci.cancel();
         }
@@ -30,7 +30,7 @@ public class PlayerEntityRendererMixin {
             method = "renderLeftArm",
             at =  @At("HEAD"), cancellable = true
     )
-    public void mixin1(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, Identifier skinTexture, boolean sleeveVisible, CallbackInfo ci) {
+    public void mixin1(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, AbstractClientPlayerEntity player, CallbackInfo ci) {
         if(GlobalFlying.getFlying() && Fpv20Client.config1.disable_player_render_when_flying){
             ci.cancel();
         }
@@ -40,7 +40,7 @@ public class PlayerEntityRendererMixin {
             method = "renderArm",
             at =  @At("HEAD"), cancellable = true
     )
-    public void mixin2(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, Identifier skinTexture, ModelPart arm, boolean sleeveVisible, CallbackInfo ci) {
+    public void mixin2(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, AbstractClientPlayerEntity player, ModelPart arm, ModelPart sleeve, CallbackInfo ci) {
         if(GlobalFlying.getFlying() && Fpv20Client.config1.disable_player_render_when_flying){
             ci.cancel();
         }
