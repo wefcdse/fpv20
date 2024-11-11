@@ -153,20 +153,6 @@ public class GameRendererMixin {
 //        }
 //    }
 
-    @Shadow
-    private boolean renderHand;
-
-    @Inject(
-            method = "renderWorld",
-            at = @At(
-                    value = "HEAD"
-
-            )
-    )
-    public void render(RenderTickCounter tickCounter, CallbackInfo ci) {
-        renderHand = !GlobalFlying.getFlying();
-    }
-
     @Inject(
             method = "renderHand",
             at = @At("HEAD"), cancellable = true
