@@ -1,10 +1,7 @@
 package com.iung.fpv20.gui.screens;
 
 import com.iung.fpv20.Fpv20Client;
-import com.iung.fpv20.gui.widget.RenewingText;
-import com.iung.fpv20.gui.widget.Value01Display;
-import com.iung.fpv20.gui.widget.Value11Display;
-import com.iung.fpv20.gui.widget.Value11Or01Display;
+import com.iung.fpv20.gui.widget.*;
 import com.iung.fpv20.input.Controller;
 import com.iung.fpv20.utils.Calibration;
 import net.minecraft.client.gui.screen.Screen;
@@ -27,7 +24,7 @@ public class ShowInputScreen extends BackableScreen {
         i = 10;
 
         int channels_width = 10;
-        int padding_around = 15;
+        int padding_around = 10;
         int padding_inner = 4;
         int channels_step = channels_width * 2 + padding_around * 2 + padding_inner;
         int text_start = padding_around;
@@ -43,6 +40,7 @@ public class ShowInputScreen extends BackableScreen {
             return;
         }
 
+        this.addDrawable(new SticksDisplay(this.textRenderer));
 
         // show stick inputs
         {
