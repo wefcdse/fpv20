@@ -47,6 +47,7 @@ public class Fpv20ConfigClientManual {
 
     public boolean disable_player_render_when_flying = true;
 
+    public boolean throttle_display_in_center = true;
 
     /////////////////////////////////
     public float getCamera_angle() {
