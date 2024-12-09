@@ -8,6 +8,7 @@ import com.iung.fpv20.consts.ScreenHandlers;
 import com.iung.fpv20.globals.AllChannels;
 import com.iung.fpv20.mixin_utils.IsFlying;
 import com.iung.fpv20.network.ChannelUpdatePacket;
+import com.iung.fpv20.network.DroneExplosionPacket;
 import com.iung.fpv20.network.DroneFlyPacket;
 import com.iung.fpv20.network.SetReceiverPacket;
 import net.fabricmc.api.ModInitializer;
@@ -16,6 +17,8 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.world.World;
+import net.minecraft.world.explosion.ExplosionBehavior;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -79,6 +82,23 @@ public class Fpv20 implements ModInitializer {
 //            player.refreshPositionAfterTeleport(player.getPos());
 //            player.calculateDimensions();
             Fpv20.LOGGER.info("updated");
+        });
+
+        ServerPlayNetworking.registerGlobalReceiver(DroneExplosionPacket.TYPE, (packet, player, responseSender) -> {
+            ((IsFlying) player).set_is_flying(!packet.stop_fly);
+            var ds = player.getDamageSources();
+            player.getWorld().createExplosion(
+                    player,
+                    ds.explosion(player, player),
+                    new ExplosionBehavior(),
+                    player.getPos(),
+                    packet.power,
+                    false,
+                    World.ExplosionSourceType.MOB
+            );
+            if (packet.if_tele) {
+                player.teleport(packet.tele_pos.x, packet.tele_pos.y, packet.tele_pos.z);
+            }
         });
 
     }

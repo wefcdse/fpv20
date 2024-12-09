@@ -47,7 +47,22 @@ public class Fpv20ConfigClientManual {
 
     public boolean disable_player_render_when_flying = true;
 
-    public boolean throttle_display_in_center = true;
+    public boolean throttle_display_in_center = false;
+
+
+    public static class ExplosionConfig {
+        public float power = 8.0f;
+        public Vec3d min_speed = new Vec3d(1,1,1);
+        public boolean always_explode = false;
+        public boolean stop_fly_after_explosion = true;
+        public boolean teleport_after_explosion = true;
+        public record Vec3d(double x, double y, double z) {
+        }
+
+    }
+
+    public ExplosionConfig explosion_config = new ExplosionConfig();
+
 
     /////////////////////////////////
     public float getCamera_angle() {

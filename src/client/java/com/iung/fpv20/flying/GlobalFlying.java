@@ -1,5 +1,6 @@
 package com.iung.fpv20.flying;
 
+import com.iung.fpv20.Explosion;
 import com.iung.fpv20.Fpv20;
 import com.iung.fpv20.Fpv20Client;
 import com.iung.fpv20.input.Controller;
@@ -23,6 +24,14 @@ import static com.iung.fpv20.Fpv20Client.in_slow_motion;
 import static com.iung.fpv20.utils.LocalMath.DEG_TO_RAD;
 
 public class GlobalFlying {
+    public static double ZERO_SPEED = 0.0000001;
+    private static Vec3d fly_pos = new Vec3d(0, 128, 0);
+
+    public static Vec3d start_fly_pos() {
+        return new Vec3d(fly_pos.x, fly_pos.y, fly_pos.z);
+    }
+
+
     public static GlobalFlying G = new GlobalFlying(0);
 //    private float lastCamRoll;
 //    private float camRoll;
@@ -39,7 +48,7 @@ public class GlobalFlying {
     private boolean last_tick_flying;
 
     //    private float cam_angel_deg;
-    private Drone drone;
+    public Drone drone;
 
     private Vec3d last_pos;
 
@@ -94,6 +103,9 @@ public class GlobalFlying {
         ClientPlayerEntity player = client.player;
         IsFlying p = (IsFlying) player;
         if (p != null) {
+            if (!p.get_is_flying() && if_fly) {
+                fly_pos = player.getPos();
+            }
 
             if (ClientPlayNetworking.canSend(DroneFlyPacket.TYPE)) {
                 ClientPlayNetworking.send(new DroneFlyPacket(if_fly));
@@ -227,19 +239,19 @@ public class GlobalFlying {
         boolean to_set_z = false;
 
 
-        if (Math.abs(v0.x) < 0.0001) {
+        if (Math.abs(v0.x) < ZERO_SPEED) {
             Fpv20.LOGGER.debug("process hit:x");
             vd.x = 0;
             to_set_y = true;
             to_set_z = true;
         }
-        if (Math.abs(v0.y) < 0.0001) {
+        if (Math.abs(v0.y) < ZERO_SPEED) {
             Fpv20.LOGGER.debug("process hit:y");
             vd.y = 0;
             to_set_x = true;
             to_set_z = true;
         }
-        if (Math.abs(v0.z) < 0.0001) {
+        if (Math.abs(v0.z) < ZERO_SPEED) {
             Fpv20.LOGGER.debug("process hit:z");
             vd.z = 0;
             to_set_y = true;
@@ -276,6 +288,8 @@ public class GlobalFlying {
                 vd.z = 0;
             }
         }
+
+        Explosion.handle_explosion(drone.get_speed(), new Vec3d(vd));
 
         drone.set_speed(new Vec3d(vd));
         // // process hit
@@ -352,7 +366,8 @@ public class GlobalFlying {
         float aaa = 0.5f;
         boolean hit = false;
 
-        final float ZERO = 0.000001f;
+//        final float ZERO = 0.000001f;
+        final double ZERO = ZERO_SPEED;
 
         if (Math.abs(v0.x) < ZERO) {
 //            hit = true;
@@ -370,7 +385,7 @@ public class GlobalFlying {
             vd.z = 0;
         }
         if (hit) {
-            if (vd.length() > aaa * dt && vd.length() > 0.0000001) {
+            if (vd.length() > aaa * dt && vd.length() > ZERO_SPEED) {
                 Vector3f vd1 = new Vector3f(vd).normalize().mul(-1f * aaa * dt);
                 vd.add(vd1);
             } else {
@@ -378,9 +393,13 @@ public class GlobalFlying {
             }
         }
 
+        boolean expl = Explosion.handle_explosion(drone.get_speed(), new Vec3d(vd));
 
         drone.set_speed(new Vec3d(vd));
         // // process hit
+        if (expl) {
+            drone.set_speed(new Vec3d(0, 0, 0));
+        }
 
 
         drone.update_physics(input_t, dt);
