@@ -1,5 +1,6 @@
 package com.iung.fpv20.physics;
 
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.Vec3d;
 import org.joml.Quaternionf;
 
@@ -14,7 +15,7 @@ public interface Drone {
 
     Vec3d get_speed();
 
-    void re_init();
+    void re_init(PlayerEntity player);
 
     void set_speed(Vec3d v);
 }
