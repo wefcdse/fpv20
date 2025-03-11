@@ -189,8 +189,8 @@ public class GlobalFlying {
         if (this.last_tick_flying != getFlying()) {
             float yaw = p.getYaw();
             float pitch = p.getPitch();
-            drone.re_init();
-            drone.update_pose(PhysicsCore.from_ypr_deg(yaw, pitch, 0));
+            drone.re_init(p);
+//            drone.update_pose(PhysicsCore.from_ypr_deg(yaw, pitch- config1.getCamera_angle(), 0));
         }
 
         Quaternionf q = drone.get_pose();
@@ -424,7 +424,7 @@ public class GlobalFlying {
         if (this.last_tick_flying != getFlying()) {
             float yaw = p.getYaw();
             float pitch = p.getPitch();
-            drone.re_init();
+            drone.re_init(p);
             if (Fpv20Client.config1.free_camera_yaw) {
                 p.setYaw(180);
             }
@@ -434,7 +434,7 @@ public class GlobalFlying {
             }
             Fpv20.LOGGER.info("start flying");
 
-            drone.update_pose(PhysicsCore.from_ypr_deg(yaw, pitch, 0));
+//            drone.update_pose(PhysicsCore.from_ypr_deg(yaw, pitch, 0));
         }
         this.last_tick_flying = getFlying();
 

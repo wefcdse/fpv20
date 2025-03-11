@@ -6,6 +6,7 @@ import com.iung.fpv20.utils.FastMath;
 import com.iung.fpv20.utils.Utils;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -146,7 +147,7 @@ public class Plane implements Drone {
     }
 
     @Override
-    public void re_init() {
+    public void re_init(PlayerEntity player) {
         this.pose = new Quaternionf();
         this.v = new Vector3f();
 

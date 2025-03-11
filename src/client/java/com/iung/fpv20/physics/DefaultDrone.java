@@ -4,6 +4,7 @@ import com.iung.fpv20.Fpv20;
 import com.iung.fpv20.Fpv20Client;
 import com.iung.fpv20.utils.FastMath;
 import com.iung.fpv20.utils.Utils;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import org.joml.Quaternionf;
@@ -14,7 +15,6 @@ public class DefaultDrone implements Drone {
 
     private static final Vector3f G = new Vector3f(0, -9.8f, 0);
     private static final float AIR_DENSITY = 1.225F;
-
 
 
     private Quaternionf pose;
@@ -113,9 +113,10 @@ public class DefaultDrone implements Drone {
     }
 
     @Override
-    public void re_init() {
+    public void re_init(PlayerEntity p) {
         this.pose = new Quaternionf();
-        this.v = new Vector3f();
+        this.v = new Vector3f((float) p.getVelocity().x, (float) p.getVelocity().y, (float) p.getVelocity().z);
+        this.update_pose(PhysicsCore.from_ypr_deg(p.getYaw(), p.getPitch() + Fpv20Client.config1.getCamera_angle(), 0));
 
     }
 }
