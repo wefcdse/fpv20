@@ -31,7 +31,13 @@ public abstract class PlayerHitBoxMixin extends LivingEntity {
         Fpv20.LOGGER.info("new");
 
     }
-
+    @Inject(method = "getMovementSpeed()F", at = @At("HEAD"), cancellable = true)
+    private void movement(CallbackInfoReturnable<Float> cir) {
+//        cir.getReturnValue();
+        if (Fpv20.config.isReset_speed() ) {
+            cir.setReturnValue(Fpv20.config.getSpeed());
+        }
+    }
 
 //    @Override
 //    public void tickMovement() {

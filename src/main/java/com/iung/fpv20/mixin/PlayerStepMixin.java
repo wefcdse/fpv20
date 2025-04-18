@@ -22,9 +22,12 @@ public abstract class PlayerStepMixin {
     @Inject(method = "getStepHeight", at = @At("HEAD"), cancellable = true)
     private void injected(CallbackInfoReturnable<Float> cir) {
 //        cir.getReturnValue();
-        if (((IsFlying) this).get_is_flying()) {
+        if (Fpv20.config.isAlways_reset_step_height() || ((IsFlying) this).get_is_flying() ) {
             cir.setReturnValue(Fpv20.config.step_height());
         }
+    }
+
+    private void a(LivingEntity le){
     }
 
 
