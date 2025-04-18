@@ -9,10 +9,14 @@ import java.nio.file.Path;
 
 public class Fpv20ConfigCommon {
     private static String CONFIG_PATH = "./config/fpv20_common.json";
+    private boolean always_reset_step_height = false;
 
     private float step_height = 1.2f;
     private boolean is_in_forge = false;
     public boolean client_only = false;
+
+    private boolean reset_speed = false;
+    private float speed = 20.0f;
 
     public boolean in_forge() {
         return this.is_in_forge;
@@ -57,4 +61,15 @@ public class Fpv20ConfigCommon {
     }
 
 
+    public boolean isAlways_reset_step_height() {
+        return always_reset_step_height;
+    }
+
+    public boolean isReset_speed() {
+        return reset_speed;
+    }
+
+    public float getSpeed() {
+        return speed;
+    }
 }
