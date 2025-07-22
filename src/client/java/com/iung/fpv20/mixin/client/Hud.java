@@ -3,12 +3,14 @@ package com.iung.fpv20.mixin.client;
 import com.iung.fpv20.flying.GlobalFlying;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
+import net.minecraft.client.gui.hud.bar.Bar;
 import net.minecraft.client.render.Camera;
 import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.client.util.math.MatrixStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(InGameHud.class)
@@ -43,13 +45,22 @@ public class Hud {
         }
     }
 
-    @Inject(
-            method = "renderExperienceBar",
-            at =  @At("HEAD"), cancellable = true
+//    @Inject(
+//            method = "renderExperienceBar",
+//            at =  @At("HEAD"), cancellable = true
+//    )
+//    public void mixin4(DrawContext context, int x, CallbackInfo ci) {
+//        if(GlobalFlying.getFlying()){
+//            ci.cancel();
+//        }
+//    }
+    @Redirect(
+            method = "renderMainHud",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/bar/Bar;renderBar(Lnet/minecraft/client/gui/DrawContext;Lnet/minecraft/client/render/RenderTickCounter;)V")
     )
-    public void mixin4(DrawContext context, int x, CallbackInfo ci) {
-        if(GlobalFlying.getFlying()){
-            ci.cancel();
+    public void mixin5(Bar instance, DrawContext drawContext, RenderTickCounter renderTickCounter){
+        if(!GlobalFlying.getFlying()){
+            instance.renderBar(drawContext,renderTickCounter);
         }
     }
 }

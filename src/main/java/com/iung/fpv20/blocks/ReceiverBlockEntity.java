@@ -20,6 +20,8 @@ import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -43,19 +45,33 @@ public class ReceiverBlockEntity extends BlockEntity implements NamedScreenHandl
     }
 
 
-    @Override
-    public void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
-        // Save the current value of the number to the tag
-        super.writeNbt(nbt, registryLookup);
-        nbt.putString("fpv20_channel", channel);
-        nbt.putBoolean("fpv20_neg", neg);
-    }
+//    @Override
+//    public void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
+//        // Save the current value of the number to the tag
+//        super.writeNbt(nbt, registryLookup);
+//        nbt.putString("fpv20_channel", channel);
+//        nbt.putBoolean("fpv20_neg", neg);
+//    }
 
     @Override
-    public void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
-        super.readNbt(nbt, registryLookup);
-        channel = nbt.getString("fpv20_channel").get();
-        neg = nbt.getBoolean("fpv20_neg").get();
+    protected void writeData(WriteView view) {
+        super.writeData(view);
+        view.putString("fpv20_channel", channel);
+        view.putBoolean("fpv20_neg", neg);
+    }
+
+//    @Override
+//    public void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
+//        super.readNbt(nbt, registryLookup);
+//        channel = nbt.getString("fpv20_channel").get();
+//        neg = nbt.getBoolean("fpv20_neg").get();
+//    }
+
+    @Override
+    protected void readData(ReadView view) {
+        super.readData(view);
+        channel = view.getString("fpv20_channel","C0");
+        neg = view.getBoolean("fpv20_neg",false);
     }
 
     public static void tick(World world, BlockPos pos, BlockState state, ReceiverBlockEntity be) {

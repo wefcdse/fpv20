@@ -153,8 +153,8 @@ public class GameRendererMixin {
 //        }
 //    }
 
-    @Shadow
-    private boolean renderHand;
+//    @Shadow
+//    private boolean renderHand;
 
     @Inject(
             method = "renderWorld",
@@ -164,14 +164,14 @@ public class GameRendererMixin {
             )
     )
     public void render(RenderTickCounter tickCounter, CallbackInfo ci) {
-        renderHand = !GlobalFlying.getFlying();
+//        renderHand = !GlobalFlying.getFlying();
     }
 
     @Inject(
             method = "renderHand",
             at = @At("HEAD"), cancellable = true
     )
-    public void mixin12(Camera camera, float tickDelta, Matrix4f matrix4f, CallbackInfo ci) {
+    public void mixin12(float tickProgress, boolean sleeping, Matrix4f positionMatrix, CallbackInfo ci) {
         if (GlobalFlying.getFlying()) {
             ci.cancel();
         }

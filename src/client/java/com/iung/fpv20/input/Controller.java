@@ -155,7 +155,7 @@ public class Controller {
         if (floats == null) {
             return 0;
         }
-        if (channel > floats.length || channel < 0) {
+        if (channel >= floats.length || channel < 0) {
             return 0;
         }
         float value = floats[channel];
@@ -166,7 +166,7 @@ public class Controller {
         if (floats == null) {
             return 0;
         }
-        if (channel > floats.length || channel < 0) {
+        if (channel >= floats.length || channel < 0) {
             return 0;
         }
         float value = floats[channel];
