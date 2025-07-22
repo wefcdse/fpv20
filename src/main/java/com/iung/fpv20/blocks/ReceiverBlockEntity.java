@@ -26,6 +26,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.block.WireOrientation;
 import org.jetbrains.annotations.Nullable;
 
 public class ReceiverBlockEntity extends BlockEntity implements NamedScreenHandlerFactory, ExtendedScreenHandlerFactory<ReceiverBlockHandler.ReceiverBlockHandlerData> {
@@ -53,8 +54,8 @@ public class ReceiverBlockEntity extends BlockEntity implements NamedScreenHandl
     @Override
     public void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         super.readNbt(nbt, registryLookup);
-        channel = nbt.getString("fpv20_channel");
-        neg = nbt.getBoolean("fpv20_neg");
+        channel = nbt.getString("fpv20_channel").get();
+        neg = nbt.getBoolean("fpv20_neg").get();
     }
 
     public static void tick(World world, BlockPos pos, BlockState state, ReceiverBlockEntity be) {
@@ -74,7 +75,7 @@ public class ReceiverBlockEntity extends BlockEntity implements NamedScreenHandl
 
         if (new_value != last) {
 //            Fpv20.LOGGER.info("{} {} {}", new_value, be.last_value, value);
-            world.updateNeighborsAlways(pos, state.getBlock());
+            world.updateNeighborsAlways(pos, state.getBlock(), null);
         }
 
         world.updateListeners(pos, state, state, Block.NOTIFY_LISTENERS);
