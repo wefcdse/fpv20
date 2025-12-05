@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '1.5-SNAPSHOT'
+	id 'fabric-loom' version '1.7-SNAPSHOT'
 	id 'maven-publish'
 }
 
@@ -19,6 +19,13 @@ repositories {
 	// See https://docs.gradle.org/current/userguide/declaring_repositories.html
 	// for more information about repositories.
 //	maven { url 'https://maven.wispforest.io' }
+	maven {
+		url "https://squiddev.cc/maven/"
+		content {
+			includeGroup("cc.tweaked")
+			includeModule("org.squiddev", "Cobalt")
+		}
+	}
 }
 
 loom {
@@ -54,6 +61,9 @@ dependencies {
 //	annotationProcessor modImplementation("io.wispforest:owo-lib:${project.owo_version}")
 //	modImplementation "io.wispforest:owo-lib:${project.owo_version}"
 //	include "io.wispforest:owo-sentinel:${project.owo_version}"
+
+	modCompileOnly("cc.tweaked:cc-tweaked-1.20.1-fabric-api:1.111.0")
+	modImplementation("cc.tweaked:cc-tweaked-1.20.1-fabric:1.111.0")
 }
 
 processResources {

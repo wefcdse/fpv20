@@ -42,6 +42,7 @@ public class Fpv20 implements ModInitializer {
         if (config.client_only) {
             return;
         }
+        CCApi.init_safe();
 //        LOGGER.info("Hello Fabric world!");
         ModBlocks.registerModBlocks();
         ModItemGroups.registerItemGroups();
