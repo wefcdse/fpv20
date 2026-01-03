@@ -75,13 +75,13 @@ public class Fpv20 implements ModInitializer {
 
         PayloadTypeRegistry.playC2S().register(SetReceiverPayload.ID, SetReceiverPayload.CODEC);
         ServerPlayNetworking.registerGlobalReceiver(SetReceiverPayload.ID, (payload, context) -> {
-            BlockEntity be = context.player().getWorld().getBlockEntity(payload.pos());
+            BlockEntity be = context.player().getEntityWorld().getBlockEntity(payload.pos());
             if (!(be instanceof ReceiverBlockEntity r)) {
                 return;
             }
             r.channel = payload.channel_name();
             r.neg = payload.neg();
-            context.player().getWorld().markDirty(payload.pos());
+            context.player().getEntityWorld().markDirty(payload.pos());
 
         });
 

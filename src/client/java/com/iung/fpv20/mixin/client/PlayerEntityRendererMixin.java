@@ -6,6 +6,7 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.command.OrderedRenderCommandQueue;
 import net.minecraft.client.render.entity.PlayerEntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
@@ -20,7 +21,7 @@ public class PlayerEntityRendererMixin {
             method = "renderRightArm",
             at =  @At("HEAD"), cancellable = true
     )
-    public void mixin0(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, Identifier skinTexture, boolean sleeveVisible, CallbackInfo ci) {
+    public void mixin0(MatrixStack matrices, OrderedRenderCommandQueue queue, int light, Identifier skinTexture, boolean sleeveVisible, CallbackInfo ci) {
         if(GlobalFlying.getFlying() && Fpv20Client.config1.disable_player_render_when_flying){
             ci.cancel();
         }
@@ -30,7 +31,7 @@ public class PlayerEntityRendererMixin {
             method = "renderLeftArm",
             at =  @At("HEAD"), cancellable = true
     )
-    public void mixin1(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, Identifier skinTexture, boolean sleeveVisible, CallbackInfo ci) {
+    public void mixin1(MatrixStack matrices, OrderedRenderCommandQueue queue, int light, Identifier skinTexture, boolean sleeveVisible, CallbackInfo ci) {
         if(GlobalFlying.getFlying() && Fpv20Client.config1.disable_player_render_when_flying){
             ci.cancel();
         }
@@ -40,7 +41,7 @@ public class PlayerEntityRendererMixin {
             method = "renderArm",
             at =  @At("HEAD"), cancellable = true
     )
-    public void mixin2(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, Identifier skinTexture, ModelPart arm, boolean sleeveVisible, CallbackInfo ci) {
+    public void mixin2(MatrixStack matrices, OrderedRenderCommandQueue queue, int light, Identifier skinTexture, ModelPart arm, boolean sleeveVisible, CallbackInfo ci) {
         if(GlobalFlying.getFlying() && Fpv20Client.config1.disable_player_render_when_flying){
             ci.cancel();
         }

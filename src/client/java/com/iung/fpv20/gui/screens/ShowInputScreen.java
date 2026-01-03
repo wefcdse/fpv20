@@ -41,7 +41,6 @@ public class ShowInputScreen extends BackableScreen {
         }
 
         this.addDrawable(new SticksDisplay(this.textRenderer));
-
         // show stick inputs
         {
             for (int i1 = 0; i1 < channels; i1++) {
@@ -54,6 +53,7 @@ public class ShowInputScreen extends BackableScreen {
                         return 0;
                     }
                 }));
+                if (true) continue;
 
                 this.addDrawable(new Value11Or01Display(i + i1 * channels_step + padding_around + padding_inner + channels_width, k, channels_width, 50, () -> {
                     Controller ctrl = Fpv20Client.controller;

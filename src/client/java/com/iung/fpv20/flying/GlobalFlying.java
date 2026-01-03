@@ -52,7 +52,7 @@ public class GlobalFlying {
 
     private void update_speed_tick(Entity player) {
         last_tick_pos = this_tick_pos;
-        this_tick_pos = player.getPos();
+        this_tick_pos = player.getEntityPos();
 
         last_tick_nano = this_tick_nano;
         this_tick_nano = System.nanoTime();
@@ -217,7 +217,7 @@ public class GlobalFlying {
         // process hit
         Vec3d v = drone.get_speed();
         Vector3f vd = new Vector3f((float) v.x, (float) v.y, (float) v.z);
-        Vec3d pos = p.getPos();
+        Vec3d pos = p.getEntityPos();
 //        Vec3d v0 = pos.subtract(last_pos).multiply(1 / dt);
         Vec3d v0 = this.get_speed();
         Fpv20.LOGGER.debug("process hit:v0 {}", v0);
@@ -345,7 +345,7 @@ public class GlobalFlying {
         // process hit
         Vec3d v = drone.get_speed();
         Vector3f vd = new Vector3f((float) v.x, (float) v.y, (float) v.z);
-        Vec3d pos = p.getPos();
+        Vec3d pos = p.getEntityPos();
 
         Vec3d v0 = this.get_speed();
         Fpv20.LOGGER.debug("process hit:v0 {}", v0);

@@ -31,12 +31,19 @@ public class LinerEntry extends ElementListWidget.Entry<LinerEntry> {
         return this.elements;
     }
 
-    @Override
-    public void render(DrawContext context, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
-        this.elements.forEach((e) -> {
-            e.setY(y);
-            e.render(context, mouseX, mouseY, tickDelta);
-        });
+//    public void render(DrawContext context, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
+//        this.elements.forEach((e) -> {
+//            e.setY(y);
+//            e.render(context, mouseX, mouseY, tickDelta);
+//        });
+//
+//    }
 
+    @Override
+    public void render(DrawContext context, int mouseX, int mouseY, boolean hovered, float deltaTicks) {
+        this.elements.forEach((e) -> {
+            e.setY(this.getY());
+            e.render(context, mouseX, mouseY, deltaTicks);
+        });
     }
 }

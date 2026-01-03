@@ -136,7 +136,15 @@ public abstract class AbstractChart implements Drawable {
     }
 
     void border(DrawContext context, int color) {
-        context.drawBorder(x - 1, y - 1, width + 2, height + 2, color);
+        var x0 = x-1;
+        var y0= y-1;
+        var x1 = x - 1+width + 1;
+        var y1 = y - 1+height + 1;
+        context.drawHorizontalLine(x0,x1,y0,color);
+        context.drawHorizontalLine(x0,x1,y1,color);
+        context.drawVerticalLine(x0,y0,y1,color);
+        context.drawVerticalLine(x1,y0,y1,color);
+//        context.fill(x - 1, y - 1, , , color+0*((int)(Math.random() * 0xffffff)+0xff000000));
     }
 
 

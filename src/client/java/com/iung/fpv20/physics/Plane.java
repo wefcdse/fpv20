@@ -33,7 +33,6 @@ public class Plane implements Drone {
          */
         public Vector3f force(Quaternionf super_pose, Vector3f v_global, float c1) {
             Vector3f up_global = new Vector3f(0, 1, 0).rotate(pose).rotate(super_pose);
-            sb(up_global, 10);
 
             float a = -up_global.dot(v_global);
             float b = a * c1;
@@ -84,15 +83,7 @@ public class Plane implements Drone {
         return new Quaternionf(this.pose);
     }
 
-    private static void sb(Vector3f v, float sc) {
-        if (true) {
-            return;
-        }
-        float x = (float) MinecraftClient.getInstance().player.getPos().x;
-        float y = (float) MinecraftClient.getInstance().player.getPos().y;
-        float z = (float) MinecraftClient.getInstance().player.getPos().z;
-        MinecraftClient.getInstance().world.setBlockState(new BlockPos((int) (x + v.x * sc), (int) (y + v.y * sc), (int) (z + v.z * sc)), Blocks.STONE.getDefaultState());
-    }
+
 
     @Override
     public void update_physics(float throttle, float dt) {

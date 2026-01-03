@@ -19,6 +19,7 @@ import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
+import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 
@@ -51,7 +52,8 @@ public class Fpv20Client implements ClientModInitializer {
                 "fpv20.keybind.osd",
                 InputUtil.Type.KEYSYM,
                 GLFW.GLFW_KEY_O,
-                "fpv20.keybinds.category"
+
+                KeyBinding.Category.create(Identifier.of("fpv20.keybinds.category"))
         ));
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
