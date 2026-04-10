@@ -9,11 +9,10 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
-import oshi.driver.mac.net.NetStat;
 
 public class DefaultDrone implements Drone {
 
-    private static final Vector3f G = new Vector3f(0, -9.8f, 0);
+    private static final Vector3f G = Fpv20Client.config1.gravity;
     private static final float AIR_DENSITY = 1.225F;
 
 

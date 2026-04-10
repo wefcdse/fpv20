@@ -2,12 +2,15 @@ package com.iung.fpv20.config;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import org.joml.Vector3f;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class Fpv20ConfigClientManual {
     private static String CONFIG_PATH = "./config/fpv20_client.json";
+
+    public Vector3f gravity = new Vector3f(0, -9.8f, 0);
 
     private float camera_angle = 35;
 
